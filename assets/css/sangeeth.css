@@ -1,6 +1,109 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css?family=Baloo+Paaji|Open+Sans:300,300i,400,400i,600,600i,700,700i");
 
+/* Header Animation Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(0, 123, 255, 0.6), 0 0 30px rgba(0, 123, 255, 0.4);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes navGlow {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(105, 90, 166, 0.5);
+    }
+    50% {
+        text-shadow: 
+            0 0 10px rgba(105, 90, 166, 0.8),
+            0 0 20px rgba(105, 90, 166, 0.6),
+            0 0 30px rgba(105, 90, 166, 0.4);
+    }
+}
+
+@keyframes navGlowAffix {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(33, 37, 41, 0.3);
+    }
+    50% {
+        text-shadow: 
+            0 0 10px rgba(33, 37, 41, 0.6),
+            0 0 20px rgba(33, 37, 41, 0.4),
+            0 0 30px rgba(33, 37, 41, 0.2);
+    }
+}
+
 *,
 *::before,
 *::after {
@@ -16,6 +119,7 @@ html {
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
+  cursor: context-menu;
 }
 
 body {
@@ -11121,10 +11225,26 @@ pre .code {
   color: #fff;
   font-weight: 500;
   text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.custom-navbar .nav .item .link:hover, .custom-navbar .nav .item .link.active {
+.custom-navbar .nav .item .link:hover {
   color: #695aa6;
+  text-shadow: 
+    0 0 10px rgba(105, 90, 166, 0.8),
+    0 0 20px rgba(105, 90, 166, 0.6),
+    0 0 30px rgba(105, 90, 166, 0.4);
+  animation: navGlow 2s ease-in-out infinite;
+}
+
+.custom-navbar .nav .item .link.active {
+  color: #695aa6;
+  text-shadow: 
+    0 0 15px rgba(105, 90, 166, 1),
+    0 0 25px rgba(105, 90, 166, 0.8),
+    0 0 35px rgba(105, 90, 166, 0.6);
+  animation: navGlow 1.5s ease-in-out infinite;
 }
 
 .custom-navbar.affix {
@@ -11142,6 +11262,36 @@ pre .code {
 
 .custom-navbar.affix .nav .item .link {
   color: #6c757d;
+  transition: all 0.3s ease;
+}
+
+.custom-navbar.affix .nav .item .link:hover {
+  color: #695aa6;
+  text-shadow: 
+    0 0 10px rgba(33, 37, 41, 0.8),
+    0 0 20px rgba(33, 37, 41, 0.6),
+    0 0 30px rgba(33, 37, 41, 0.4);
+  animation: navGlowAffix 2s ease-in-out infinite;
+}
+
+.custom-navbar.affix .nav .item .link.active {
+  color: #695aa6;
+  text-shadow: 
+    0 0 15px rgba(33, 37, 41, 1),
+    0 0 25px rgba(33, 37, 41, 0.8),
+    0 0 35px rgba(33, 37, 41, 0.6);
+  animation: navGlowAffix 1.5s ease-in-out infinite;
+}
+
+.custom-navbar.affix .nav .item .link:focus,
+.custom-navbar.affix .nav .item .link:active {
+  color: #695aa6;
+  text-shadow: 
+    0 0 20px rgba(33, 37, 41, 1),
+    0 0 30px rgba(33, 37, 41, 0.9),
+    0 0 40px rgba(33, 37, 41, 0.7);
+  animation: navGlowAffix 1s ease-in-out infinite;
+  outline: none;
 }
 
 .custom-navbar.affix .hamburger-inner, .custom-navbar.affix .hamburger-inner::before, .custom-navbar.affix .hamburger-inner::after {
@@ -11534,10 +11684,11 @@ backdrop-filter: blur(1px);
 .header .header-content .header-title .up {
   font-size: calc(30px + (60 - 30) * ((100vw - 300px) / (1300 - 300)));
   font-weight: 500;
-  color: #444;
+  color: #000000;
   margin-bottom: 5px;
   position: relative;
   display: block;
+  animation: slideInLeft 1.2s ease-out 0.3s both;
 }
 
 .header .header-content .header-title .down {
@@ -11545,6 +11696,8 @@ backdrop-filter: blur(1px);
   margin-bottom: 0;
   position: relative;
   display: block;
+  animation: slideInRight 1.2s ease-out 0.6s both;
+  color: #000000;
 }
 
 .header .header-content .header-subtitle {
@@ -11553,7 +11706,10 @@ backdrop-filter: blur(1px);
   opacity: .8;
   margin-top: 0;
   margin-bottom: 20px;
-  color: #212529;
+  color: #000000;
+  animation: fadeInUp 1s ease-out 0.9s both;
+  position: relative;
+  overflow: hidden;
 }
 
 .header .header-content .btn {
@@ -11561,6 +11717,13 @@ backdrop-filter: blur(1px);
   margin-top: 10px;
   border-radius: 20px;
   padding: 8px 15px;
+  animation: bounceIn 1s ease-out 1.2s both;
+  transition: all 0.3s ease;
+}
+
+.header .header-content .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 123, 255, 0.3);
 }
 
 .header-title {
@@ -11568,7 +11731,7 @@ backdrop-filter: blur(1px);
   font-size: 2.4rem;
   font-weight: bold;
   opacity: .8;
-  color: #212529;
+  color: #000000;
   margin-bottom: 1rem;
   text-transform: uppercase;
   line-height: 1.2;
