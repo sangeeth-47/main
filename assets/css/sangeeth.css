@@ -11194,6 +11194,23 @@ p {
     .service-card .subtitle {
         font-size: 0.85rem;
     }
+    
+  .header .header-content {
+    text-align: center !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    padding-left: 0 !important;
+  }
+  
+  .header .header-content .header-subtitle {
+    font-size: 16px !important;
+    letter-spacing: 1.5px !important;
+    text-align: center;
+  }
+  
+  .header .header-content .header-title {
+    text-align: center;
+  }
 }
 
 /* Pricing card */
@@ -12084,6 +12101,12 @@ backdrop-filter: blur(1px);
   .header-content {
     padding-left: calc(100% / 5) !important;
   }
+  
+  .header .header-content .header-subtitle {
+    font-size: 18px !important;
+    letter-spacing: 2px !important;
+    text-align: center;
+  }
 }
 
 .about {
@@ -12163,15 +12186,22 @@ backdrop-filter: blur(1px);
   .header .header-content {
     position: absolute;
     top: 30vh;
-    left: 5vw;
-    right: 5vw;
+    left: 50%;
+    transform: translateX(-50%);
     margin-top: 0;
     max-width: 90vw;
     width: 90vw;
+    text-align: center;
   }
   
   .header-title {
     font-size: 1.8rem;
+    text-align: center;
+  }
+  
+  .header .header-content .header-subtitle {
+    font-size: 16px;
+    letter-spacing: 2px;
     text-align: center;
   }
 }
