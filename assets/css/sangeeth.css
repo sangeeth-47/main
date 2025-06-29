@@ -520,6 +520,37 @@ pre code {
 }
 
 /* Social Contact Section Styles */
+#contact {
+    position: relative;
+    background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(33,33,33,0.9));
+    overflow: hidden;
+}
+
+#contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(105, 90, 166, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(105, 90, 166, 0.1) 0%, transparent 40%),
+        linear-gradient(135deg, rgba(0,0,0,0.7), rgba(33,33,33,0.8));
+    z-index: 0;
+}
+
+#contact .container {
+    position: relative;
+    z-index: 1;
+}
+
+#contact .section-subtitle,
+#contact .section-title {
+    color: #fff !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
 .social-contact-wrapper {
     display: flex;
     flex-direction: column;
@@ -530,17 +561,42 @@ pre code {
 .social-contact-card {
     display: flex;
     align-items: center;
-    background: #fff;
-    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
     padding: 1.5rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-left: 4px solid #695aa6;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-contact-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.6s ease;
 }
 
 .social-contact-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transform: translateY(-8px);
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.social-contact-card:hover::before {
+    left: 100%;
 }
 
 .social-icon-wrapper {
@@ -589,28 +645,30 @@ pre code {
 
 .social-contact-info h5 {
     margin-bottom: 0.5rem;
-    color: #333;
+    color: #fff;
     font-weight: 600;
     font-size: 1.1rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .social-contact-info p {
     margin-bottom: 1rem;
-    color: #666;
+    color: rgba(255, 255, 255, 0.8);
     font-size: 0.9rem;
     line-height: 1.4;
     flex-grow: 1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
-/* Uniform Button Styling for Social Cards */
+/* Uniform Button Styling for Social Cards - Bright Version */
 .social-contact-info .btn {
-    background: transparent !important;
-    color: #695aa6 !important;
-    border: 2px solid #695aa6 !important;
+    background: linear-gradient(135deg, #00ffff, #00ccff) !important;
+    color: #fff !important;
+    border: 2px solid transparent !important;
     font-size: 0.85rem !important;
-    font-weight: 500 !important;
+    font-weight: 600 !important;
     padding: 12px 16px !important;
-    border-radius: 8px !important; /* Square with slight rounded corners */
+    border-radius: 12px !important;
     text-transform: none !important;
     letter-spacing: 0.5px !important;
     display: inline-flex !important;
@@ -618,12 +676,15 @@ pre code {
     justify-content: center !important;
     gap: 6px !important;
     width: 180px !important;
-    height: 45px !important; /* Slightly taller for square appearance */
+    height: 45px !important;
     transition: all 0.3s ease !important;
     text-decoration: none !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    box-shadow: 
+        0 4px 20px rgba(0, 255, 255, 0.6),
+        0 2px 8px rgba(0,0,0,0.1) !important;
     position: relative !important;
     overflow: hidden !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
 }
 
 .social-contact-info .btn::before {
@@ -633,95 +694,94 @@ pre code {
     left: -100%;
     width: 100%;
     height: 100%;
-    transition: left 0.3s ease;
-    z-index: -1;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+    z-index: 1;
 }
 
 .social-contact-info .btn:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15) !important;
-    border-width: 2px !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 
+        0 8px 30px rgba(0, 255, 255, 0.8),
+        0 4px 15px rgba(0,0,0,0.2) !important;
+    background: linear-gradient(135deg, #33ffff, #00ddff) !important;
+    filter: brightness(1.2) !important;
 }
 
-/* Platform-specific branding hover effects */
+/* Platform-specific bright button colors */
 .social-icon-wrapper.facebook + .social-contact-info .btn {
-    border-color: #1877f2 !important;
-    color: #1877f2 !important;
-}
-
-.social-icon-wrapper.facebook + .social-contact-info .btn::before {
-    background: #1877f2 !important;
+    background: linear-gradient(135deg, #4285f4, #1a73e8) !important;
+    box-shadow: 
+        0 4px 20px rgba(66, 133, 244, 0.7),
+        0 2px 8px rgba(0,0,0,0.1) !important;
 }
 
 .social-icon-wrapper.facebook + .social-contact-info .btn:hover {
-    background: #1877f2 !important;
-    border-color: #1877f2 !important;
-    color: #fff !important;
-    box-shadow: 0 6px 20px rgba(24, 119, 242, 0.4) !important;
+    background: linear-gradient(135deg, #5294ff, #2e87ff) !important;
+    box-shadow: 
+        0 8px 30px rgba(66, 133, 244, 0.9),
+        0 4px 15px rgba(0,0,0,0.2) !important;
+    filter: brightness(1.2) !important;
 }
 
 .social-icon-wrapper.linkedin + .social-contact-info .btn {
-    border-color: #0077b5 !important;
-    color: #0077b5 !important;
-}
-
-.social-icon-wrapper.linkedin + .social-contact-info .btn::before {
-    background: #0077b5 !important;
+    background: linear-gradient(135deg, #0a66c2, #0073b1) !important;
+    box-shadow: 
+        0 4px 20px rgba(10, 102, 194, 0.7),
+        0 2px 8px rgba(0,0,0,0.1) !important;
 }
 
 .social-icon-wrapper.linkedin + .social-contact-info .btn:hover {
-    background: #0077b5 !important;
-    border-color: #0077b5 !important;
-    color: #fff !important;
-    box-shadow: 0 6px 20px rgba(0, 119, 181, 0.4) !important;
+    background: linear-gradient(135deg, #2788d4, #0084cc) !important;
+    box-shadow: 
+        0 8px 30px rgba(10, 102, 194, 0.9),
+        0 4px 15px rgba(0,0,0,0.2) !important;
+    filter: brightness(1.2) !important;
 }
 
 .social-icon-wrapper.youtube + .social-contact-info .btn {
-    border-color: #ff0000 !important;
-    color: #ff0000 !important;
-}
-
-.social-icon-wrapper.youtube + .social-contact-info .btn::before {
-    background: #ff0000 !important;
+    background: linear-gradient(135deg, #ff4444, #ff0000) !important;
+    box-shadow: 
+        0 4px 20px rgba(255, 68, 68, 0.7),
+        0 2px 8px rgba(0,0,0,0.1) !important;
 }
 
 .social-icon-wrapper.youtube + .social-contact-info .btn:hover {
-    background: #ff0000 !important;
-    border-color: #ff0000 !important;
-    color: #fff !important;
-    box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4) !important;
+    background: linear-gradient(135deg, #ff6666, #ff3333) !important;
+    box-shadow: 
+        0 8px 30px rgba(255, 68, 68, 0.9),
+        0 4px 15px rgba(0,0,0,0.2) !important;
+    filter: brightness(1.2) !important;
 }
 
 .social-icon-wrapper.instagram + .social-contact-info .btn {
-    border-color: #e4405f !important;
-    color: #e4405f !important;
-}
-
-.social-icon-wrapper.instagram + .social-contact-info .btn::before {
-    background: linear-gradient(135deg, #e4405f, #833ab4) !important;
+    background: linear-gradient(135deg, #ff4081, #e91e63) !important;
+    box-shadow: 
+        0 4px 20px rgba(255, 64, 129, 0.7),
+        0 2px 8px rgba(0,0,0,0.1) !important;
 }
 
 .social-icon-wrapper.instagram + .social-contact-info .btn:hover {
-    background: linear-gradient(135deg, #e4405f, #833ab4) !important;
-    border-color: #e4405f !important;
-    color: #fff !important;
-    box-shadow: 0 6px 20px rgba(228, 64, 95, 0.4) !important;
+    background: linear-gradient(135deg, #ff66a3, #f73378) !important;
+    box-shadow: 
+        0 8px 30px rgba(255, 64, 129, 0.9),
+        0 4px 15px rgba(0,0,0,0.2) !important;
+    filter: brightness(1.2) !important;
 }
 
 .social-icon-wrapper.github + .social-contact-info .btn {
-    border-color: #333 !important;
-    color: #333 !important;
-}
-
-.social-icon-wrapper.github + .social-contact-info .btn::before {
-    background: #333 !important;
+    background: linear-gradient(135deg, #6c757d, #495057) !important;
+    box-shadow: 
+        0 4px 20px rgba(108, 117, 125, 0.7),
+        0 2px 8px rgba(0,0,0,0.1) !important;
 }
 
 .social-icon-wrapper.github + .social-contact-info .btn:hover {
-    background: #333 !important;
-    border-color: #333 !important;
-    color: #fff !important;
-    box-shadow: 0 6px 20px rgba(51, 51, 51, 0.4) !important;
+    background: linear-gradient(135deg, #868e96, #5a6268) !important;
+    box-shadow: 
+        0 8px 30px rgba(108, 117, 125, 0.9),
+        0 4px 15px rgba(0,0,0,0.2) !important;
+    filter: brightness(1.2) !important;
 }
 
 .social-contact-info .btn i {
@@ -731,26 +791,33 @@ pre code {
 
 /* Enhanced hover animation */
 .social-contact-info .btn:hover::before {
-    left: 0;
+    left: 100%;
 }
 
 .quick-contact-info {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     padding: 2rem;
-    border-radius: 15px;
+    border-radius: 20px;
     margin-top: 2rem;
-    border: 1px solid rgba(105, 90, 166, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .quick-contact-info h5 {
-    color: #333;
+    color: #ffffff;
     margin-bottom: 1rem;
     font-weight: 600;
+    text-shadow: 0 2px 4px rgba(156, 155, 155, 0.3);
 }
 
 .quick-contact-info p {
-    color: #666;
+    color: #ffffff !important;
     margin-bottom: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 @media (min-width: 576px) {
