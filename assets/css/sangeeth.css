@@ -10593,18 +10593,26 @@ p {
 }
 
 .service-card .subtitle {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #666;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    order: 3; /* Ensure subtitle comes last */
-    position: static; /* Fix positioning issue */
-    opacity: 1; /* Always visible */
-    visibility: visible; /* Always visible */
-    bottom: auto; /* Reset bottom positioning */
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    color: #666 !important;
+    flex-grow: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    text-align: center !important;
+    order: 3 !important; /* Ensure subtitle comes last */
+    position: static !important; /* Fix positioning issue */
+    opacity: 0 !important; /* Start hidden */
+    visibility: visible !important; /* Always visible for layout */
+    bottom: auto !important; /* Reset bottom positioning */
+    transform: translateY(20px) !important;
+    transition: all 0.5s ease-in-out !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 50px !important;
+    box-sizing: border-box !important;
 }
 
 /* Remove the problematic hover effects that cause positioning issues */
@@ -10629,33 +10637,7 @@ p {
   }
 }
 
-.service-card .body .subtitle {
-  position: absolute;
-  bottom: -100%;
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transition: all, 0.3s;
-  transition: all, 0.3s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .service-card .body .subtitle {
-    -webkit-transition: none;
-    transition: none;
-  }
-}
-
-.service-card:hover .body img.icon {
-  margin-top: 5px;
-  width: 45px;
-  margin-bottom: 15px;
-}
-
-.service-card:hover .body .subtitle {
-  bottom: 7px;
-  opacity: 1;
-  visibility: visible;
-}
+/* Original service card subtitle styles removed - replaced by enhanced styles above */
 
 /*/ portfolio wrapper */
 .portfolio-card {
