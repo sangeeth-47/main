@@ -30,6 +30,11 @@ $(document).ready(function(){
         return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
     };
 
+    // Mobile detection function (global scope)
+    function isMobile() {
+        return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
     // Service Card Random Text Reveal Effect
     function initServiceCardEffect() {
         console.log('Initializing service card effect...');
@@ -174,11 +179,6 @@ $(document).ready(function(){
             console.log('Mobile detected: using individual card observers instead of initial animation');
         }
 
-        // Mobile detection
-        function isMobile() {
-            return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        }
-
         // Function to show subtitle for a specific card
         function showCardSubtitle(cardIndex) {
             if (cardIndex !== null && serviceCards[cardIndex]) {
@@ -300,6 +300,10 @@ $(document).ready(function(){
 
     // Portfolio Card Mobile Two-Click Behavior
     function initPortfolioMobileBehavior() {
+        console.log('Checking mobile status for portfolio cards...');
+        console.log('Window width:', window.innerWidth);
+        console.log('isMobile() result:', isMobile());
+        
         if (!isMobile()) {
             console.log('Desktop detected: Portfolio cards use normal hover behavior');
             return;
@@ -308,11 +312,15 @@ $(document).ready(function(){
         console.log('Mobile detected: Setting up two-click behavior for portfolio cards');
         
         const portfolioCards = document.querySelectorAll('.portfolio-card');
+        console.log('Found portfolio cards:', portfolioCards.length);
+        
         const cardStates = new Map(); // Track which cards have been clicked once
         
         portfolioCards.forEach((card, index) => {
             const overlay = card.querySelector('.portfolio-card-overlay');
             const originalHref = card.getAttribute('href');
+            
+            console.log(`Portfolio card ${index}: href="${originalHref}", overlay found:`, !!overlay);
             
             if (!overlay) return;
             
@@ -323,9 +331,11 @@ $(document).ready(function(){
                 overlayVisible: false 
             });
             
-            // Disable default link behavior on mobile
-            card.addEventListener('click', function(e) {
+            // Disable default link behavior on mobile - use both click and touchstart
+            const handleCardClick = function(e) {
+                console.log(`Portfolio card ${index}: Click event triggered`);
                 e.preventDefault();
+                e.stopPropagation();
                 
                 const state = cardStates.get(index);
                 
@@ -392,7 +402,11 @@ $(document).ready(function(){
                         transition: all 0.3s ease-in-out !important;
                     `;
                 }
-            });
+            };
+            
+            // Add event listeners for both click and touchstart
+            card.addEventListener('click', handleCardClick, true);
+            card.addEventListener('touchstart', handleCardClick, true);
             
             // Reset state when clicking outside the card
             document.addEventListener('click', function(e) {
