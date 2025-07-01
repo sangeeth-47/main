@@ -11936,3 +11936,394 @@ backdrop-filter: blur(1px);
   z-index: 10;
   pointer-events: none;
 }
+
+/* Career Timeline Styles */
+.timeline-wrapper {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.timeline-start, .timeline-end {
+  text-align: center;
+  margin: 30px 0;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline-start .timeline-badge,
+.timeline-end .timeline-badge {
+  position: relative;
+  left: auto;
+  transform: none;
+  margin-bottom: 15px;
+}
+
+.timeline-start {
+  margin-bottom: 50px;
+}
+
+.timeline-end {
+  margin-top: 50px;
+}
+
+.timeline-spine {
+  position: relative;
+  padding-bottom: 120px; /* Extra space for center items */
+  min-height: 600px; /* Ensure spine has enough height */
+}
+
+.timeline-spine::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  top: 0;
+  height: calc(100% - 60px); /* Extend almost to the bottom */
+  background: linear-gradient(180deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.timeline-item {
+  position: relative;
+  margin: 60px 0;
+  width: 100%;
+}
+
+/* Left side items - content goes to the LEFT of the spine */
+.timeline-item.left .timeline-content {
+  margin-right: 55%;
+  text-align: right;
+}
+
+/* Right side items - content goes to the RIGHT of the spine */
+.timeline-item.right .timeline-content {
+  margin-left: 55%;
+  text-align: left;
+}
+
+/* Center items for timeline end */
+.timeline-item.center {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  margin: 0;
+  min-height: 80px;
+  z-index: 5;
+}
+
+.timeline-item.center .timeline-badge {
+  position: relative !important;
+  left: auto !important;
+  margin-bottom: 15px;
+  z-index: 3;
+}
+
+.timeline-item.center .timeline-badge.working {
+  animation: rotate 3s linear infinite !important;
+  transform-origin: center center !important;
+}
+
+.timeline-item.center .timeline-end-content {
+  text-align: center;
+  margin-top: 0;
+  font-weight: 600;
+  color: #666;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.timeline-item.center .timeline-end-content h5 {
+  color: #4ecdc4;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.timeline-item.center .timeline-end-content p {
+  margin: 0;
+  font-size: 12px;
+  color: #999;
+}
+
+.timeline-badge {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border: 4px solid #4ecdc4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  font-size: 20px;
+  color: #4ecdc4;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.timeline-badge.start {
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+.timeline-badge.current {
+  border-color: #45b7d1;
+  color: #45b7d1;
+  animation: pulse 2s infinite;
+  top: 0px; /* Position relative to the company card height */
+  transform: translateX(-50%);
+}
+
+.timeline-badge.working {
+  border-color: #96ceb4;
+  color: #96ceb4;
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(69, 183, 209, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(69, 183, 209, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(69, 183, 209, 0);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateMobile {
+  from {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotateMobile {
+  from {
+    -webkit-transform: translateX(-50%) rotate(0deg);
+    transform: translateX(-50%) rotate(0deg);
+  }
+  to {
+    -webkit-transform: translateX(-50%) rotate(360deg);
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
+
+.company-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+  position: relative;
+  max-width: 400px;
+}
+
+/* For left items, align card to the right */
+.timeline-item.left .company-card {
+  margin-left: auto;
+}
+
+/* For right items, align card to the left */
+.timeline-item.right .company-card {
+  margin-right: auto;
+}
+
+.company-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.company-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #4ecdc4, #45b7d1);
+  border-radius: 15px 15px 0 0;
+}
+
+.company-card h5 {
+  color: #333;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.company-card .company-name {
+  color: #4ecdc4;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.company-card .duration {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.company-card .description {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+.timeline-item.left .skills {
+  justify-content: flex-end;
+}
+
+.skill-tag {
+  background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .timeline-spine::before {
+    left: 30px;
+    transform: none;
+    height: calc(100% - 25px); /* Adjust to reach closer to the badge */
+  }
+  
+  .timeline-item.left .timeline-content,
+  .timeline-item.right .timeline-content {
+    margin-left: 70px;
+    margin-right: 0;
+    text-align: left;
+  }
+  
+  .timeline-badge {
+    top: -5px; /* Moved upwards from 2px */
+    left: 6px;
+    transform: none;
+  }
+  .timeline-badge.current {
+    left: 30px; /* Changed from 6px to 30px to move to the right */
+    top: -5px;
+    border-color: #45b7d1;  
+    color: #45b7d1;
+    animation: pulse 2s infinite;
+    transform: translateX(-50%);
+  }
+
+  /* Mobile positioning for center items */
+  .timeline-item.center {
+    position: absolute;
+    bottom: -15px; /* Position very close to the spine end */
+    left: 2px; /* Reset left positioning */
+    transform: none; /* Remove transform */
+    width: 100%;
+    text-align: left; /* Change to left align for mobile */
+    display: flex;
+    align-items: center;
+  }
+
+  /* Badge stays at spine position */
+  .timeline-item.center .timeline-badge:not(.working) {
+    position: absolute !important;
+    left: 30px !important; /* Align with mobile spine */
+    transform: translateX(-50%) !important;
+    margin-bottom: 0 !important;
+    z-index: 3;
+  }
+
+  /* Working badge needs special handling for animation */
+  .timeline-item.center .timeline-badge.working {
+    position: absolute !important;
+    left: 30px !important; /* Align with mobile spine */
+    margin-bottom: 0 !important;
+    z-index: 3;
+    /* Animation without conflicting transforms */
+    animation: rotateMobile 3s linear infinite !important;
+    transform-origin: center center !important;
+    -webkit-animation: rotateMobile 3s linear infinite !important;
+    -webkit-transform-origin: center center !important;
+    will-change: transform;
+  }
+
+  /* Text moves to the right side */
+  .timeline-item.center .timeline-end-content {
+    margin-left: 70px; /* Space from the badge */
+    text-align: left;
+    width: calc(100% - 90px);
+  }
+
+  .timeline-item.left .skills {
+    justify-content: flex-start;
+  }
+  
+  .timeline-item.left .company-card,
+  .timeline-item.right .company-card {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: none;
+  }
+  
+  .company-card {
+    padding: 20px;
+  }
+  
+  .timeline-wrapper {
+    padding: 20px 0;
+  }
+
+  /* Mobile spine wrapper adjustments */
+  .timeline-spine {
+    padding-bottom: 80px; /* Reduce padding to bring badge closer to spine end */
+    min-height: 500px;
+    position: relative;
+  }
+}
