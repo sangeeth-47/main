@@ -11985,7 +11985,7 @@ backdrop-filter: blur(1px);
   width: 4px;
   top: 0;
   height: calc(100% - 60px); /* Extend almost to the bottom */
-  background: linear-gradient(180deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+  background: linear-gradient(180deg, #ff6b6b, #ffa07a, #f0e68c, #adff2f, #008000);
   border-radius: 2px;
   z-index: 1;
 }
