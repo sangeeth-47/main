@@ -331,11 +331,15 @@ $(document).ready(function(){
                 overlayVisible: false 
             });
             
-            // Disable default link behavior on mobile - use both click and touchstart
+            // Disable default link behavior on mobile - be more selective about preventDefault
             const handleCardClick = function(e) {
                 console.log(`Portfolio card ${index}: Click event triggered`);
-                e.preventDefault();
-                e.stopPropagation();
+                
+                // Only prevent default for actual clicks, not scroll events
+                if (e.type === 'click' || e.type === 'touchend') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
                 
                 const state = cardStates.get(index);
                 
@@ -404,9 +408,31 @@ $(document).ready(function(){
                 }
             };
             
-            // Add event listeners for both click and touchstart
-            card.addEventListener('click', handleCardClick, true);
-            card.addEventListener('touchstart', handleCardClick, true);
+            // Add event listeners - use passive for touchstart to allow scrolling
+            card.addEventListener('click', handleCardClick, false);
+            
+            // For touch devices, we need to be more careful about scrolling
+            let touchStartY = 0;
+            let touchStartTime = 0;
+            
+            card.addEventListener('touchstart', function(e) {
+                touchStartY = e.touches[0].clientY;
+                touchStartTime = Date.now();
+            }, { passive: true });
+            
+            card.addEventListener('touchend', function(e) {
+                const touchEndY = e.changedTouches[0].clientY;
+                const touchEndTime = Date.now();
+                const deltaY = Math.abs(touchEndY - touchStartY);
+                const deltaTime = touchEndTime - touchStartTime;
+                
+                // Only treat as click if it's a short touch without much movement
+                if (deltaY < 10 && deltaTime < 300) {
+                    e.preventDefault(); // Only prevent default for actual taps
+                    handleCardClick(e);
+                }
+                // If it's a scroll gesture, let it pass through naturally
+            }, { passive: false });
             
             // Reset state when clicking outside the card
             document.addEventListener('click', function(e) {
