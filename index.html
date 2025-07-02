@@ -552,7 +552,9 @@
                         path.style.strokeLinejoin = 'round';
                         
                         // Add glow effect for better visibility
-                        path.style.filter = 'drop-shadow(0 0 4px rgba(126, 5, 240, 1))';
+                        // path.style.filter = 'drop-shadow(0 0 4px rgba(126, 5, 240, 1))';
+                        // Black drop shadow for better contrast
+                        path.style.filter = 'drop-shadow(0 0 2px rgba(0, 0, 0, 1))';
 
                         // Calculate path length and set initial state
                         const pathLength = path.getTotalLength();
