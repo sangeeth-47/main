@@ -11608,7 +11608,7 @@ backdrop-filter: blur(1px);
 
   .header .header-content {
   position: absolute;
-  top: 20vh !important;
+  top: 10vh !important;
   left: 8vw;
   margin-top: 0;
   max-width: 250px !important;
