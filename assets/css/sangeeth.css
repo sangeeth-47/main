@@ -11611,6 +11611,7 @@ backdrop-filter: blur(1px);
   position: relative;
   height: 100vh;
   min-height: 100vw;
+  top: -100px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -11891,7 +11892,7 @@ backdrop-filter: blur(1px);
   }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 555px) {
   .header {
     background-size: cover;
     width: 100vw;
@@ -11904,6 +11905,11 @@ backdrop-filter: blur(1px);
   .header .overlay {
     width: 100vw;
     height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100vw;
+    min-height: 100vh;
   }
 }
 /* sections */
