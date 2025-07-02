@@ -65,13 +65,13 @@
             <h1 class="header-title">
                 <div id="svg-container">
                     <div id="hi-svg-container">
-                        <span class="up">HI!</span>
+                        <!-- SVG will be loaded here -->
                     </div>
                     <div id="iam-svg-container">
-                        <span class="up">I AM</span>
+                        <!-- SVG will be loaded here -->
                     </div>
                     <div id="sangeeth-svg-container">
-                        <span class="down">I am Sangeeth</span>
+                        <!-- SVG will be loaded here -->
                     </div>
                 </div>
             </h1>
@@ -489,15 +489,19 @@
     <script>
         // Function to initialize SVG animation
         function initSVGAnimation() {
-            // First clear both containers to ensure clean state
-            document.getElementById('hi-svg-container').innerHTML = '<span class="up">HI!</span>';
-            document.getElementById('sangeeth-svg-container').innerHTML = '<span class="down">I am Sangeeth</span>';
-            document.getElementById('iam-svg-container').innerHTML = '<span class="up">I AM</span>';
-            // Load and animate HI.svg first
+            // Start with empty containers - no fallback text initially
+            document.getElementById('hi-svg-container').innerHTML = '';
+            document.getElementById('sangeeth-svg-container').innerHTML = '';
+            document.getElementById('iam-svg-container').innerHTML = '';
+            
+            // Set containers to be invisible initially
+            document.getElementById('hi-svg-container').style.opacity = '0';
+            document.getElementById('iam-svg-container').style.opacity = '0';
+            document.getElementById('sangeeth-svg-container').style.opacity = '0';
+            
+            // Load and animate SVGs
             loadAndAnimateSVG('assets/fonts/HI.svg', 'hi-svg-container', '<span class="up">HI!</span>', 200);
-            // Load and animate IAM.svg after HI animation starts
             loadAndAnimateSVG('assets/fonts/IAM.svg', 'iam-svg-container', '<span class="up">I AM</span>', 1200);
-            // Load and animate sangeeth.svg after HI animation starts
             loadAndAnimateSVG('assets/fonts/sangeeth.svg', 'sangeeth-svg-container', '<span class="down">I am Sangeeth</span>', 1800);
         }
 
@@ -507,7 +511,7 @@
                 const svgContainer = document.getElementById(containerId);
                 if (!svgContainer) return; // Safety check
                 
-                // Start with opacity 0 for smooth appearance
+                // Keep container invisible until content is ready
                 svgContainer.style.opacity = '0';
                 
                 fetch(svgPath)
@@ -548,14 +552,14 @@
                         path.style.strokeLinejoin = 'round';
                         
                         // Add glow effect for better visibility
-                       path.style.filter = 'drop-shadow(0 0 80px rgba(153, 102, 204, 1))';
+                        path.style.filter = 'drop-shadow(0 0 80px rgba(153, 102, 204, 1))';
 
                         // Calculate path length and set initial state
                         const pathLength = path.getTotalLength();
                         path.style.strokeDasharray = pathLength;
                         path.style.strokeDashoffset = pathLength;
                         
-                        // Fade in the container
+                        // Fade in the container with SVG
                         svgContainer.style.transition = 'opacity 0.6s ease';
                         svgContainer.style.opacity = '1';
 
@@ -565,13 +569,11 @@
                         }, 300);
                     })
                     .catch(error => {
-                        console.log(`SVG animation not available for ${svgPath}:`, error);
-                        // Use fallback text with fade-in effect
+                        console.log(`SVG loading failed for ${svgPath}, using fallback text:`, error);
+                        // Only now show fallback text if SVG failed to load
                         svgContainer.innerHTML = fallbackText;
-                        setTimeout(() => {
-                            svgContainer.style.transition = 'opacity 0.8s ease';
-                            svgContainer.style.opacity = '1';
-                        }, 100);
+                        svgContainer.style.transition = 'opacity 0.8s ease';
+                        svgContainer.style.opacity = '1';
                     });
             }, delay);
         }
