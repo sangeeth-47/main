@@ -63,8 +63,17 @@
         <div class="overlay"></div>
         <div class="header-content container">
             <h1 class="header-title">
-                <span class="up">HI!</span>
-                <span class="down">I am Sangeeth</span>
+                <div id="svg-container">
+                    <div id="hi-svg-container">
+                        <span class="up">HI!</span>
+                    </div>
+                    <div id="iam-svg-container">
+                        <span class="up">I AM</span>
+                    </div>
+                    <div id="sangeeth-svg-container">
+                        <span class="down">I am Sangeeth</span>
+                    </div>
+                </div>
             </h1>
             <p class="header-subtitle">SERVER ADMINISTRATOR</p>
 
@@ -476,6 +485,172 @@
     <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
     <script src="assets/js/sangeeth.js"></script>
 
+    <!-- SVG Animation Script -->
+    <script>
+        // Function to initialize SVG animation
+        function initSVGAnimation() {
+            // First clear both containers to ensure clean state
+            document.getElementById('hi-svg-container').innerHTML = '<span class="up">HI!</span>';
+            document.getElementById('sangeeth-svg-container').innerHTML = '<span class="down">I am Sangeeth</span>';
+            document.getElementById('iam-svg-container').innerHTML = '<span class="up">I AM</span>';
+            // Load and animate HI.svg first
+            loadAndAnimateSVG('assets/fonts/HI.svg', 'hi-svg-container', '<span class="up">HI!</span>', 200);
+            // Load and animate IAM.svg after HI animation starts
+            loadAndAnimateSVG('assets/fonts/IAM.svg', 'iam-svg-container', '<span class="up">I AM</span>', 1200);
+            // Load and animate sangeeth.svg after HI animation starts
+            loadAndAnimateSVG('assets/fonts/sangeeth.svg', 'sangeeth-svg-container', '<span class="down">I am Sangeeth</span>', 1800);
+        }
+
+        // Function to load and animate individual SVG with improved handling
+        function loadAndAnimateSVG(svgPath, containerId, fallbackText, delay) {
+            setTimeout(() => {
+                const svgContainer = document.getElementById(containerId);
+                if (!svgContainer) return; // Safety check
+                
+                // Start with opacity 0 for smooth appearance
+                svgContainer.style.opacity = '0';
+                
+                fetch(svgPath)
+                    .then(res => {
+                        if (!res.ok) throw new Error(`Failed to load SVG (${res.status} ${res.statusText})`);
+                        return res.text();
+                    })
+                    .then(svg => {
+                        if (!svg || svg.trim().length === 0) throw new Error('Empty SVG content');
+                        
+                        // Set the SVG content
+                        svgContainer.innerHTML = svg;
+
+                        // Get SVG element and adjust its properties
+                        const svgElement = svgContainer.querySelector('svg');
+                        if (svgElement) {
+                            // Ensure the SVG has proper attributes for full visibility
+                            svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+                            svgElement.style.height = '100%';
+                            svgElement.style.width = '100%';
+                            
+                            // Set alignment based on screen width
+                            if (window.innerWidth >= 992) {
+                                svgElement.style.marginLeft = '0'; // Ensure left alignment on desktop
+                                svgElement.style.marginRight = 'auto';
+                            }
+                        }
+
+                        // Setup SVG path for animation
+                        const path = svgContainer.querySelector('.line');
+                        if (!path) throw new Error('No .line path found in SVG');
+                        
+                        // Set enhanced stroke properties for animation
+                        path.style.fill = 'none';
+                        path.style.stroke = '#ffffff';
+                        path.style.strokeWidth = containerId === 'hi-svg-container' ? '2.5' : '2';
+                        path.style.strokeLinecap = 'round';
+                        path.style.strokeLinejoin = 'round';
+                        
+                        // Add glow effect for better visibility
+                       path.style.filter = 'drop-shadow(0 0 80px rgba(153, 102, 204, 1))';
+
+                        // Calculate path length and set initial state
+                        const pathLength = path.getTotalLength();
+                        path.style.strokeDasharray = pathLength;
+                        path.style.strokeDashoffset = pathLength;
+                        
+                        // Fade in the container
+                        svgContainer.style.transition = 'opacity 0.6s ease';
+                        svgContainer.style.opacity = '1';
+
+                        // Start animation after a short delay
+                        setTimeout(() => {
+                            animatePath(path, pathLength, containerId);
+                        }, 300);
+                    })
+                    .catch(error => {
+                        console.log(`SVG animation not available for ${svgPath}:`, error);
+                        // Use fallback text with fade-in effect
+                        svgContainer.innerHTML = fallbackText;
+                        setTimeout(() => {
+                            svgContainer.style.transition = 'opacity 0.8s ease';
+                            svgContainer.style.opacity = '1';
+                        }, 100);
+                    });
+            }, delay);
+        }
+
+        // Custom animation function with container-specific timing
+        function animatePath(path, pathLength, containerId) {
+            let start = null;
+            let forward = true;
+            // Custom timing for each animation
+            const duration = containerId === 'hi-svg-container' ? 1500 : 2500; // HI animates faster
+            const pauseDuration = containerId === 'hi-svg-container' ? 800 : 600; // Different pause times
+            const container = document.getElementById(containerId);
+            
+            // Add a subtle entrance effect
+            if (container) {
+                container.style.opacity = '0';
+                setTimeout(() => {
+                    container.style.transition = 'opacity 0.6s ease-in';
+                    container.style.opacity = '1';
+                }, 100);
+            }
+
+            function animate(timestamp) {
+                if (!start) start = timestamp;
+                const elapsed = timestamp - start;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Use improved ease-in-out function for smoother animation
+                const easeInOut = progress < 0.5 
+                    ? 4 * progress * progress * progress 
+                    : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+                if (forward) {
+                    path.style.strokeDashoffset = pathLength - (pathLength * easeInOut);
+                } else {
+                    path.style.strokeDashoffset = pathLength * easeInOut;
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    // Reset for next animation cycle with slight pause
+                    setTimeout(() => {
+                        forward = !forward;
+                        start = null;
+                        requestAnimationFrame(animate);
+                    }, pauseDuration);
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initSVGAnimation);
+        } else {
+            initSVGAnimation();
+        }
+        
+        // Add resize event listener to adjust alignment on window resize
+        window.addEventListener('resize', function() {
+            const svgContainers = document.querySelectorAll('#hi-svg-container, #iam-svg-container, #sangeeth-svg-container');
+            svgContainers.forEach(container => {
+                const svg = container.querySelector('svg');
+                if (svg) {
+                    if (window.innerWidth >= 992) {
+                        // Desktop view - left align
+                        svg.style.marginLeft = '0';
+                        svg.style.marginRight = 'auto';
+                    } else {
+                        // Mobile view - center align
+                        svg.style.marginLeft = 'auto';
+                        svg.style.marginRight = 'auto';
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

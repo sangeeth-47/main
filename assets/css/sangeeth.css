@@ -11605,13 +11605,21 @@ backdrop-filter: blur(1px);
   .footer .social-links {
     margin-top: 15px;
   }
+
+  .header .header-content {
+  position: absolute;
+  top: 20vh !important;
+  left: 8vw;
+  margin-top: 0;
+  max-width: 250px !important;
+}
+
 }
 
 .header {
   position: relative;
   height: 100vh;
   min-height: 100vw;
-  top: -100px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -11627,7 +11635,8 @@ backdrop-filter: blur(1px);
   background-image: url(../imgs/header-sangeet.jpeg);
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: center 80%; /* Moved up from center center */
+  overflow: hidden; /* Ensure cropping works properly */
 }
 
 .header .overlay {
@@ -11681,11 +11690,13 @@ backdrop-filter: blur(1px);
 
 .header .header-content .btn {
   position: relative;
-  margin-top: 10px;
+  display: block;
+  margin: 20px auto;
   border-radius: 20px;
   padding: 8px 15px;
   animation: bounceIn 1s ease-out 1.2s both;
   transition: all 0.3s ease;
+  text-align: center;
 }
 
 .header .header-content .btn:hover {
@@ -11892,7 +11903,7 @@ backdrop-filter: blur(1px);
   }
 }
 
-@media (max-width: 555px) {
+@media (max-width: 991.98px) {
   .header {
     background-size: cover;
     width: 100vw;
@@ -11905,11 +11916,6 @@ backdrop-filter: blur(1px);
   .header .overlay {
     width: 100vw;
     height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-width: 100vw;
-    min-height: 100vh;
   }
 }
 /* sections */
