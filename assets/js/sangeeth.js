@@ -1024,3 +1024,67 @@ function random(min, max, float) {
 
 // init
 if (canvas) init();
+
+  // Characters used in the scramble
+  const chars = "アァイィウエカキクケコサシスセソタチツテトナニヌネノハヒフヘホM0123456789!@#$%^&*()_+=-{}[]|:;<>,.?ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  function scrambleText(el, text, duration = 1200, fps = 60, callback = null) {
+    let frame = 0;
+    const totalFrames = Math.round(duration / (1000 / fps));
+    const letters = text.split("");
+    const output = new Array(letters.length).fill("");
+    const revealOrder = [...Array(letters.length).keys()].sort(() => Math.random() - 0.5);
+
+    const interval = setInterval(() => {
+      frame++;
+      for (let i = 0; i < letters.length; i++) {
+        if (frame >= totalFrames * (revealOrder.indexOf(i) / letters.length)) {
+          output[i] = letters[i];
+        } else {
+          output[i] = chars[Math.floor(Math.random() * chars.length)];
+        }
+      }
+
+      el.textContent = output.join("");
+
+      if (frame >= totalFrames + letters.length) {
+        clearInterval(interval);
+        el.textContent = text;
+        if (callback) callback();
+      }
+    }, 1000 / fps);
+  }
+
+  // 🔁 Loop for scramble-card-title
+  function loopCardTitleScramble() {
+    const el = document.getElementById("scramble-card-title");
+    if (!el) return;
+
+    scrambleText(el, "--Myself", 800, 60, () => {
+      setTimeout(() => {
+        scrambleText(el, "--Unknown", 1000, 60, () => {
+          setTimeout(loopCardTitleScramble, 2000); // restart after 2s
+        });
+      }, 500); // pause between the two
+    });
+  }
+
+  // 🔁 Loop for scramble-logo
+  function loopLogoScramble() {
+    const sclogo = document.getElementById("scramble-logo");
+    if (!sclogo) return;
+
+    scrambleText(sclogo, "SERVER ADMINISTRATOR", 1200, 60, () => {
+      setTimeout(() => {
+        scrambleText(sclogo, "SANGEETH M K", 1000, 60, () => {
+          setTimeout(loopLogoScramble, 10000); // restart after 10s
+        });
+      }, 1000); // wait 5s between the two texts
+    });
+  }
+
+  // ✅ Start both independently
+  window.addEventListener("DOMContentLoaded", () => {
+    setTimeout(loopCardTitleScramble, 500);
+    setTimeout(loopLogoScramble, 500);
+  });
