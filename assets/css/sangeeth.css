@@ -10823,7 +10823,7 @@ p {
 
 .portfolio-card .portfolio-card-img {
   width: 100%;
-  height: 500px;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   object-position: center;
   display: block;
