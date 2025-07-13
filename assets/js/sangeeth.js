@@ -1088,3 +1088,154 @@ if (canvas) init();
     setTimeout(loopCardTitleScramble, 500);
     setTimeout(loopLogoScramble, 500);
   });
+
+
+  // Certifications Filter Logic + Marquee Rebuild (mobile fix)
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterBtns = document.querySelectorAll('.cert-filter-btn');
+    const certRows = document.querySelectorAll('.cert-tiles-wrapper .cert-row');
+    // Store all original tiles for each row, then remove them from DOM
+    const originalTiles = Array.from(certRows).map(row => {
+      const tiles = Array.from(row.querySelectorAll('.cert-tile'));
+      tiles.forEach(tile => tile.remove()); // Remove static tiles
+      return tiles;
+    });
+
+    function isMobile() {
+      return window.innerWidth < 992;
+    }
+
+    function createShowMoreBtn(row, inner, tiles, idx) {
+      let showMoreBtn = row.querySelector('.cert-show-more-btn');
+      if (!showMoreBtn) {
+        showMoreBtn = document.createElement('button');
+        showMoreBtn.className = 'cert-show-more-btn';
+        showMoreBtn.textContent = 'Show More';
+        showMoreBtn.style.display = 'block';
+        showMoreBtn.style.margin = '16px auto 5px auto';
+        showMoreBtn.style.padding = '8px 24px';
+        showMoreBtn.style.borderRadius = '20px';
+        showMoreBtn.style.background = '#222';
+        showMoreBtn.style.color = '#fff';
+        showMoreBtn.style.border = 'none';
+        showMoreBtn.style.fontSize = '1rem';
+        showMoreBtn.style.cursor = 'pointer';
+        row.appendChild(showMoreBtn);
+      }
+      let expanded = false;
+      showMoreBtn.onclick = function() {
+        expanded = !expanded;
+        inner.innerHTML = '';
+        if (expanded) {
+          tiles.forEach(tile => inner.appendChild(tile.cloneNode(true)));
+          showMoreBtn.textContent = 'Show Less';
+        } else {
+          tiles.slice(0, 4).forEach(tile => inner.appendChild(tile.cloneNode(true)));
+          showMoreBtn.textContent = 'Show More';
+        }
+      };
+    }
+
+    function addMarqueeAnimation(inner, row) {
+      inner.classList.remove('cert-marquee-anim');
+      inner.style.animation = 'none';
+      // Use left-to-right animation
+      const rowWidth = row.offsetWidth;
+      const contentWidth = inner.scrollWidth;
+      if (contentWidth > rowWidth) {
+        const duration = Math.max(10, Math.round(contentWidth / 100)) + 's';
+        inner.style.animation = `cert-marquee-scroll ${duration} linear infinite`;
+        inner.classList.add('cert-marquee-anim');
+      }
+    }
+
+    function rebuildMarqueeRows(filter) {
+      certRows.forEach(function(row, idx) {
+        // Remove old inner
+        const oldInner = row.querySelector('.cert-row-inner');
+        if (oldInner) oldInner.remove();
+        // Remove old show more button
+        const oldBtn = row.querySelector('.cert-show-more-btn');
+        if (oldBtn) oldBtn.remove();
+        // Filter tiles
+        let tiles = originalTiles[idx].filter(tile => {
+          if (filter === 'all') return true;
+          const cats = tile.getAttribute('data-category').split(',').map(c => c.trim());
+          return cats.includes(filter);
+        });
+        // If no tiles, hide row
+        if (tiles.length === 0) {
+          row.style.display = 'none';
+          return;
+        } else {
+          row.style.display = '';
+        }
+        // Build new inner
+        var inner = document.createElement('div');
+        inner.className = 'cert-row-inner';
+        if (isMobile()) {
+          // On mobile, show only 4 tiles, with Show More button if more than 4
+          tiles.slice(0, 4).forEach(function(tile) { inner.appendChild(tile.cloneNode(true)); });
+          row.appendChild(inner);
+          if (tiles.length > 4) {
+            createShowMoreBtn(row, inner, tiles, idx);
+          }
+          inner.style.animation = 'none';
+          inner.style.justifyContent = '';
+        } else {
+          if (filter === 'all') {
+            // Desktop: animated infinite marquee, all tiles scroll, no button
+            tiles.forEach(function(tile) { inner.appendChild(tile.cloneNode(true)); });
+            tiles.forEach(function(tile) { inner.appendChild(tile.cloneNode(true)); });
+            row.appendChild(inner);
+            requestAnimationFrame(function() {
+              addMarqueeAnimation(inner, row);
+            });
+            inner.style.justifyContent = '';
+          } else {
+            // Desktop: filtered, just list the tiles, no scroll, no animation, center align
+            tiles.forEach(function(tile) { inner.appendChild(tile.cloneNode(true)); });
+            row.appendChild(inner);
+            inner.style.animation = 'none';
+            inner.style.display = 'flex';
+            inner.style.justifyContent = 'center';
+            inner.style.alignItems = 'center';
+            inner.style.width = '100%';
+          }
+        }
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+        rebuildMarqueeRows(filter);
+      });
+    });
+
+    // Initial build
+    rebuildMarqueeRows('all');
+
+    // Pause animation on hover (desktop only)
+    certRows.forEach(function(row) {
+      row.addEventListener('mouseenter', function() {
+        if (isMobile()) return;
+        var inner = row.querySelector('.cert-row-inner');
+        if (inner) inner.style.animationPlayState = 'paused';
+      });
+      row.addEventListener('mouseleave', function() {
+        if (isMobile()) return;
+        var inner = row.querySelector('.cert-row-inner');
+        if (inner) inner.style.animationPlayState = '';
+      });
+    });
+
+    // Rebuild on resize to switch between mobile/desktop
+    window.addEventListener('resize', function() {
+      const activeBtn = document.querySelector('.cert-filter-btn.active');
+      const filter = activeBtn ? activeBtn.getAttribute('data-filter') : 'all';
+      rebuildMarqueeRows(filter);
+    });
+  });
