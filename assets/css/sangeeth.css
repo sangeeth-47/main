@@ -958,7 +958,7 @@ pre code {
         align-items: stretch;
         overflow-x: hidden;
     }
-    .cert-row-inner {
+    .cert-row-inner { 
         display: flex;
         width: max-content;
         align-items: stretch;

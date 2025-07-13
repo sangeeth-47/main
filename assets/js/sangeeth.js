@@ -1136,7 +1136,7 @@ if (canvas) init();
       };
     }
 
-    function addMarqueeAnimation(inner, row) {
+    function addMarqueeAnimation(inner, row) { 
       inner.classList.remove('cert-marquee-anim');
       inner.style.animation = 'none';
       // Use left-to-right animation
