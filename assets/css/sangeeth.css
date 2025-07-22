@@ -79,11 +79,11 @@
     }
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
 html {
   font-family: sans-serif;
@@ -107,7 +107,117 @@ body {
   text-align: left;
   background-color: #fff;
 }
+.video-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #000;
+      z-index: -10;
+    }
 
+    #scroll-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .instructions {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .debug {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      color: white;
+      font-family: monospace;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .content-section {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      z-index: 2;
+      max-width: 800px;
+      padding: 40px;
+      border-radius: 10px;
+      opacity: 0;
+      transition: opacity 1s ease, transform 1s ease;
+      pointer-events: none;
+    }
+
+    .content-section.active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: auto;
+    }
+
+    .content-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .content-section p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    
+.scroll-downs {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 34px;
+  height: 55px;
+  z-index: 15;
+}
+
+.mousey {
+  width: 3px;
+  padding: 10px 15px;
+  height: 35px;
+  border: 2px solid #fff;
+  border-radius: 25px;
+  opacity: 0.75;
+  box-sizing: content-box;
+}
+.scroller {
+  width: 3px;
+  height: 10px;
+  border-radius: 25%;
+  background-color: #fff;
+  animation-name: scroll;
+  animation-duration: 2.2s;
+  animation-timing-function: cubic-bezier(.15,.41,.69,.94);
+  animation-iteration-count: infinite;
+}
+@keyframes scroll {
+  0% { opacity: 0; }
+  100% { transform: translateY(0px); opacity: 1; }
+  10% { transform: translateY(10px); opacity: 0;}
+}
 [tabindex="-1"]:focus {
   outline: 0 !important;
 }
@@ -2999,7 +3109,7 @@ input[type="button"].btn-block {
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 1000;
+  z-index: 100;
   display: none;
   float: left;
   min-width: 10rem;
@@ -5941,7 +6051,7 @@ a.close.disabled {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1050;
+  z-index: 105;
   display: none;
   width: 100%;
   height: 100%;
@@ -6066,7 +6176,7 @@ a.close.disabled {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1040;
+  z-index: 104;
   width: 100vw;
   height: 100vh;
   background-color: #000;
@@ -6190,7 +6300,7 @@ a.close.disabled {
 
 .tooltip {
   position: absolute;
-  z-index: 1070;
+  z-index: 107;
   display: block;
   margin: 0;
   font-family: "Open Sans", sans-serif;
@@ -6303,7 +6413,7 @@ a.close.disabled {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1060;
+  z-index: 106;
   display: block;
   max-width: 276px;
   font-family: "Open Sans", sans-serif;
@@ -8347,7 +8457,7 @@ button.bg-dark:focus {
   top: 0;
   right: 0;
   left: 0;
-  z-index: 1030;
+  z-index: 103;
 }
 
 .fixed-bottom {
@@ -8355,7 +8465,7 @@ button.bg-dark:focus {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1030;
+  z-index: 103;
 }
 
 @supports ((position: -webkit-sticky) or (position: sticky)) {
@@ -8363,7 +8473,7 @@ button.bg-dark:focus {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 1020;
+    z-index: 102;
   }
 }
 
@@ -11088,7 +11198,7 @@ p {
 .testimonial-card-img-holder {
   min-width: 45px;
   max-width: 45px;
-  z-index: 999;
+  z-index: 99;
 }
 
 .testimonial-card-img {
@@ -11352,7 +11462,7 @@ pre .code {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 100;
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;

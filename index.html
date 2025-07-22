@@ -20,10 +20,22 @@
     <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/android-chrome-512x512.png">
 </head>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
-    <canvas id="stars"></canvas>
-
-    <!-- Page Navbar -->
+<body>
+    <div class="video-container">
+    <video id="scroll-video" preload="auto" muted playsinline>
+      <source src="assets/videos/video.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <div class="scroll-downs">
+      <div class="mousey">
+        <div class="scroller"></div>
+      </div>
+    </div>
+  </div>
+    <div class="content-section" id="content-section">
+          <!-- Page Navbar -->
+           <canvas id="stars"></canvas>
+    <div data-spy="scroll" data-target=".navbar" data-offset="40" id="home"></div> 
     <nav class="custom-navbar" data-spy="affix" data-offset-top="5">
         <div class="container">
             <a class="logo" id="scramble-logo" href="#">SANGEETH M K</a>
@@ -274,7 +286,6 @@
 
             </div>
         </div>
-    </div>
 </section><!-- end of career timeline section -->
 
     <!-- portfolio section -->
@@ -740,8 +751,8 @@
                 <a href="https://github.com/sangeeth-47" class="link"><i class="ti-github"></i></a>
             </div>
         </footer>
-    </div> <!-- end of page footer -->
-
+    </div> <!-- end of page footer --> 
+    </div>
     <!-- core  -->
     <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
     <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>

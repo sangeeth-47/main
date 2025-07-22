@@ -1092,6 +1092,72 @@ if (canvas) init();
 
   // Certifications Filter Logic + Marquee Rebuild (mobile fix)
   document.addEventListener('DOMContentLoaded', function() {
+    
+    //Video Loader
+    const video = document.getElementById('scroll-video');
+      const content = document.getElementById('content-section');
+      const debug = document.getElementById('debug-info');
+
+      let videoDuration = 0;
+      let isPlaying = false;
+      let scrollDirection = 0;
+      let lastScroll = window.scrollY;
+      let videoEnded = false;
+
+      video.addEventListener('loadedmetadata', () => {
+        videoDuration = video.duration;
+      });
+
+      video.addEventListener('timeupdate', () => {
+        debug.innerHTML = `
+          Time: ${video.currentTime.toFixed(2)} / ${videoDuration.toFixed(2)}<br>
+          ScrollY: ${window.scrollY}<br>
+          Direction: ${scrollDirection > 0 ? "↓" : scrollDirection < 0 ? "↑" : "-"}<br>
+          Ended: ${videoEnded ? "Yes" : "No"}
+        `;
+      });
+
+      video.addEventListener('ended', () => {
+        videoEnded = true;
+        content.classList.add('active');
+      });
+
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+        scrollDirection = Math.sign(currentScroll - lastScroll);
+        lastScroll = currentScroll;
+
+        if (!videoDuration) return;
+
+        const maxScroll = document.body.scrollHeight - window.innerHeight;
+        const scrollRatio = Math.min(1, Math.max(0, currentScroll / maxScroll));
+        const time = scrollRatio * videoDuration;
+
+        video.currentTime = time;
+
+        // Fade-in content when video crosses 90%
+        if (scrollRatio >= 0.9) {
+          content.classList.add('active');
+        } else {
+          content.classList.remove('active');
+          videoEnded = false;
+        }
+
+        // Pause video at the end
+        if (scrollRatio >= 0.99 && !videoEnded) {
+          video.pause();
+          videoEnded = true;
+          content.classList.add('active');
+        }
+
+        // Reset video and hide content when scrolling to top
+        if (scrollRatio <= 0.01) {
+          video.currentTime = 0;
+          video.pause();
+          content.classList.remove('active');
+          videoEnded = false;
+        }
+      });
     const filterBtns = document.querySelectorAll('.cert-filter-btn');
     const certRows = document.querySelectorAll('.cert-tiles-wrapper .cert-row');
     // Store all original tiles for each row, then remove them from DOM
@@ -1238,4 +1304,5 @@ if (canvas) init();
       const filter = activeBtn ? activeBtn.getAttribute('data-filter') : 'all';
       rebuildMarqueeRows(filter);
     });
+
   });
