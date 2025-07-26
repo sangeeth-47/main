@@ -1239,3 +1239,20 @@ if (canvas) init();
       rebuildMarqueeRows(filter);
     });
   });
+
+  function revealOnScroll() {
+    const elements = document.querySelectorAll('.fly-in-left , .fly-in-right, .fly-in-flip-up, .fly-in-pop');
+    const triggerBottom = window.innerHeight * 0.9;
+
+    elements.forEach(el => {
+      const elementTop = el.getBoundingClientRect().top;
+      if (elementTop < triggerBottom) {
+        el.classList.add('visible');
+      } else {
+        el.classList.remove('visible'); // Optional: remove if you want one-time animation
+      }
+    });
+  }
+
+  window.addEventListener('scroll', revealOnScroll);
+  window.addEventListener('load', revealOnScroll); // Run on page load
