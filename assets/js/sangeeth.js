@@ -1375,7 +1375,7 @@ const start = (x, y) => {
   lastX = x;
   lastY = y;
   scaleItems(true);
-  document.body.style.pointerEvents = 'none';
+  scontainer.body.style.pointerEvents = 'none';
 };
 
 const move = (x, y) => {
@@ -1392,7 +1392,7 @@ const move = (x, y) => {
 const end = () => {
   isDragging = false;
   scaleItems(false);
-  document.body.style.pointerEvents = '';
+  scontainer.style.pointerEvents = '';
 };
 
 // Mouse events
