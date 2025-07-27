@@ -106,6 +106,7 @@ body {
   color: #212529;
   text-align: left;
   background-color: #fff;
+  overflow-x: hidden;
 }
 
 [tabindex="-1"]:focus {
@@ -1099,7 +1100,7 @@ pre code {
 
 .fly-in-left {
   opacity: 0;
-  transform: translateX(-100vw); /* start from left */
+  transform: translateX(-100%); /* start from left */
   transition: opacity 0.9s ease-out, transform 0.6s ease-out;
 }
 
@@ -1110,12 +1111,13 @@ pre code {
 
 .fly-in-right {
   opacity: 0;
-  transform: translateX(100vw); /* start from right */
+  transform: translateX(100%);
   transition: opacity 0.9s ease-out, transform 0.6s ease-out;
+  will-change: transform;
 }
 .fly-in-right.visible {
   opacity: 1;
-  transform: translateX(0); /* slide to original position */
+  transform: translateX(0);
 }
 .fly-in-flip-up {
   opacity: 0;
