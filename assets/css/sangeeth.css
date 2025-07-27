@@ -99,6 +99,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
+  padding: 0;
   font-family: "Open Sans", sans-serif;
   font-size: 1rem;
   font-weight: 400;
@@ -12229,6 +12230,7 @@ backdrop-filter: blur(1px);
   -webkit-flex-grow: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  overflow-x: hidden;
 }
 
 @media (max-width: 767.98px) {
@@ -12413,6 +12415,7 @@ backdrop-filter: blur(1px);
   max-width: 1000px;
   margin: 0 auto;
   padding: 40px 0;
+  overflow-x: hidden;
 }
 
 .timeline-start, .timeline-end {
