@@ -3113,12 +3113,6 @@ section#Hands {
     box-shadow: 0 10px 30px rgba(105, 90, 166, 0.5);
 }
 
-input[type="submit"].btn-block,
-input[type="reset"].btn-block,
-input[type="button"].btn-block {
-  width: 100%;
-}
-
 .fade {
   -webkit-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
