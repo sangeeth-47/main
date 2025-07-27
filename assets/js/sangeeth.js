@@ -1306,7 +1306,9 @@ const sphereitems = [
   { title: "JWT Token", image: "assets/icons/sphere-icons/jwt-3.svg" },
   { title: "AWS EC2", image: "assets/icons/sphere-icons/aws-ec2.svg" },
   { title: "FortiGate 80E", image: "assets/icons/sphere-icons/fortinet.jpg" },
-  { title: "Windows AdminCenter", image: "assets/icons/sphere-icons/admincenter.svg" }
+  { title: "Windows AdminCenter", image: "assets/icons/sphere-icons/admincenter.svg" },
+  { title: "Node.JS", image: "assets/icons/sphere-icons/node.js.webp" },
+  { title: "Suse", image: "assets/icons/sphere-icons/suse.webp" }
 ];
 
 let rotX = 0, rotY = 0;
