@@ -1274,7 +1274,6 @@ const sphereitems = [
   { title: "Visual StudioCode", image: "assets/icons/sphere-icons/vs.png" },
   { title: "Windows 7", image: "assets/icons/sphere-icons/win7.webp" },
   { title: "Sophos XG210", image: "assets/icons/sphere-icons/sophos.png" },
-  { title: "FortiGate 200E", image: "assets/icons/sphere-icons/fortinet.jpg" },
   { title: "Cyberoam", image: "assets/icons/sphere-icons/cyberoam.png" },
   { title: "Word", image: "assets/icons/sphere-icons/word.webp" },
   { title: "HTML", image: "assets/icons/sphere-icons/html.png" },
@@ -1295,20 +1294,25 @@ const sphereitems = [
   { title: "WSUS", image: "assets/icons/sphere-icons/wsus.webp" },
   { title: "Windows Server:2012", image: "assets/icons/sphere-icons/ws2012.svg" },
   { title: "Windows Server:2019", image: "assets/icons/sphere-icons/ws2019.svg" },
-  { title: "NAT", image: "assets/icons/sphere-icons/nat.svg" },
-  { title: "CCTV", image: "assets/icons/sphere-icons/cctv.svg" },
   { title: "Wireshark", image: "assets/icons/sphere-icons/wireshark.svg" },
   { title: "Active Directory", image: "assets/icons/sphere-icons/adfs.svg" },
   { title: "PowerShell", image: "assets/icons/sphere-icons/ps.svg" },
+  { title: "CCTV", image: "assets/icons/sphere-icons/cctv.svg" },
   { title: "RAID Storage", image: "assets/icons/sphere-icons/raid.jpg" },
+  { title: "FortiGate 200E", image: "assets/icons/sphere-icons/fortinet.jpg" },
   { title: "Network Switch", image: "assets/icons/sphere-icons/ns.png" },
   { title: "Remote Desktop", image: "assets/icons/sphere-icons/rds.svg" },
   { title: "JWT Token", image: "assets/icons/sphere-icons/jwt-3.svg" },
   { title: "AWS EC2", image: "assets/icons/sphere-icons/aws-ec2.svg" },
-  { title: "FortiGate 80E", image: "assets/icons/sphere-icons/fortinet.jpg" },
   { title: "Windows AdminCenter", image: "assets/icons/sphere-icons/admincenter.svg" },
   { title: "Node.JS", image: "assets/icons/sphere-icons/node.js.webp" },
-  { title: "Suse", image: "assets/icons/sphere-icons/suse.webp" }
+  { title: "SUSE", image: "assets/icons/sphere-icons/suse.webp" },
+  { title: "ChatGPT", image: "assets/icons/sphere-icons/chatgpt.svg" },
+  { title: "FortiGate 80E", image: "assets/icons/sphere-icons/fortinet.jpg" },
+  { title: "Deepseek", image: "assets/icons/sphere-icons/deepseek.svg" },
+  { title: "Perplexity", image: "assets/icons/sphere-icons/perplexity.svg" },
+  { title: "Gemini", image: "assets/icons/sphere-icons/gemini.webp" },
+  { title: "NAT", image: "assets/icons/sphere-icons/nat.svg" }
 ];
 
 let rotX = 0, rotY = 0;
