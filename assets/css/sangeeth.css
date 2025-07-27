@@ -1190,11 +1190,9 @@ section#Hands {
     }
 
     .item {
-      position: absolute;
       left: 50%;
       top: 50%;
       transform-style: preserve-3d;
-      transform: translate(-50%, -50%);
     }
 
     .item-content {
@@ -11256,7 +11254,7 @@ p {
     width: 100%;
   }
 
-/* testmonial card */
+/* testimonial card */
 .testimonial-card {
   display: flex;
   align-items: center;
