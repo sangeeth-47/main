@@ -1401,45 +1401,39 @@ document.addEventListener('mousedown', e => start(e.clientX, e.clientY));
 document.addEventListener('mousemove', e => move(e.clientX, e.clientY));
 document.addEventListener('mouseup', end);
 
-// Touch events with smooth vertical + horizontal drag control
+// Touch events with scroll detection
 let touchStartX = 0;
 let touchStartY = 0;
-let lastTouchX = 0;
-let lastTouchY = 0;
-let draggingStarted = false;
-const dragThreshold = 5;
+let touchMoved = false;
 
 document.addEventListener('touchstart', e => {
-  touchStartX = lastTouchX = e.touches[0].clientX;
-  touchStartY = lastTouchY = e.touches[0].clientY;
-  draggingStarted = false;
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  touchMoved = false;
 }, { passive: true });
 
 document.addEventListener('touchmove', e => {
-  const currentX = e.touches[0].clientX;
-  const currentY = e.touches[0].clientY;
-  const deltaX = currentX - touchStartX;
-  const deltaY = currentY - touchStartY;
+  const deltaX = e.touches[0].clientX - touchStartX;
+  const deltaY = e.touches[0].clientY - touchStartY;
 
-  if (!draggingStarted) {
-    if (Math.hypot(deltaX, deltaY) > dragThreshold) {
+  if (!touchMoved) {
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      // Horizontal drag: rotate sphere
+      touchMoved = true;
       start(touchStartX, touchStartY);
-      draggingStarted = true;
+    } else {
+      return; // Allow vertical scroll
     }
   }
 
-  if (draggingStarted) {
-    move(currentX, currentY);
-    lastTouchX = currentX;
-    lastTouchY = currentY;
-    e.preventDefault(); // Prevent page scroll while rotating sphere
+  // Only when dragging the sphere
+  if (isDragging) {
+    move(e.touches[0].clientX, e.touches[0].clientY);
+    e.preventDefault(); // Prevent scroll during sphere drag
   }
 }, { passive: false });
 
-document.addEventListener('touchend', () => {
-  if (draggingStarted) end();
-});
-
+document.addEventListener('touchend', end);
 
 
 // Auto-rotate
