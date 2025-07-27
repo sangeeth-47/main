@@ -12337,6 +12337,16 @@ backdrop-filter: blur(1px);
     width: 100vw;
     height: 100vh;
   }
+  .timeline-item.left .timeline-content {
+  margin-right: 50%;
+  text-align: right;
+}
+
+/* Right side items - content goes to the RIGHT of the spine */
+.timeline-item.right .timeline-content {
+  margin-left: 50%;
+  text-align: left;
+}
 }
 /* sections */
 .section {
@@ -12435,13 +12445,13 @@ backdrop-filter: blur(1px);
 
 /* Left side items - content goes to the LEFT of the spine */
 .timeline-item.left .timeline-content {
-  margin-right: 55%;
+  margin-right: 60%;
   text-align: right;
 }
 
 /* Right side items - content goes to the RIGHT of the spine */
 .timeline-item.right .timeline-content {
-  margin-left: 55%;
+  margin-left: 60%;
   text-align: left;
 }
 
