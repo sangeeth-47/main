@@ -1187,15 +1187,19 @@ section#Hands {
       position: relative;
       transform-style: preserve-3d;
       transform-origin: center center;
+      pointer-events: none;
     }
 
-    .item {
+    .sphereitem {
+      position: absolute;
       left: 50%;
       top: 50%;
       transform-style: preserve-3d;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
     }
 
-    .item-content {
+    .sphereitem-content {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1230,12 +1234,12 @@ section#Hands {
       pointer-events: none;
     }
 
-    .item-content.scaled {
+    .sphereitem-content.scaled {
       transform: scale(1.3);
       z-index: 2;
     }
 
-   .item-content.scaled .img-glow {
+   .sphereitem-content.scaled .img-glow {
   box-shadow:
     0 0 2px #a020f0,
     0 0 6px #6a0dad,
@@ -1244,7 +1248,7 @@ section#Hands {
     0 0 30px #00ffff;
 }
 
-.item-content.scaled .text-glow {
+.sphereitem-content.scaled .text-glow {
   background-color: #000000;
   box-shadow:
     0 0 2px #a020f0,
@@ -2813,11 +2817,11 @@ section#Hands {
   .sphere-container.enlarged {
     transform: scale(1.05); /* Or 1.1 as needed */
   }
-  .item-content.scaled {
+  .sphereitem-content.scaled {
       transform: scale(1.05);
       z-index: 2;
     }
-    .item-content.scaled .img-glow {
+    .sphereitem-content.scaled .img-glow {
   box-shadow:
     0 0 2px #a020f0,
     0 0 6px #6a0dad,
@@ -2825,7 +2829,7 @@ section#Hands {
     0 0 20px #00ffff;
 }
 
-.item-content.scaled .text-glow {
+.sphereitem-content.scaled .text-glow {
   background-color: #000000;
   box-shadow:
     0 0 2px #a020f0,

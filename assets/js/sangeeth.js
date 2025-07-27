@@ -1263,7 +1263,7 @@ if (canvas) init();
 const sphere = document.getElementById("sphere");
 const scontainer = document.getElementById("scontainer");
 
-const items = [
+const sphereitems = [
   { title: "Excel", image: "assets/imgs/logos/excel.png" },
   { title: "Windows Server:2022", image: "assets/icons/sphere-icons/ws-2022.webp" },
   { title: "Azure", image: "assets/icons/sphere-icons/azure.webp" },
@@ -1324,9 +1324,9 @@ function getRadius() {
 function createItemsOnSphere() {
   sphere.innerHTML = '';
   const radius = getRadius();
-  const itemCount = items.length;
-  for (let i = 0; i < itemCount; i++) {
-    const offset = 2 / itemCount;
+  const sphereitemCount = sphereitems.length;
+  for (let i = 0; i < sphereitemCount; i++) {
+    const offset = 2 / sphereitemCount;
     const increment = Math.PI * (3 - Math.sqrt(5));
     const y = i * offset - 1 + offset / 2;
     const r = Math.sqrt(1 - y * y);
@@ -1338,9 +1338,9 @@ function createItemsOnSphere() {
     const theta = Math.atan2(z, x);
     const phiAngle = Math.acos(y);
 
-    const item = document.createElement('div');
-    item.className = 'item';
-    item.style.transform = `
+    const sphereitem = document.createElement('div');
+    sphereitem.className = 'sphereitem';
+    sphereitem.style.transform = `
       translate(-50%, -50%)
       rotateY(${deg(theta)}deg)
       rotateX(${deg(phiAngle) - 90}deg)
@@ -1348,14 +1348,14 @@ function createItemsOnSphere() {
     `;
 
     const content = document.createElement('div');
-    content.className = 'item-content';
+    content.className = 'sphereitem-content';
     content.innerHTML = `
-      <div class="img-glow"><img src="${items[i].image}" /></div>
-      <div class="text-glow">${items[i].title}</div>
+      <div class="img-glow"><img src="${sphereitems[i].image}" /></div>
+      <div class="text-glow">${sphereitems[i].title}</div>
     `;
 
-    item.appendChild(content);
-    sphere.appendChild(item);
+    sphereitem.appendChild(content);
+    sphere.appendChild(sphereitem);
   }
 }
 
@@ -1364,7 +1364,7 @@ function setRotation(x, y) {
 }
 
 function scaleItems(enlarge) {
-  document.querySelectorAll('.item-content').forEach(el => {
+  document.querySelectorAll('.sphereitem-content').forEach(el => {
     el.classList.toggle('scaled', enlarge);
   });
   scontainer.classList.toggle('enlarged', enlarge);
