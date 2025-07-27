@@ -1167,10 +1167,8 @@ section#Hands {
       margin: 50px auto 0 auto;
       width: min(80vw, 80vh);
       height: min(80vw, 80vh);
-      min-width: 250px;
-      min-height: 250px;
-      max-width: 600px;
-      max-height: 600px;
+      max-width: 90vw;
+      max-height: 90vw;
       perspective: 1200px;
       transition: transform 0.4s ease;
       z-index: 1;
