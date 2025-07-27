@@ -1296,7 +1296,6 @@ const items = [
   { title: "Windows Server:2012", image: "assets/icons/sphere-icons/ws2012.svg" },
   { title: "Windows Server:2019", image: "assets/icons/sphere-icons/ws2019.svg" },
   { title: "NAT", image: "assets/icons/sphere-icons/nat.svg" },
-  { title: "FortiGate 100F", image: "assets/icons/sphere-icons/fortinet.jpg" },
   { title: "CCTV", image: "assets/icons/sphere-icons/cctv.svg" },
   { title: "Wireshark", image: "assets/icons/sphere-icons/wireshark.svg" },
   { title: "Active Directory", image: "assets/icons/sphere-icons/adfs.svg" },
