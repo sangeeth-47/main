@@ -1092,6 +1092,7 @@ if (canvas) init();
 
   // Certifications Filter Logic + Marquee Rebuild (mobile fix)
   document.addEventListener('DOMContentLoaded', function() {
+<<<<<<< HEAD
     
     //Video Loader
     const video = document.getElementById('scroll-video');
@@ -1158,6 +1159,105 @@ if (canvas) init();
           videoEnded = false;
         }
       });
+=======
+    const video = document.getElementById('scroll-video');
+  const content = document.getElementById('content-section');
+  const debug = document.getElementById('debug-info');
+  const videoContainer = document.querySelector('.video-container');
+
+  let videoDuration = 0;
+  let isPlaying = false;
+  let scrollDirection = 0;
+  let lastScroll = window.scrollY;
+  let videoEnded = false;
+video.onended = () => {
+  // Hide video
+  document.querySelector('.video-container').style.display = 'none';
+
+  // Reveal content
+  content.classList.add('active');
+
+  // Enable scroll
+  document.body.style.overflowY = 'auto';
+};
+// Scroll to top of content
+  window.scrollTo(0, 0);
+  
+  video.addEventListener('loadedmetadata', () => {
+    videoDuration = video.duration;
+  });
+
+  video.addEventListener('timeupdate', () => {
+    debug.innerHTML = `
+      Time: ${video.currentTime.toFixed(2)} / ${videoDuration.toFixed(2)}<br>
+      ScrollY: ${window.scrollY}<br>
+      Direction: ${scrollDirection > 0 ? "↓" : scrollDirection < 0 ? "↑" : "-"}<br>
+      Ended: ${videoEnded ? "Yes" : "No"}
+    `;
+  });
+
+  video.addEventListener('ended', () => {
+    videoEnded = true;
+  });
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    scrollDirection = Math.sign(currentScroll - lastScroll);
+    lastScroll = currentScroll;
+
+    if (!videoDuration) return;
+
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const scrollRatio = Math.min(1, Math.max(0, currentScroll / maxScroll));
+    const time = scrollRatio * videoDuration;
+
+    video.currentTime = time;
+
+    // Check if video container is out of view (above the screen)
+    const rect = videoContainer.getBoundingClientRect();
+    const isVideoOffScreen = rect.bottom <= 0;
+
+    if (isVideoOffScreen || scrollRatio >= 0.9) {
+  content.classList.add('active');
+  document.body.classList.add('freeze-scroll');  // disable background scroll
+} else {
+  content.classList.remove('active');
+  document.body.classList.remove('freeze-scroll'); // enable scroll again
+  videoEnded = false;
+}
+
+
+    if (scrollRatio >= 0.99 && !videoEnded) {
+      video.pause();
+      videoEnded = true;
+      content.classList.add('active');
+    }
+
+    if (scrollRatio <= 0.01) {
+  video.currentTime = 0;
+  video.pause();
+  content.classList.remove('active');
+  document.body.classList.remove('freeze-scroll');
+  videoEnded = false;
+}
+if ((isVideoOffScreen || scrollRatio >= 0.9) && !videoEnded) {
+  content.classList.add('active');
+  document.body.classList.add('freeze-scroll');
+  videoContainer.classList.add('hidden'); // 👈 hide video
+}
+
+if (scrollRatio <= 0.01) {
+  video.currentTime = 0;
+  video.play();
+  content.classList.remove('active');
+  document.body.classList.remove('freeze-scroll');
+  videoContainer.classList.remove('hidden'); // 👈 show video again
+  videoEnded = false;
+}
+
+  });
+      
+>>>>>>> main
     const filterBtns = document.querySelectorAll('.cert-filter-btn');
     const certRows = document.querySelectorAll('.cert-tiles-wrapper .cert-row');
     // Store all original tiles for each row, then remove them from DOM
@@ -1306,3 +1406,216 @@ if (canvas) init();
     });
 
   });
+
+  function revealOnScroll() {
+    const elements = document.querySelectorAll('.fly-in-left , .fly-in-right, .fly-in-flip-up, .fly-in-pop');
+    const triggerBottom = window.innerHeight * 0.9;
+
+    elements.forEach(el => {
+      const elementTop = el.getBoundingClientRect().top;
+      if (elementTop < triggerBottom) {
+        el.classList.add('visible');
+      } else {
+        el.classList.remove('visible'); // Optional: remove if you want one-time animation
+      }
+    });
+  }
+
+  window.addEventListener('scroll', revealOnScroll);
+  window.addEventListener('load', revealOnScroll); // Run on page load
+
+
+  // Sphere Animation
+
+const sphere = document.getElementById("sphere");
+const scontainer = document.getElementById("scontainer");
+
+const sphereitems = [
+  { title: "Excel", image: "assets/imgs/logos/excel.png" },
+  { title: "Windows Server:2022", image: "assets/icons/sphere-icons/ws-2022.webp" },
+  { title: "Azure", image: "assets/icons/sphere-icons/azure.webp" },
+  { title: "VMware Workstation", image: "assets/icons/sphere-icons/vmwarews.png" },
+  { title: "FortiGate 100F", image: "assets/icons/sphere-icons/fortinet.jpg" },
+  { title: "AWS", image: "assets/imgs/logos/amazon_web_services_logo.jpg" },
+  { title: "VxRail", image: "assets/icons/sphere-icons/vxrail.webp" },
+  { title: "Visual StudioCode", image: "assets/icons/sphere-icons/vs.png" },
+  { title: "Windows 7", image: "assets/icons/sphere-icons/win7.webp" },
+  { title: "Sophos XG210", image: "assets/icons/sphere-icons/sophos.png" },
+  { title: "Cyberoam", image: "assets/icons/sphere-icons/cyberoam.png" },
+  { title: "Word", image: "assets/icons/sphere-icons/word.webp" },
+  { title: "HTML", image: "assets/icons/sphere-icons/html.png" },
+  { title: "CSS", image: "assets/icons/sphere-icons/css.png" },
+  { title: "RHEL 8", image: "assets/imgs/logos/red_hat_logo.jpg" },
+  { title: "MSSQL", image: "assets/icons/sphere-icons/mssql.png" },
+  { title: "Veeam Backup & Replication", image: "assets/icons/sphere-icons/veeam.png" },
+  { title: "Windows XP", image: "assets/icons/sphere-icons/winxp.webp" },
+  { title: "Windows 10", image: "assets/icons/sphere-icons/win10.jpg" },
+  { title: "VMware vSphere", image: "assets/icons/sphere-icons/vsphere.webp" },
+  { title: "Azure Functions", image: "assets/icons/sphere-icons/azuref.png" },
+  { title: "Python", image: "assets/icons/sphere-icons/python.png" },
+  { title: "ManageEngine EndpointCentral", image: "assets/icons/sphere-icons/me.webp" },
+  { title: "ManageEngine ServiceDeskPlus", image: "assets/icons/sphere-icons/me-sdp.webp" },
+  { title: "Github", image: "assets/icons/sphere-icons/github.webp" },
+  { title: "Hyper-V", image: "assets/icons/sphere-icons/hyper-v.webp" },
+  { title: "Zabbix Monitoring", image: "assets/icons/sphere-icons/zabbix.png" },
+  { title: "WSUS", image: "assets/icons/sphere-icons/wsus.webp" },
+  { title: "Windows Server:2012", image: "assets/icons/sphere-icons/ws2012.svg" },
+  { title: "Windows Server:2019", image: "assets/icons/sphere-icons/ws2019.svg" },
+  { title: "Wireshark", image: "assets/icons/sphere-icons/wireshark.svg" },
+  { title: "Active Directory", image: "assets/icons/sphere-icons/adfs.svg" },
+  { title: "PowerShell", image: "assets/icons/sphere-icons/ps.svg" },
+  { title: "CCTV", image: "assets/icons/sphere-icons/cctv.svg" },
+  { title: "RAID Storage", image: "assets/icons/sphere-icons/raid.jpg" },
+  { title: "FortiGate 200E", image: "assets/icons/sphere-icons/fortinet.jpg" },
+  { title: "Network Switch", image: "assets/icons/sphere-icons/ns.png" },
+  { title: "Remote Desktop", image: "assets/icons/sphere-icons/rds.svg" },
+  { title: "JWT Token", image: "assets/icons/sphere-icons/jwt-3.svg" },
+  { title: "AWS EC2", image: "assets/icons/sphere-icons/aws-ec2.svg" },
+  { title: "Windows AdminCenter", image: "assets/icons/sphere-icons/admincenter.svg" },
+  { title: "Node.JS", image: "assets/icons/sphere-icons/node.js.webp" },
+  { title: "SUSE", image: "assets/icons/sphere-icons/suse.webp" },
+  { title: "ChatGPT", image: "assets/icons/sphere-icons/chatgpt.svg" },
+  { title: "FortiGate 80E", image: "assets/icons/sphere-icons/fortinet.jpg" },
+  { title: "Deepseek", image: "assets/icons/sphere-icons/deepseek.svg" },
+  { title: "Perplexity", image: "assets/icons/sphere-icons/perplexity.svg" },
+  { title: "Gemini", image: "assets/icons/sphere-icons/gemini.webp" },
+  { title: "NAT", image: "assets/icons/sphere-icons/nat.svg" }
+];
+
+let rotX = 0, rotY = 0;
+let isDragging = false;
+let lastX = 0, lastY = 0;
+
+function deg(rad) {
+  return rad * 180 / Math.PI;
+}
+
+function getRadius() {
+  return scontainer.offsetWidth / 2 - 40;
+}
+
+function createItemsOnSphere() {
+  sphere.innerHTML = '';
+  const radius = getRadius();
+  const sphereitemCount = sphereitems.length;
+  for (let i = 0; i < sphereitemCount; i++) {
+    const offset = 2 / sphereitemCount;
+    const increment = Math.PI * (3 - Math.sqrt(5));
+    const y = i * offset - 1 + offset / 2;
+    const r = Math.sqrt(1 - y * y);
+    const phi = i * increment;
+
+    const x = Math.cos(phi) * r;
+    const z = Math.sin(phi) * r;
+
+    const theta = Math.atan2(z, x);
+    const phiAngle = Math.acos(y);
+
+    const sphereitem = document.createElement('div');
+    sphereitem.className = 'sphereitem';
+    sphereitem.style.transform = `
+      translate(-50%, -50%)
+      rotateY(${deg(theta)}deg)
+      rotateX(${deg(phiAngle) - 90}deg)
+      translateZ(${radius}px)
+    `;
+
+    const content = document.createElement('div');
+    content.className = 'sphereitem-content';
+    content.innerHTML = `
+      <div class="img-glow"><img src="${sphereitems[i].image}" /></div>
+      <div class="text-glow">${sphereitems[i].title}</div>
+    `;
+
+    sphereitem.appendChild(content);
+    sphere.appendChild(sphereitem);
+  }
+}
+
+function setRotation(x, y) {
+  sphere.style.transform = `rotateX(${x}deg) rotateY(${y}deg)`;
+}
+
+function scaleItems(enlarge) {
+  document.querySelectorAll('.sphereitem-content').forEach(el => {
+    el.classList.toggle('scaled', enlarge);
+  });
+  scontainer.classList.toggle('enlarged', enlarge);
+}
+
+const start = (x, y) => {
+  isDragging = true;
+  lastX = x;
+  lastY = y;
+  scaleItems(true);
+  scontainer.pointerEvents = 'none';
+};
+
+const move = (x, y) => {
+  if (!isDragging) return;
+  const dx = x - lastX;
+  const dy = y - lastY;
+  rotY += dx * 0.3;
+  rotX -= dy * 0.3;
+  setRotation(rotX, rotY);
+  lastX = x;
+  lastY = y;
+};
+
+const end = () => {
+  isDragging = false;
+  scaleItems(false);
+  scontainer.pointerEvents = '';
+};
+
+// Mouse events
+document.addEventListener('mousedown', e => start(e.clientX, e.clientY));
+document.addEventListener('mousemove', e => move(e.clientX, e.clientY));
+document.addEventListener('mouseup', end);
+
+// Touch events with scroll detection
+let touchStartX = 0;
+let touchStartY = 0;
+let touchMoved = false;
+
+document.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  touchMoved = false;
+}, { passive: true });
+
+document.addEventListener('touchmove', e => {
+  const deltaX = e.touches[0].clientX - touchStartX;
+  const deltaY = e.touches[0].clientY - touchStartY;
+
+  if (!touchMoved) {
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      // Horizontal drag: rotate sphere
+      touchMoved = true;
+      start(touchStartX, touchStartY);
+    } else {
+      return; // Allow vertical scroll
+    }
+  }
+
+  // Only when dragging the sphere
+  if (isDragging) {
+    move(e.touches[0].clientX, e.touches[0].clientY);
+    e.preventDefault(); // Prevent scroll during sphere drag
+  }
+}, { passive: false });
+
+document.addEventListener('touchend', end);
+
+
+// Auto-rotate
+setInterval(() => {
+  if (!isDragging) {
+    rotY += 0.2;
+    setRotation(rotX, rotY);
+  }
+}, 30);
+
+// Re-render on resize
+window.addEventListener('resize', createItemsOnSphere);
+createItemsOnSphere();
