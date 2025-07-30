@@ -20,7 +20,21 @@
     <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/android-chrome-512x512.png">
 </head>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+<body>
+    <div class="video-container">
+    <video id="scroll-video" preload="auto" muted playsinline>
+      <source src="assets/video/video.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <div class="scroll-downs">
+  <div class="mousey">
+    <div class="scroller"></div>
+  </div>
+</div>
+  </div>
+  
+    <div class="debug" id="debug-info">Loading...</div>
+  <div class="content-section" id="content-section">
     <canvas id="stars"></canvas>
 
     <!-- Page Navbar -->
@@ -81,6 +95,7 @@
 
     </header><!-- end of page header -->
 
+  
     <!-- about section -->
     <section class="section pt-0" id="about">
         <!-- container -->
@@ -110,7 +125,7 @@
         <p class="section-subtitle">What I'm interested in ?</p>
         <h6 class="section-title mb-6">Inside My World</h6>
         <!-- row -->
-        <div class="row">
+        <div class="row"></div>
             <div class="col-md-6 col-lg-6 mb-4">
                 <div class="service-card">
                     <div class="body">
@@ -281,7 +296,6 @@
 
             </div>
         </div>
-    </div>
 </section><!-- end of career timeline section -->
 <HR align="center" width="80%" size="2" style="margin: 20px auto;">
     <!-- portfolio section -->
@@ -749,7 +763,7 @@
             </div>
         </footer>
     </div> <!-- end of page footer -->
-
+  </div>
     <!-- core  -->
     <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
     <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>

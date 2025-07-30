@@ -1092,6 +1092,103 @@ if (canvas) init();
 
   // Certifications Filter Logic + Marquee Rebuild (mobile fix)
   document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('scroll-video');
+  const content = document.getElementById('content-section');
+  const debug = document.getElementById('debug-info');
+  const videoContainer = document.querySelector('.video-container');
+
+  let videoDuration = 0;
+  let isPlaying = false;
+  let scrollDirection = 0;
+  let lastScroll = window.scrollY;
+  let videoEnded = false;
+video.onended = () => {
+  // Hide video
+  document.querySelector('.video-container').style.display = 'none';
+
+  // Reveal content
+  content.classList.add('active');
+
+  // Enable scroll
+  document.body.style.overflowY = 'auto';
+};
+// Scroll to top of content
+  window.scrollTo(0, 0);
+  
+  video.addEventListener('loadedmetadata', () => {
+    videoDuration = video.duration;
+  });
+
+  video.addEventListener('timeupdate', () => {
+    debug.innerHTML = `
+      Time: ${video.currentTime.toFixed(2)} / ${videoDuration.toFixed(2)}<br>
+      ScrollY: ${window.scrollY}<br>
+      Direction: ${scrollDirection > 0 ? "↓" : scrollDirection < 0 ? "↑" : "-"}<br>
+      Ended: ${videoEnded ? "Yes" : "No"}
+    `;
+  });
+
+  video.addEventListener('ended', () => {
+    videoEnded = true;
+  });
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    scrollDirection = Math.sign(currentScroll - lastScroll);
+    lastScroll = currentScroll;
+
+    if (!videoDuration) return;
+
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const scrollRatio = Math.min(1, Math.max(0, currentScroll / maxScroll));
+    const time = scrollRatio * videoDuration;
+
+    video.currentTime = time;
+
+    // Check if video container is out of view (above the screen)
+    const rect = videoContainer.getBoundingClientRect();
+    const isVideoOffScreen = rect.bottom <= 0;
+
+    if (isVideoOffScreen || scrollRatio >= 0.9) {
+  content.classList.add('active');
+  document.body.classList.add('freeze-scroll');  // disable background scroll
+} else {
+  content.classList.remove('active');
+  document.body.classList.remove('freeze-scroll'); // enable scroll again
+  videoEnded = false;
+}
+
+
+    if (scrollRatio >= 0.99 && !videoEnded) {
+      video.pause();
+      videoEnded = true;
+      content.classList.add('active');
+    }
+
+    if (scrollRatio <= 0.01) {
+  video.currentTime = 0;
+  video.pause();
+  content.classList.remove('active');
+  document.body.classList.remove('freeze-scroll');
+  videoEnded = false;
+}
+if ((isVideoOffScreen || scrollRatio >= 0.9) && !videoEnded) {
+  content.classList.add('active');
+  document.body.classList.add('freeze-scroll');
+  videoContainer.classList.add('hidden'); // 👈 hide video
+}
+
+if (scrollRatio <= 0.01) {
+  video.currentTime = 0;
+  video.play();
+  content.classList.remove('active');
+  document.body.classList.remove('freeze-scroll');
+  videoContainer.classList.remove('hidden'); // 👈 show video again
+  videoEnded = false;
+}
+
+  });
+      
     const filterBtns = document.querySelectorAll('.cert-filter-btn');
     const certRows = document.querySelectorAll('.cert-tiles-wrapper .cert-row');
     // Store all original tiles for each row, then remove them from DOM
