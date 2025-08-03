@@ -1,10 +1,9 @@
 <p align="center">
 <img src="https://github.com/sangeeth-47/main/blob/2754bb704478e0f176e1cc1a7a23ccb454f3d53d/code.gif" width="100%"/>
 </p>
-# 🌐✨ MY Portfolio
 
+## 🌐✨ MY Portfolio
 > 🚀 *"A Digital Showcase of My Journey in Tech"*
-
 Welcome to my personal portfolio!  
 This project highlights my **skills**, **projects**, and **certifications** in the field of **Information Technology**, with a core focus on:
 
@@ -40,17 +39,17 @@ This project highlights my **skills**, **projects**, and **certifications** in t
 
 ## 🎯 Highlights
 
-✨ Sleek & responsive UI
-⚡ Fast-loading with optimized assets
-🔐 Secure and clean code
-📱 Mobile-friendly design
-🎓 35+ IT Certifications linked
-🧠 Live AI demo projects integrated
+✨ Sleek & responsive UI<br>
+⚡ Fast-loading with optimized assets<br>
+🔐 Secure and clean code<br>
+📱 Mobile-friendly design<br>
+🎓 35+ IT Certifications linked<br>
+🧠 Live AI demo projects integrated<br>
 
 -----
 
-##📫 Let's Connect
+## 📫 Let's Connect
 
-📧 Email: sangeethsmk@gmail.com
-🔗 LinkedIn: https://www.linkedin.com/in/sangeeth47
-💻 GitHub: github.com/sangeeth-47
+📧 Email: sangeethsmk@gmail.com<br>
+🔗 LinkedIn: https://www.linkedin.com/in/sangeeth47<br>
+💻 GitHub: https://github.com/sangeeth-47<br>
