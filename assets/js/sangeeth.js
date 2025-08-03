@@ -470,8 +470,8 @@ $('#nav-toggle').click(function(){
 //Background stars animation
 
     var Delaunay;!function(){"use strict";var r=1/1048576;function n(n,e,t,u){var i,l,o,a,f,h,s,I,c,N,p=n[e][0],g=n[e][1],v=n[t][0],E=n[t][1],T=n[u][0],b=n[u][1],k=Math.abs(g-E),m=Math.abs(E-b);if(k<r&&m<r)throw new Error("Eek! Coincident points!");return k<r?l=(a=-(T-v)/(b-E))*((i=(v+p)/2)-(h=(v+T)/2))+(I=(E+b)/2):m<r?l=(o=-(v-p)/(E-g))*((i=(T+v)/2)-(f=(p+v)/2))+(s=(g+E)/2):(i=((o=-(v-p)/(E-g))*(f=(p+v)/2)-(a=-(T-v)/(b-E))*(h=(v+T)/2)+(I=(E+b)/2)-(s=(g+E)/2))/(o-a),l=k>m?o*(i-f)+s:a*(i-h)+I),{i:e,j:t,k:u,x:i,y:l,r:(c=v-i)*c+(N=E-l)*N}}function e(r){var n,e,t,u,i,l;for(e=r.length;e;)for(u=r[--e],t=r[--e],n=e;n;)if(l=r[--n],t===(i=r[--n])&&u===l||t===l&&u===i){r.splice(e,2),r.splice(n,2);break}}Delaunay={triangulate:function(t,u){var i,l,o,a,f,h,s,I,c,N,p,g,v=t.length;if(v<3)return[];if(t=t.slice(0),u)for(i=v;i--;)t[i]=t[i][u];for(o=new Array(v),i=v;i--;)o[i]=i;for(o.sort((function(r,n){return t[n][0]-t[r][0]})),a=function(r){var n,e,t,u,i,l,o=Number.POSITIVE_INFINITY,a=Number.POSITIVE_INFINITY,f=Number.NEGATIVE_INFINITY,h=Number.NEGATIVE_INFINITY;for(n=r.length;n--;)r[n][0]<o&&(o=r[n][0]),r[n][0]>f&&(f=r[n][0]),r[n][1]<a&&(a=r[n][1]),r[n][1]>h&&(h=r[n][1]);return t=h-a,[[(i=o+.5*(e=f-o))-20*(u=Math.max(e,t)),(l=a+.5*t)-u],[i,l+20*u],[i+20*u,l-u]]}(t),t.push(a[0],a[1],a[2]),f=[n(t,v+0,v+1,v+2)],h=[],s=[],i=o.length;i--;s.length=0){for(g=o[i],l=f.length;l--;)(I=t[g][0]-f[l].x)>0&&I*I>f[l].r?(h.push(f[l]),f.splice(l,1)):I*I+(c=t[g][1]-f[l].y)*c-f[l].r>r||(s.push(f[l].i,f[l].j,f[l].j,f[l].k,f[l].k,f[l].i),f.splice(l,1));for(e(s),l=s.length;l;)p=s[--l],N=s[--l],f.push(n(t,N,p,g))}for(i=f.length;i--;)h.push(f[i]);for(f.length=0,i=h.length;i--;)h[i].i<v&&h[i].j<v&&h[i].k<v&&f.push(h[i].i,h[i].j,h[i].k);return f},contains:function(r,n){if(n[0]<r[0][0]&&n[0]<r[1][0]&&n[0]<r[2][0]||n[0]>r[0][0]&&n[0]>r[1][0]&&n[0]>r[2][0]||n[1]<r[0][1]&&n[1]<r[1][1]&&n[1]<r[2][1]||n[1]>r[0][1]&&n[1]>r[1][1]&&n[1]>r[2][1])return null;var e=r[1][0]-r[0][0],t=r[2][0]-r[0][0],u=r[1][1]-r[0][1],i=r[2][1]-r[0][1],l=e*i-t*u;if(0===l)return null;var o=(i*(n[0]-r[0][0])-t*(n[1]-r[0][1]))/l,a=(e*(n[1]-r[0][1])-u*(n[0]-r[0][0]))/l;return o<0||a<0||o+a>1?null:[o,a]}},"undefined"!=typeof module&&(module.exports=Delaunay)}();
-    var particleCount = 40,
-  flareCount = 10,
+    var particleCount = 80,
+  flareCount = 60,
   motion = 0.05,
   tilt = 0.05,
   color = '#FFEED4',
@@ -480,9 +480,9 @@ $('#nav-toggle').click(function(){
   flareSizeBase = 100,
   flareSizeMultiplier = 100,
   lineWidth = 1,
-  linkChance = 75, // chance per frame of link, higher = smaller chance
-  linkLengthMin = 5, // min linked vertices
-  linkLengthMax = 7, // max linked vertices
+  linkChance = 30, // chance per frame of link, higher = smaller chance
+  linkLengthMin = 10, // min linked vertices
+  linkLengthMax = 70, // max linked vertices
   linkOpacity = 0.25; // number between 0 & 1
   linkFade = 90, // link fade-out frames
   linkSpeed = 1, // distance a link travels in 1 frame
@@ -494,7 +494,7 @@ $('#nav-toggle').click(function(){
   renderLinks = true,
   renderMesh = false,
   flicker = true,
-  flickerSmoothing = 15, // higher = smoother flicker
+  flickerSmoothing = 55, // higher = smoother flicker
   blurSize = 0,
   orbitTilt = true,
   randomMotion = true,
