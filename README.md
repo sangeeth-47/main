@@ -1,3 +1,6 @@
+<p align="center">
+<img src="https://github.com/sangeeth-47/main/blob/2754bb704478e0f176e1cc1a7a23ccb454f3d53d/code.gif" width="100%"/>
+</p>
 # 🌐✨ MY Portfolio
 
 > 🚀 *"A Digital Showcase of My Journey in Tech"*
