@@ -35,7 +35,7 @@ This project highlights my **skills**, **projects**, and **certifications** in t
 │   ├── js/            # 🧠 Scripts and logic
 │   └── vendors/       # 📦 Third-party libraries
 └── README.md          # 📘 This documentation file
-
+```
 -----
 
 ## 🎯 Highlights
