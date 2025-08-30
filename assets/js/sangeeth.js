@@ -1452,3 +1452,344 @@ setInterval(() => {
 // Re-render on resize
 window.addEventListener('resize', createItemsOnSphere);
 createItemsOnSphere();
+
+// Razor Pay Donation Configuration
+        document.getElementById('donate-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            showAmountSelection();
+        });
+        
+        // Function to show amount selection
+        function showAmountSelection() {
+            var amountModal = document.createElement('div');
+            amountModal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+                color: white;
+                font-family: Arial, sans-serif;
+            `;
+            
+            amountModal.innerHTML = `
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 450px; text-align: center;">
+                    <h3 style="margin: 0 0 20px 0; color: white;">Choose Donation Amount</h3>
+                    <p style="margin: 0 0 30px 0; color: rgba(255,255,255,0.8); font-size: 14px;">
+                        Your support helps me continue developing amazing projects!
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px;">
+                        <button class="amount-btn" data-amount="2500" style="padding: 15px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; cursor: pointer; font-weight: bold; transition: all 0.3s ease;">₹25</button>
+                        <button class="amount-btn" data-amount="5000" style="padding: 15px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; cursor: pointer; font-weight: bold; transition: all 0.3s ease;">₹50</button>
+                        <button class="amount-btn" data-amount="10000" style="padding: 15px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; cursor: pointer; font-weight: bold; transition: all 0.3s ease;">₹100</button>
+                        <button class="amount-btn" data-amount="20000" style="padding: 15px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; cursor: pointer; font-weight: bold; transition: all 0.3s ease;">₹200</button>
+                        <button class="amount-btn" data-amount="50000" style="padding: 15px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; cursor: pointer; font-weight: bold; transition: all 0.3s ease;">₹500</button>
+                        <button class="amount-btn" data-amount="100000" style="padding: 15px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; cursor: pointer; font-weight: bold; transition: all 0.3s ease;">₹1000</button>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; margin-bottom: 10px; color: rgba(255,255,255,0.9);">Or enter custom amount:</label>
+                        <input type="number" id="custom-amount" placeholder="Enter amount" min="1" 
+                               style="width: 100%; padding: 12px; border-radius: 8px; border: none; background: rgba(255,255,255,0.9); 
+                                      text-align: center; font-size: 16px; box-sizing: border-box;">
+                    </div>
+                    <div style="display: flex; gap: 15px; justify-content: center;">
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" 
+                                style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); 
+                                       padding: 12px 24px; border-radius: 25px; cursor: pointer; font-weight: bold;">
+                            Cancel
+                        </button>
+                        <button id="proceed-payment" 
+                                style="background: linear-gradient(135deg, #7e05f0 0%, #a200ff 100%); color: white; border: none; 
+                                       padding: 12px 24px; border-radius: 25px; cursor: pointer; font-weight: bold;">
+                            Proceed to Payment
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(amountModal);
+            
+            // Add click events for amount buttons
+            var selectedAmount = null;
+            amountModal.querySelectorAll('.amount-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    amountModal.querySelectorAll('.amount-btn').forEach(b => {
+                        b.style.background = 'rgba(255,255,255,0.1)';
+                        b.style.borderColor = 'rgba(255,255,255,0.3)';
+                    });
+                    // Add active style to clicked button
+                    this.style.background = 'rgba(255,255,255,0.3)';
+                    this.style.borderColor = 'white';
+                    selectedAmount = this.dataset.amount;
+                    // Clear custom amount
+                    document.getElementById('custom-amount').value = '';
+                });
+                
+                // Add hover effects
+                btn.addEventListener('mouseenter', function() {
+                    if (this.dataset.amount !== selectedAmount) {
+                        this.style.background = 'rgba(255,255,255,0.2)';
+                    }
+                });
+                btn.addEventListener('mouseleave', function() {
+                    if (this.dataset.amount !== selectedAmount) {
+                        this.style.background = 'rgba(255,255,255,0.1)';
+                    }
+                });
+            });
+            
+            // Proceed to payment
+            document.getElementById('proceed-payment').onclick = function() {
+                var customAmount = document.getElementById('custom-amount').value;
+                var finalAmount = selectedAmount;
+                
+                if (customAmount && customAmount > 0) {
+                    finalAmount = customAmount * 100; // Convert to paise
+                } else if (!selectedAmount) {
+                    alert('Please select an amount or enter a custom amount');
+                    return;
+                }
+                
+                amountModal.remove();
+                initiateRazorPayPayment(finalAmount);
+            };
+        }
+        
+        // Function to initiate Razor Pay payment
+        function initiateRazorPayPayment(amount) {
+            var options = {
+                "key": "rzp_test_YOUR_KEY_ID", // Replace with your actual Razor Pay Key ID
+                "amount": amount,
+                "currency": "INR",
+                "name": "Sangeeth M K",
+                "description": "Support My Development Journey",
+                "image": "assets/icons/favicon-32x32.png",
+                "handler": function (response) {
+                    // Payment success handler
+                    console.log("Payment Success:", response);
+                    showDonationThankYou();
+                    
+                    // Optional: Send payment details to your server for verification
+                    // You can add server-side verification here
+                },
+                "prefill": {
+                    "name": "",
+                    "email": "",
+                    "contact": ""
+                },
+                "notes": {
+                    "purpose": "Donation for supporting development work",
+                    "amount": amount / 100
+                },
+                "theme": {
+                    "color": "#7e05f0"
+                },
+                "modal": {
+                    "ondismiss": function() {
+                        console.log("Payment dialog closed by user");
+                    }
+                }
+            };
+            
+            var rzp = new Razorpay(options);
+            rzp.on('payment.failed', function (response) {
+                console.log("Payment Failed:", response.error);
+                alert('Payment failed: ' + response.error.description);
+            });
+            rzp.open();
+        }
+        
+        // Function to show thank you message
+        function showDonationThankYou() {
+            var thankYouOverlay = document.createElement('div');
+            thankYouOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+                color: white;
+                text-align: center;
+                font-family: Arial, sans-serif;
+            `;
+            
+            thankYouOverlay.innerHTML = `
+                <div style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); padding: 40px; border-radius: 20px; 
+                            box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 400px; animation: donationSuccess 0.6s ease-out;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">🙏</div>
+                    <h2 style="margin: 0 0 15px 0; color: white;">Thank You!</h2>
+                    <p style="margin: 0 0 20px 0; font-size: 1.1rem; color: rgba(255,255,255,0.9); line-height: 1.5;">
+                        Your generous donation helps me continue creating and improving projects. I truly appreciate your support!
+                    </p>
+                    <div style="margin-bottom: 20px;">
+                        <div style="font-size: 2rem;">❤️</div>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" 
+                            style="background: white; color: #4CAF50; border: none; padding: 12px 24px; 
+                                   border-radius: 25px; cursor: pointer; font-weight: bold; 
+                                   transition: all 0.3s ease;">
+                        Close
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(thankYouOverlay);
+            
+            // Auto-close after 8 seconds
+            setTimeout(() => {
+                if (document.body.contains(thankYouOverlay)) {
+                    thankYouOverlay.remove();
+                }
+            }, 8000);
+        }
+
+        
+        // Feedback Form Handling
+        document.getElementById('feedback-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.querySelector('.feedback-submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnLoading = submitBtn.querySelector('.btn-loading');
+            
+            // Show loading state
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline';
+            submitBtn.disabled = true;
+            
+            try {
+                const formData = new FormData(this);
+                const feedbackData = {
+                    username: formData.get('username'),
+                    email: formData.get('email'),
+                    feedback: formData.get('feedback'),
+                    type: formData.get('type')
+                };
+                
+                const response = await fetch('https://sangeeth2314105883websitecounter.azurewebsites.net/api/feedback-submit?', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(feedbackData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showFeedbackSuccess();
+                    this.reset(); // Clear the form
+                } else {
+                    showFeedbackError(result.message || 'Failed to submit feedback');
+                }
+                
+            } catch (error) {
+                console.error('Error submitting feedback:', error);
+                showFeedbackError('Network error. Please check your connection and try again.');
+            } finally {
+                // Reset button state
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // Function to show feedback success
+        function showFeedbackSuccess() {
+            const successOverlay = document.createElement('div');
+            successOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+                color: white;
+                text-align: center;
+                font-family: Arial, sans-serif;
+            `;
+            
+            successOverlay.innerHTML = `
+                <div style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); padding: 40px; border-radius: 20px; 
+                            box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 400px; animation: feedbackSuccess 0.6s ease-out;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">✅</div>
+                    <h2 style="margin: 0 0 15px 0; color: white;">Thank You!</h2>
+                    <p style="margin: 0 0 20px 0; font-size: 1.1rem; color: rgba(255,255,255,0.9); line-height: 1.5;">
+                        Your feedback has been submitted successfully! I appreciate your input and will review it soon.
+                    </p>
+                    <button onclick="this.parentElement.parentElement.remove()" 
+                            style="background: white; color: #4CAF50; border: none; padding: 12px 24px; 
+                                   border-radius: 25px; cursor: pointer; font-weight: bold; 
+                                   transition: all 0.3s ease;">
+                        Close
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(successOverlay);
+            
+            setTimeout(() => {
+                if (document.body.contains(successOverlay)) {
+                    successOverlay.remove();
+                }
+            }, 6000);
+        }
+        // Function to show feedback error
+        function showFeedbackError(message) {
+            const errorOverlay = document.createElement('div');
+            errorOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+                color: white;
+                text-align: center;
+                font-family: Arial, sans-serif;
+            `;
+            
+            errorOverlay.innerHTML = `
+                <div style="background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%); padding: 40px; border-radius: 20px; 
+                            box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 400px;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">❌</div>
+                    <h2 style="margin: 0 0 15px 0; color: white;">Oops!</h2>
+                    <p style="margin: 0 0 20px 0; font-size: 1rem; color: rgba(255,255,255,0.9); line-height: 1.5;">
+                        ${message}
+                    </p>
+                    <button onclick="this.parentElement.parentElement.remove()" 
+                            style="background: white; color: #f44336; border: none; padding: 12px 24px; 
+                                   border-radius: 25px; cursor: pointer; font-weight: bold; 
+                                   transition: all 0.3s ease;">
+                        Close
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(errorOverlay);
+            
+            setTimeout(() => {
+                if (document.body.contains(errorOverlay)) {
+                    errorOverlay.remove();
+                }
+            }, 8000);
+        }
