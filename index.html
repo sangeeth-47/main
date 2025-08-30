@@ -724,12 +724,64 @@
             </div>
         </div>
         
-        <!-- Quick Contact Info -->
+        <!-- Contact Content - Side by Side Layout -->
         <div class="row mt-5">
-            <div class="col-12">
-                <div class="quick-contact-info">
-                    <h5>Prefer Direct Contact?</h5>
-                    <p class="text-muted">Feel free to reach out through any of these platforms. I'm most active on LinkedIn and GitHub for professional inquiries.</p>
+            <!-- Left Side - Feedback Form -->
+            <div class="col-lg-6 mb-4">
+                <div class="feedback-section-inline">
+                    <h5>Share Your Feedback</h5>
+                    <p class="text-muted mb-4">Have suggestions or feedback? I'd love to hear from you!</p>
+                    
+                    <form id="feedback-form" class="feedback-form">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required placeholder="Your username or name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" required placeholder="your.email@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="feedback-type" class="form-label">Type</label>
+                            <select class="form-control" id="feedback-type" name="type">
+                                <option value="general">General</option>
+                                <option value="suggestion">Suggestion</option>
+                                <option value="bug-report">Bug Report</option>
+                                <option value="feature-request">Feature</option>
+                                <option value="compliment">Compliment</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="feedback-text" class="form-label">Message</label>
+                            <textarea class="form-control" id="feedback-text" name="feedback" rows="3" required 
+                                      placeholder="Share your thoughts here..."></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary feedback-submit-btn">
+                                <i class="ti-comment"></i>
+                                <span class="btn-text">Submit Feedback</span>
+                                <span class="btn-loading" style="display: none;">
+                                    <i class="ti-reload"></i> Submitting...
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Right Side - Donation -->
+            <div class="col-lg-6 mb-4">
+                <div class="donation-section-inline">
+                    <div class="donation-card-inline">
+                        <div class="donation-icon">
+                            <i class="ti-heart" style="color: #e74c3c; font-size: 2rem;"></i>
+                        </div>
+                        <h5>Support My Work</h5>
+                        <p class="text-muted">If you find my projects helpful or inspiring, consider supporting my development journey!</p>
+                        <button id="donate-btn" class="btn btn-primary donation-btn">
+                            <i class="ti-gift"></i> Donate Now
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -758,7 +810,7 @@
     <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
     <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
     <script src="assets/js/sangeeth.js"></script>
-
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <!-- SVG Animation Script -->
     <script>
         // Function to initialize SVG animation
