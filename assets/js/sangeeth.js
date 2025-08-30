@@ -1714,40 +1714,216 @@ createItemsOnSphere();
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(0, 0, 0, 0.8);
+                background: rgba(0, 0, 0, 0.85);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 z-index: 10000;
                 color: white;
                 text-align: center;
-                font-family: Arial, sans-serif;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                animation: overlayFadeIn 0.4s ease-out;
             `;
             
             successOverlay.innerHTML = `
-                <div style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); padding: 40px; border-radius: 20px; 
-                            box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 400px; animation: feedbackSuccess 0.6s ease-out;">
-                    <div style="font-size: 4rem; margin-bottom: 20px;">✅</div>
-                    <h2 style="margin: 0 0 15px 0; color: white;">Thank You!</h2>
-                    <p style="margin: 0 0 20px 0; font-size: 1.1rem; color: rgba(255,255,255,0.9); line-height: 1.5;">
-                        Your feedback has been submitted successfully! I appreciate your input and will review it soon.
+                <div class="success-modal" style="
+                    background: linear-gradient(145deg, 
+                        rgba(76, 175, 80, 0.95) 0%, 
+                        rgba(69, 160, 73, 0.95) 50%, 
+                        rgba(56, 142, 60, 0.95) 100%);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    padding: 50px 40px;
+                    border-radius: 25px;
+                    box-shadow: 
+                        0 25px 80px rgba(0, 0, 0, 0.4),
+                        0 0 0 1px rgba(255, 255, 255, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                    max-width: 480px;
+                    position: relative;
+                    overflow: hidden;
+                    animation: modalSlideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                ">
+                    <!-- Floating particles background -->
+                    <div style="
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: 
+                            radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                            radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                            radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+                        background-size: 100px 100px, 150px 150px, 80px 80px;
+                        animation: floatingParticles 20s ease-in-out infinite;
+                        pointer-events: none;
+                    "></div>
+                    
+                    <!-- Success icon with pulse animation -->
+                    <div style="
+                        font-size: 5rem; 
+                        margin-bottom: 25px; 
+                        animation: successPulse 2s ease-in-out infinite;
+                        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+                    ">✨</div>
+                    
+                    <!-- Title with gradient text -->
+                    <h2 style="
+                        margin: 0 0 20px 0; 
+                        color: white;
+                        font-size: 2.2rem;
+                        font-weight: 700;
+                        background: linear-gradient(135deg, #ffffff 0%, #e8f5e8 100%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        background-clip: text;
+                        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                        animation: titleGlow 3s ease-in-out infinite;
+                    ">Feedback Received!</h2>
+                    
+                    <!-- Message with enhanced typography -->
+                    <p style="
+                        margin: 0 0 30px 0; 
+                        font-size: 1.15rem; 
+                        color: rgba(255, 255, 255, 0.95); 
+                        line-height: 1.6;
+                        font-weight: 300;
+                        letter-spacing: 0.3px;
+                        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+                    ">
+                        Thank you for taking the time to share your thoughts! Your valuable feedback helps me improve and create better experiences. I'll review your message and get back to you soon.
                     </p>
+                    
+                    <!-- Decorative elements -->
+                    <div style="
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-bottom: 25px;
+                        gap: 15px;
+                    ">
+                        <div style="
+                            font-size: 1.5rem;
+                            animation: bounce 2s ease-in-out infinite;
+                            animation-delay: 0s;
+                        ">💬</div>
+                        <div style="
+                            font-size: 1.8rem;
+                            animation: bounce 2s ease-in-out infinite;
+                            animation-delay: 0.2s;
+                        ">💝</div>
+                        <div style="
+                            font-size: 1.5rem;
+                            animation: bounce 2s ease-in-out infinite;
+                            animation-delay: 0.4s;
+                        ">🚀</div>
+                    </div>
+                    
+                    <!-- Enhanced close button -->
                     <button onclick="this.parentElement.parentElement.remove()" 
-                            style="background: white; color: #4CAF50; border: none; padding: 12px 24px; 
-                                   border-radius: 25px; cursor: pointer; font-weight: bold; 
-                                   transition: all 0.3s ease;">
-                        Close
+                        style="
+                            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+                            color: #4CAF50;
+                            border: none;
+                            padding: 14px 32px;
+                            border-radius: 30px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            font-size: 1rem;
+                            letter-spacing: 0.5px;
+                            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                            box-shadow: 
+                                0 4px 15px rgba(0, 0, 0, 0.1),
+                                0 2px 4px rgba(0, 0, 0, 0.1);
+                            position: relative;
+                            overflow: hidden;
+                        "
+                        onmouseover="
+                            this.style.transform = 'translateY(-2px) scale(1.05)';
+                            this.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1)';
+                        "
+                        onmouseout="
+                            this.style.transform = 'translateY(0) scale(1)';
+                            this.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1)';
+                        ">
+                        Got it! ✨
                     </button>
                 </div>
+                
+                <!-- CSS Animations -->
+                <style>
+                    @keyframes overlayFadeIn {
+                        from { opacity: 0; }
+                        to { opacity: 1; }
+                    }
+                    
+                    @keyframes modalSlideUp {
+                        from { 
+                            transform: translateY(50px) scale(0.9);
+                            opacity: 0;
+                        }
+                        to { 
+                            transform: translateY(0) scale(1);
+                            opacity: 1;
+                        }
+                    }
+                    
+                    @keyframes successPulse {
+                        0%, 100% { 
+                            transform: scale(1) rotate(0deg);
+                            opacity: 1;
+                        }
+                        50% { 
+                            transform: scale(1.1) rotate(5deg);
+                            opacity: 0.9;
+                        }
+                    }
+                    
+                    @keyframes titleGlow {
+                        0%, 100% { 
+                            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                        }
+                        50% { 
+                            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1);
+                        }
+                    }
+                    
+                    @keyframes bounce {
+                        0%, 20%, 50%, 80%, 100% { 
+                            transform: translateY(0);
+                        }
+                        40% { 
+                            transform: translateY(-10px);
+                        }
+                        60% { 
+                            transform: translateY(-5px);
+                        }
+                    }
+                    
+                    @keyframes floatingParticles {
+                        0% { transform: translateY(0px) translateX(0px); }
+                        33% { transform: translateY(-10px) translateX(5px); }
+                        66% { transform: translateY(5px) translateX(-3px); }
+                        100% { transform: translateY(0px) translateX(0px); }
+                    }
+                </style>
             `;
             
             document.body.appendChild(successOverlay);
             
+            // Auto-close with fade out animation
             setTimeout(() => {
                 if (document.body.contains(successOverlay)) {
-                    successOverlay.remove();
+                    successOverlay.style.animation = 'overlayFadeIn 0.4s ease-out reverse';
+                    setTimeout(() => {
+                        if (document.body.contains(successOverlay)) {
+                            successOverlay.remove();
+                        }
+                    }, 400);
                 }
-            }, 6000);
+            }, 8000);
         }
         // Function to show feedback error
         function showFeedbackError(message) {
@@ -1792,4 +1968,84 @@ createItemsOnSphere();
                     errorOverlay.remove();
                 }
             }, 8000);
+        }
+
+        // Dropdown arrow management for donation form
+        function initDropdownArrows() {
+            const donationAmountSelect = document.getElementById('donationAmount');
+            
+            if (donationAmountSelect) {
+                // Function to update arrow direction
+                function updateArrow(isOpen) {
+                    const arrowIcon = donationAmountSelect.style;
+                    if (isOpen) {
+                        arrowIcon.setProperty('background-image', 
+                            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ffffff' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>\")",
+                            'important'
+                        );
+                    } else {
+                        arrowIcon.setProperty('background-image', 
+                            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ffffff' viewBox='0 0 16 16'><path d='m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z'/></svg>\")",
+                            'important'
+                        );
+                    }
+                }
+
+                // Track dropdown state
+                let isDropdownOpen = false;
+
+                // Mouse events
+                donationAmountSelect.addEventListener('mousedown', function(e) {
+                    // Prevent the dropdown from closing immediately
+                    e.stopPropagation();
+                    isDropdownOpen = !isDropdownOpen;
+                    updateArrow(isDropdownOpen);
+                });
+
+                // Focus events
+                donationAmountSelect.addEventListener('focus', function() {
+                    isDropdownOpen = true;
+                    updateArrow(true);
+                });
+
+                donationAmountSelect.addEventListener('blur', function() {
+                    // Small delay to allow selection to register
+                    setTimeout(() => {
+                        isDropdownOpen = false;
+                        updateArrow(false);
+                    }, 150);
+                });
+
+                // Change event (when user selects an option)
+                donationAmountSelect.addEventListener('change', function() {
+                    isDropdownOpen = false;
+                    updateArrow(false);
+                });
+
+                // Keyboard events
+                donationAmountSelect.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' || e.key === 'Enter') {
+                        isDropdownOpen = false;
+                        updateArrow(false);
+                        if (e.key === 'Escape') {
+                            this.blur();
+                        }
+                    }
+                });
+
+                // Click outside to close
+                document.addEventListener('click', function(e) {
+                    if (!donationAmountSelect.contains(e.target)) {
+                        isDropdownOpen = false;
+                        updateArrow(false);
+                    }
+                });
+            }
+        }
+
+        // Initialize dropdown arrows when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initDropdownArrows);
+        } else {
+            initDropdownArrows();
         }
