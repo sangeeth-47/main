@@ -1,3 +1,8 @@
+// Mobile detection function (global scope)
+function isMobile() {
+    return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 // smooth scroll
 $(document).ready(function(){
     // Enhanced smooth scroll for navbar, hamburger menu, and action buttons
@@ -29,11 +34,6 @@ $(document).ready(function(){
         if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
         return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
     };
-
-    // Mobile detection function (global scope)
-    function isMobile() {
-        return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    }
 
     // Service Card Random Text Reveal Effect
     function initServiceCardEffect() {
@@ -1453,207 +1453,151 @@ setInterval(() => {
 window.addEventListener('resize', createItemsOnSphere);
 createItemsOnSphere();
 
-// Razor Pay Donation Configuration
-        document.getElementById('donate-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            showAmountSelection();
-        });
-        
-        // Function to show amount selection
-        function showAmountSelection() {
-            var amountModal = document.createElement('div');
-            amountModal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 10000;
-                color: white;
-                font-family: Arial, sans-serif;
-            `;
-            
-            amountModal.innerHTML = `
-                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 450px; text-align: center;">
-                    <h3 style="margin: 0 0 20px 0; color: white;">Choose Donation Amount</h3>
-                    <p style="margin: 0 0 30px 0; color: rgba(255,255,255,0.8); font-size: 14px;">
-                        Your support helps me continue developing amazing projects!
-                    </p>
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px;">
-                        <button class="amount-btn" data-amount="2500" style="padding: 15px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; cursor: pointer; font-weight: bold; transition: all 0.3s ease;">₹25</button>
-                        <button class="amount-btn" data-amount="5000" style="padding: 15px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; cursor: pointer; font-weight: bold; transition: all 0.3s ease;">₹50</button>
-                        <button class="amount-btn" data-amount="10000" style="padding: 15px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; cursor: pointer; font-weight: bold; transition: all 0.3s ease;">₹100</button>
-                        <button class="amount-btn" data-amount="20000" style="padding: 15px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; cursor: pointer; font-weight: bold; transition: all 0.3s ease;">₹200</button>
-                        <button class="amount-btn" data-amount="50000" style="padding: 15px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; cursor: pointer; font-weight: bold; transition: all 0.3s ease;">₹500</button>
-                        <button class="amount-btn" data-amount="100000" style="padding: 15px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; cursor: pointer; font-weight: bold; transition: all 0.3s ease;">₹1000</button>
-                    </div>
-                    <div style="margin-bottom: 25px;">
-                        <label style="display: block; margin-bottom: 10px; color: rgba(255,255,255,0.9);">Or enter custom amount:</label>
-                        <input type="number" id="custom-amount" placeholder="Enter amount" min="1" 
-                               style="width: 100%; padding: 12px; border-radius: 8px; border: none; background: rgba(255,255,255,0.9); 
-                                      text-align: center; font-size: 16px; box-sizing: border-box;">
-                    </div>
-                    <div style="display: flex; gap: 15px; justify-content: center;">
-                        <button onclick="this.parentElement.parentElement.parentElement.remove()" 
-                                style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); 
-                                       padding: 12px 24px; border-radius: 25px; cursor: pointer; font-weight: bold;">
-                            Cancel
-                        </button>
-                        <button id="proceed-payment" 
-                                style="background: linear-gradient(135deg, #7e05f0 0%, #a200ff 100%); color: white; border: none; 
-                                       padding: 12px 24px; border-radius: 25px; cursor: pointer; font-weight: bold;">
-                            Proceed to Payment
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(amountModal);
-            
-            // Add click events for amount buttons
-            var selectedAmount = null;
-            amountModal.querySelectorAll('.amount-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    amountModal.querySelectorAll('.amount-btn').forEach(b => {
-                        b.style.background = 'rgba(255,255,255,0.1)';
-                        b.style.borderColor = 'rgba(255,255,255,0.3)';
-                    });
-                    // Add active style to clicked button
-                    this.style.background = 'rgba(255,255,255,0.3)';
-                    this.style.borderColor = 'white';
-                    selectedAmount = this.dataset.amount;
-                    // Clear custom amount
-                    document.getElementById('custom-amount').value = '';
-                });
-                
-                // Add hover effects
-                btn.addEventListener('mouseenter', function() {
-                    if (this.dataset.amount !== selectedAmount) {
-                        this.style.background = 'rgba(255,255,255,0.2)';
-                    }
-                });
-                btn.addEventListener('mouseleave', function() {
-                    if (this.dataset.amount !== selectedAmount) {
-                        this.style.background = 'rgba(255,255,255,0.1)';
-                    }
-                });
-            });
-            
-            // Proceed to payment
-            document.getElementById('proceed-payment').onclick = function() {
-                var customAmount = document.getElementById('custom-amount').value;
-                var finalAmount = selectedAmount;
-                
-                if (customAmount && customAmount > 0) {
-                    finalAmount = customAmount * 100; // Convert to paise
-                } else if (!selectedAmount) {
-                    alert('Please select an amount or enter a custom amount');
-                    return;
-                }
-                
-                amountModal.remove();
-                initiateRazorPayPayment(finalAmount);
-            };
-        }
-        
-        // Function to initiate Razor Pay payment
-        function initiateRazorPayPayment(amount) {
-            var options = {
-                "key": "rzp_test_YOUR_KEY_ID", // Replace with your actual Razor Pay Key ID
-                "amount": amount,
-                "currency": "INR",
-                "name": "Sangeeth M K",
-                "description": "Support My Development Journey",
-                "image": "assets/icons/favicon-32x32.png",
-                "handler": function (response) {
-                    // Payment success handler
-                    console.log("Payment Success:", response);
-                    showDonationThankYou();
-                    
-                    // Optional: Send payment details to your server for verification
-                    // You can add server-side verification here
-                },
-                "prefill": {
-                    "name": "",
-                    "email": "",
-                    "contact": ""
-                },
-                "notes": {
-                    "purpose": "Donation for supporting development work",
-                    "amount": amount / 100
-                },
-                "theme": {
-                    "color": "#7e05f0"
-                },
-                "modal": {
-                    "ondismiss": function() {
-                        console.log("Payment dialog closed by user");
-                    }
-                }
-            };
-            
-            var rzp = new Razorpay(options);
-            rzp.on('payment.failed', function (response) {
-                console.log("Payment Failed:", response.error);
-                alert('Payment failed: ' + response.error.description);
-            });
-            rzp.open();
-        }
-        
-        // Function to show thank you message
-        function showDonationThankYou() {
-            var thankYouOverlay = document.createElement('div');
-            thankYouOverlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 10000;
-                color: white;
-                text-align: center;
-                font-family: Arial, sans-serif;
-            `;
-            
-            thankYouOverlay.innerHTML = `
-                <div style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); padding: 40px; border-radius: 20px; 
-                            box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 400px; animation: donationSuccess 0.6s ease-out;">
-                    <div style="font-size: 4rem; margin-bottom: 20px;">🙏</div>
-                    <h2 style="margin: 0 0 15px 0; color: white;">Thank You!</h2>
-                    <p style="margin: 0 0 20px 0; font-size: 1.1rem; color: rgba(255,255,255,0.9); line-height: 1.5;">
-                        Your generous donation helps me continue creating and improving projects. I truly appreciate your support!
-                    </p>
-                    <div style="margin-bottom: 20px;">
-                        <div style="font-size: 2rem;">❤️</div>
-                    </div>
-                    <button onclick="this.parentElement.parentElement.remove()" 
-                            style="background: white; color: #4CAF50; border: none; padding: 12px 24px; 
-                                   border-radius: 25px; cursor: pointer; font-weight: bold; 
-                                   transition: all 0.3s ease;">
-                        Close
-                    </button>
-                </div>
-            `;
-            
-            document.body.appendChild(thankYouOverlay);
-            
-            // Auto-close after 8 seconds
-            setTimeout(() => {
-                if (document.body.contains(thankYouOverlay)) {
-                    thankYouOverlay.remove();
-                }
-            }, 8000);
-        }
+// Donation Button Logic
+document.getElementById('donate-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    showAmountSelection();
+});
 
+// Modal control functions
+function closeAmountModal() {
+    const amountModal = document.getElementById('amount-selection-modal');
+    const amountButtons = amountModal.querySelectorAll('.amount-btn');
+    const customAmountInput = document.getElementById('custom-amount');
+    
+    // Reset form state
+    amountButtons.forEach(btn => btn.classList.remove('selected'));
+    customAmountInput.value = '';
+    
+    // Hide modal
+    amountModal.style.display = 'none';
+}
+
+function closePaymentModal() {
+    const paymentModal = document.getElementById('payment-modal');
+    paymentModal.style.display = 'none';
+}
+
+function goBackToAmountSelection() {
+    const paymentModal = document.getElementById('payment-modal');
+    paymentModal.style.display = 'none';
+    showAmountSelection();
+}
+
+// Keyboard navigation for modals
+document.addEventListener('keydown', function(e) {
+    const amountModal = document.getElementById('amount-selection-modal');
+    const paymentModal = document.getElementById('payment-modal');
+    
+    if (e.key === 'Escape') {
+        if (paymentModal.style.display === 'flex') {
+            closePaymentModal();
+        } else if (amountModal.style.display === 'flex') {
+            closeAmountModal();
+        }
+    }
+    
+    // Back navigation with Backspace key (only when payment modal is open)
+    if (e.key === 'Backspace' && paymentModal.style.display === 'flex') {
+        // Only if not typing in an input field
+        if (!e.target.matches('input, textarea')) {
+            e.preventDefault();
+            goBackToAmountSelection();
+        }
+    }
+});
+
+// Show donation amount modal
+function showAmountSelection() {
+    const amountModal = document.getElementById('amount-selection-modal');
+    amountModal.style.display = 'flex';
+
+    let selectedAmount = null;
+    const amountButtons = amountModal.querySelectorAll('.amount-btn');
+    const customAmountInput = document.getElementById('custom-amount');
+    const proceedButton = document.getElementById('proceed-payment');
+
+    // Reset form state
+    amountButtons.forEach(btn => btn.classList.remove('selected'));
+    customAmountInput.value = '';
+    selectedAmount = null;
+
+    // Handle amount button clicks
+    amountButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Reset all buttons
+            amountButtons.forEach(b => b.classList.remove('selected'));
+            
+            // Style selected button
+            this.classList.add('selected');
+            
+            selectedAmount = this.dataset.amount;
+            customAmountInput.value = "";
+        });
+    });
+
+    // Handle custom amount input
+    customAmountInput.addEventListener('input', function() {
+        // Reset amount button selection when typing
+        amountButtons.forEach(b => b.classList.remove('selected'));
+        selectedAmount = null;
+    });
+
+    // Handle proceed button click
+    proceedButton.onclick = function() {
+        let customAmount = customAmountInput.value;
+        let finalAmount = customAmount || selectedAmount;
+        if (!finalAmount) {
+            alert("Please select or enter an amount");
+            return;
+        }
+        amountModal.style.display = 'none';
+        showUPIPayment(finalAmount);
+    };
+}
+
+// Show UPI QR & Link
+function showUPIPayment(amount) {
+    let upiId = "9400109413@yescred";  
+    let name = "Sangeeth M K";      // 🔹 Display name
+    let upiURL = `upi://pay?pa=9400109413@yescred&pn=Sangeeth&am=${amount}&cu=INR`;
+
+    // Get the payment modal elements
+    const paymentModal = document.getElementById('payment-modal');
+    const paymentSubtitle = document.getElementById('payment-modal-subtitle');
+    const merchantName = document.getElementById('merchant-name');
+    const merchantUpi = document.getElementById('merchant-upi');
+    const paymentAmount = document.getElementById('payment-amount');
+    const upiAppLink = document.getElementById('upi-app-link');
+    const qrContainer = document.getElementById('upi-qr');
+
+    // Update the content
+    paymentSubtitle.textContent = `Complete your donation of ₹${amount}`;
+    merchantName.textContent = name;
+    merchantUpi.textContent = upiId;
+    paymentAmount.textContent = `₹${amount}`;
+    upiAppLink.href = upiURL;
+
+    // Show/hide UPI app button based on device type
+    if (isMobile()) {
+        // Show UPI app button on mobile devices
+        upiAppLink.style.display = 'block';
+    } else {
+        // Hide UPI app button on PC/desktop
+        upiAppLink.style.display = 'none';
+    }
+
+    // Clear and regenerate QR code
+    qrContainer.innerHTML = '';
+    new QRCode("upi-qr", {
+        text: upiURL,
+        width: 160,
+        height: 160,
+    });
+
+    // Show the payment modal
+    paymentModal.style.display = 'flex';
+}
         
         // Feedback Form Handling
         document.getElementById('feedback-form').addEventListener('submit', async function(e) {
@@ -1707,265 +1651,33 @@ createItemsOnSphere();
         
         // Function to show feedback success
         function showFeedbackSuccess() {
-            const successOverlay = document.createElement('div');
-            successOverlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.85);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 10000;
-                color: white;
-                text-align: center;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                animation: overlayFadeIn 0.4s ease-out;
-            `;
+            const successModal = document.getElementById('feedback-success-modal');
+            successModal.style.display = 'flex';
             
-            successOverlay.innerHTML = `
-                <div class="success-modal" style="
-                    background: linear-gradient(145deg, 
-                        rgba(76, 175, 80, 0.95) 0%, 
-                        rgba(69, 160, 73, 0.95) 50%, 
-                        rgba(56, 142, 60, 0.95) 100%);
-                    border: 1px solid rgba(255, 255, 255, 0.2);
-                    padding: 50px 40px;
-                    border-radius: 25px;
-                    box-shadow: 
-                        0 25px 80px rgba(0, 0, 0, 0.4),
-                        0 0 0 1px rgba(255, 255, 255, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-                    max-width: 480px;
-                    position: relative;
-                    overflow: hidden;
-                    animation: modalSlideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                ">
-                    <!-- Floating particles background -->
-                    <div style="
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
-                        background: 
-                            radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-                            radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-                            radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-                        background-size: 100px 100px, 150px 150px, 80px 80px;
-                        animation: floatingParticles 20s ease-in-out infinite;
-                        pointer-events: none;
-                    "></div>
-                    
-                    <!-- Success icon with pulse animation -->
-                    <div style="
-                        font-size: 5rem; 
-                        margin-bottom: 25px; 
-                        animation: successPulse 2s ease-in-out infinite;
-                        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-                    ">✨</div>
-                    
-                    <!-- Title with gradient text -->
-                    <h2 style="
-                        margin: 0 0 20px 0; 
-                        color: white;
-                        font-size: 2.2rem;
-                        font-weight: 700;
-                        background: linear-gradient(135deg, #ffffff 0%, #e8f5e8 100%);
-                        -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        background-clip: text;
-                        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                        animation: titleGlow 3s ease-in-out infinite;
-                    ">Feedback Received!</h2>
-                    
-                    <!-- Message with enhanced typography -->
-                    <p style="
-                        margin: 0 0 30px 0; 
-                        font-size: 1.15rem; 
-                        color: rgba(255, 255, 255, 0.95); 
-                        line-height: 1.6;
-                        font-weight: 300;
-                        letter-spacing: 0.3px;
-                        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-                    ">
-                        Thank you for taking the time to share your thoughts! Your valuable feedback helps me improve and create better experiences. I'll review your message and get back to you soon.
-                    </p>
-                    
-                    <!-- Decorative elements -->
-                    <div style="
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        margin-bottom: 25px;
-                        gap: 15px;
-                    ">
-                        <div style="
-                            font-size: 1.5rem;
-                            animation: bounce 2s ease-in-out infinite;
-                            animation-delay: 0s;
-                        ">💬</div>
-                        <div style="
-                            font-size: 1.8rem;
-                            animation: bounce 2s ease-in-out infinite;
-                            animation-delay: 0.2s;
-                        ">💝</div>
-                        <div style="
-                            font-size: 1.5rem;
-                            animation: bounce 2s ease-in-out infinite;
-                            animation-delay: 0.4s;
-                        ">🚀</div>
-                    </div>
-                    
-                    <!-- Enhanced close button -->
-                    <button onclick="this.parentElement.parentElement.remove()" 
-                        style="
-                            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-                            color: #4CAF50;
-                            border: none;
-                            padding: 14px 32px;
-                            border-radius: 30px;
-                            cursor: pointer;
-                            font-weight: 600;
-                            font-size: 1rem;
-                            letter-spacing: 0.5px;
-                            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                            box-shadow: 
-                                0 4px 15px rgba(0, 0, 0, 0.1),
-                                0 2px 4px rgba(0, 0, 0, 0.1);
-                            position: relative;
-                            overflow: hidden;
-                        "
-                        onmouseover="
-                            this.style.transform = 'translateY(-2px) scale(1.05)';
-                            this.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1)';
-                        "
-                        onmouseout="
-                            this.style.transform = 'translateY(0) scale(1)';
-                            this.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1)';
-                        ">
-                        Got it! ✨
-                    </button>
-                </div>
-                
-                <!-- CSS Animations -->
-                <style>
-                    @keyframes overlayFadeIn {
-                        from { opacity: 0; }
-                        to { opacity: 1; }
-                    }
-                    
-                    @keyframes modalSlideUp {
-                        from { 
-                            transform: translateY(50px) scale(0.9);
-                            opacity: 0;
-                        }
-                        to { 
-                            transform: translateY(0) scale(1);
-                            opacity: 1;
-                        }
-                    }
-                    
-                    @keyframes successPulse {
-                        0%, 100% { 
-                            transform: scale(1) rotate(0deg);
-                            opacity: 1;
-                        }
-                        50% { 
-                            transform: scale(1.1) rotate(5deg);
-                            opacity: 0.9;
-                        }
-                    }
-                    
-                    @keyframes titleGlow {
-                        0%, 100% { 
-                            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                        }
-                        50% { 
-                            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1);
-                        }
-                    }
-                    
-                    @keyframes bounce {
-                        0%, 20%, 50%, 80%, 100% { 
-                            transform: translateY(0);
-                        }
-                        40% { 
-                            transform: translateY(-10px);
-                        }
-                        60% { 
-                            transform: translateY(-5px);
-                        }
-                    }
-                    
-                    @keyframes floatingParticles {
-                        0% { transform: translateY(0px) translateX(0px); }
-                        33% { transform: translateY(-10px) translateX(5px); }
-                        66% { transform: translateY(5px) translateX(-3px); }
-                        100% { transform: translateY(0px) translateX(0px); }
-                    }
-                </style>
-            `;
-            
-            document.body.appendChild(successOverlay);
-            
-            // Auto-close with fade out animation
+            // Auto-close after 8 seconds
             setTimeout(() => {
-                if (document.body.contains(successOverlay)) {
-                    successOverlay.style.animation = 'overlayFadeIn 0.4s ease-out reverse';
+                if (successModal.style.display === 'flex') {
+                    successModal.style.animation = 'overlayFadeIn 0.4s ease-out reverse';
                     setTimeout(() => {
-                        if (document.body.contains(successOverlay)) {
-                            successOverlay.remove();
-                        }
+                        successModal.style.display = 'none';
+                        successModal.style.animation = '';
                     }, 400);
                 }
             }, 8000);
         }
+
         // Function to show feedback error
         function showFeedbackError(message) {
-            const errorOverlay = document.createElement('div');
-            errorOverlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 10000;
-                color: white;
-                text-align: center;
-                font-family: Arial, sans-serif;
-            `;
+            const errorModal = document.getElementById('feedback-error-modal');
+            const errorMessage = document.getElementById('feedback-error-message');
             
-            errorOverlay.innerHTML = `
-                <div style="background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%); padding: 40px; border-radius: 20px; 
-                            box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 400px;">
-                    <div style="font-size: 4rem; margin-bottom: 20px;">❌</div>
-                    <h2 style="margin: 0 0 15px 0; color: white;">Oops!</h2>
-                    <p style="margin: 0 0 20px 0; font-size: 1rem; color: rgba(255,255,255,0.9); line-height: 1.5;">
-                        ${message}
-                    </p>
-                    <button onclick="this.parentElement.parentElement.remove()" 
-                            style="background: white; color: #f44336; border: none; padding: 12px 24px; 
-                                   border-radius: 25px; cursor: pointer; font-weight: bold; 
-                                   transition: all 0.3s ease;">
-                        Close
-                    </button>
-                </div>
-            `;
+            errorMessage.textContent = message;
+            errorModal.style.display = 'flex';
             
-            document.body.appendChild(errorOverlay);
-            
+            // Auto-close after 8 seconds
             setTimeout(() => {
-                if (document.body.contains(errorOverlay)) {
-                    errorOverlay.remove();
+                if (errorModal.style.display === 'flex') {
+                    errorModal.style.display = 'none';
                 }
             }, 8000);
         }

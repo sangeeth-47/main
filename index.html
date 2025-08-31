@@ -787,6 +787,140 @@
         </div>
         
     </div><!-- end of container -->
+    <!-- Donation Modals (Hidden by default) -->
+    <!-- Amount Selection Modal -->
+    <div id="amount-selection-modal" class="donation-overlay" style="display: none;">
+        <div class="donation-modal">
+            <!-- Header -->
+            <div class="donation-modal-header">
+                <button class="donation-close-btn" onclick="closeAmountModal()">×</button>
+                <div class="donation-modal-title">Select Amount</div>
+                <div class="donation-modal-subtitle">Choose your donation amount</div>
+            </div>
+            
+            <!-- Body -->
+            <div class="donation-modal-body">
+                <!-- Amount Grid -->
+                <div class="donation-amount-grid">
+                    <button class="amount-btn" data-amount="25">₹25</button>
+                    <button class="amount-btn" data-amount="50">₹50</button>
+                    <button class="amount-btn" data-amount="100">₹100</button>
+                    <button class="amount-btn" data-amount="200">₹200</button>
+                    <button class="amount-btn" data-amount="500">₹500</button>
+                    <button class="amount-btn" data-amount="1000">₹1000</button>
+                </div>
+                
+                <!-- Custom Amount Input -->
+                <div class="donation-custom-amount">
+                    <label class="donation-amount-label">Enter custom amount</label>
+                    <input type="number" id="custom-amount" class="donation-amount-input" placeholder="Enter amount" min="1">
+                </div>
+                
+                <!-- Proceed Button -->
+                <button id="proceed-payment" class="donation-proceed-btn">Proceed to Pay</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="donation-overlay" style="display: none;">
+        <div class="payment-modal">
+            <!-- Header -->
+            <div class="payment-modal-header">
+                <button class="donation-back-btn" onclick="goBackToAmountSelection()" title="Back to Amount Selection">←</button>
+                <button class="donation-close-btn" onclick="closePaymentModal()">×</button>
+                <div class="payment-modal-title">Payment Details</div>
+                <div id="payment-modal-subtitle" class="payment-modal-subtitle">Complete your donation</div>
+            </div>
+            
+            <!-- Payment Content -->
+            <div class="payment-content">
+                <!-- Main Payment Layout - Left: Details, Right: QR -->
+                <div class="payment-layout">
+                    <!-- Left Side - Payment Details -->
+                    <div class="payment-details">
+                        <!-- Merchant Info -->
+                        <div class="merchant-info">
+                            <div class="merchant-label">Pay to</div>
+                            <div id="merchant-name" class="merchant-name">Sangeeth</div>
+                            <div id="merchant-upi" class="merchant-upi">9400109413@yescred</div>
+                        </div>
+                        
+                        <!-- Amount Display -->
+                        <div class="amount-display">
+                            <div class="amount-label">Amount to Pay</div>
+                            <div id="payment-amount" class="amount-value">₹0</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Side - QR Code -->
+                    <div class="qr-section">
+                        <div class="qr-container">
+                            <div class="qr-title">Scan QR Code</div>
+                            <div id="upi-qr" class="qr-code"></div>
+                            <div class="qr-subtitle">Use any UPI app to scan</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Divider -->
+                <div class="payment-divider">
+                    <div class="payment-divider-line"></div>
+                    <div class="payment-divider-text">OR</div>
+                    <div class="payment-divider-line"></div>
+                </div>
+                
+                <!-- UPI App Button -->
+                <a id="upi-app-link" href="#" class="upi-app-btn">
+                    📱 Open UPI App Directly
+                </a>
+                
+                <!-- Security Note -->
+                <div class="payment-security-note">
+                    🔒 Secure payment powered by UPI
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Success Modal -->
+    <div id="feedback-success-modal" class="feedback-overlay" style="display: none;">
+        <div class="feedback-success-modal">
+            <div class="feedback-particles-bg"></div>
+            
+            <div class="feedback-success-icon">✨</div>
+            
+            <h2 class="feedback-success-title">Feedback Received!</h2>
+            
+            <p class="feedback-success-message">
+                Thank you for taking the time to share your thoughts! Your valuable feedback helps me improve and create better experiences. I'll review your message and get back to you soon.
+            </p>
+            
+            <div class="feedback-decorative-icons">
+                <div class="feedback-icon-1">💬</div>
+                <div class="feedback-icon-2">💝</div>
+                <div class="feedback-icon-3">🚀</div>
+            </div>
+            
+            <button class="feedback-success-btn" onclick="document.getElementById('feedback-success-modal').style.display = 'none'">
+                Got it! ✨
+            </button>
+        </div>
+    </div>
+
+    <!-- Feedback Error Modal -->
+    <div id="feedback-error-modal" class="feedback-overlay" style="display: none;">
+        <div class="feedback-error-modal">
+            <div class="feedback-error-icon">❌</div>
+            <h2 class="feedback-error-title">Oops!</h2>
+            <p id="feedback-error-message" class="feedback-error-message">
+                An error occurred while submitting your feedback.
+            </p>
+            <button class="feedback-error-btn" onclick="document.getElementById('feedback-error-modal').style.display = 'none'">
+                Close
+            </button>
+        </div>
+    </div>
 </section><!-- end of contact section -->
 
     <!-- footer -->
@@ -810,7 +944,7 @@
     <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
     <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
     <script src="assets/js/sangeeth.js"></script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="assets/vendors/qr.js"></script>
     <!-- SVG Animation Script -->
     <script>
         // Function to initialize SVG animation
