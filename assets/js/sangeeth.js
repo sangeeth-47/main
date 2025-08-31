@@ -1560,7 +1560,7 @@ function showAmountSelection() {
 function showUPIPayment(amount) {
     let upiId = "9400109413@yescred";  
     let name = "SANGEETH M K";      // 🔹 Display name
-    let upiURL = `upi://pay?pa=9400109413@yescred&pn=Sangeeth&am=${amount}&cu=INR`;
+    let upiURL = `upi://pay?pa=9400109413@yescred&pn=SANGEETH M K&am=${amount}&cu=INR`;
 
     // Get the payment modal elements
     const paymentModal = document.getElementById('payment-modal');
