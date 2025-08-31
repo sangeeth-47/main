@@ -46,9 +46,9 @@
                 <li class="item">
                     <a class="link" href="#certifications">Certifications</a>
                 </li>
-                <li class="item">
+                <!-- <li class="item">
                     <a class="link" href="#testimonial">Testimonial</a>
-                </li>
+                </li> -->
                 <li class="item">
                     <a class="link" href="#contact">Contact</a>
                 </li>
@@ -757,11 +757,19 @@
                                       placeholder="🥰 I’d love to hear from you..."></textarea>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary feedback-submit-btn">
-                                <i class="ti-comment"></i>
+                            <button type="submit" id="submitfeedback-btn" class="btn btn-primary feedback-submit-btn">
+                                <lord-icon
+                                    id="chat-icon-anim"
+                                    class="chat-icon"
+                                    src="assets/icons/chat.json"
+                                    trigger="hover"
+                                    colors="primary:#ffffff,secondary:#e74c3c"
+                                    style="width:25px;height:25px">
+                                </lord-icon>
                                 <span class="btn-text">Submit Feedback</span>
                                 <span class="btn-loading" style="display: none;">
-                                    <i class="ti-reload"></i> Submitting...
+                                    <div class="loading-spinner"></div>
+                                    <span class="submitting-text">Submitting...</span>
                                 </span>
                             </button>
                         </div>
@@ -779,7 +787,15 @@
                         <h5>Support My Work</h5>
                         <p class="text-muted">If you find my projects helpful or inspiring, consider supporting my development journey!</p>
                         <button id="donate-btn" class="btn btn-primary donation-btn">
-                            <i class="ti-gift"></i> Donate Now
+                            <lord-icon
+                            id="coffee-icon-anim"
+                            class="coffee-icon"
+                            src="assets/icons/coffee.json"
+                            trigger="in"
+                            state="in-reveal"
+                            colors="primary:#ffffff,secondary:#e74c3c"
+                            style="width:25px;height:25px">
+                        </lord-icon> Buy Me a Coffee
                         </button>
                     </div>
                 </div>
@@ -945,6 +961,7 @@
     <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
     <script src="assets/js/sangeeth.js"></script>
     <script src="assets/vendors/qr.js"></script>
+    <script src="assets/vendors/lordicon.js"></script>
     <!-- SVG Animation Script -->
     <script>
         // Function to initialize SVG animation
