@@ -2295,12 +2295,12 @@ section#Hands {
 
 .payment-security-note {
   font-size: 11px;
-  color: #9ca3af;
+  color: #047857; /* dark green text */
   text-align: center;
   padding: 8px;
-  background: #f8fafc;
+  background: #ecfdf5; /* light green background */
   border-radius: 6px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #6ee7b7; /* soft green border */
 }
 
 .donation-section {
