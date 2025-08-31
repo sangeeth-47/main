@@ -1782,40 +1782,4 @@ function showUPIPayment(amount) {
                     }
                 });
             }
-            
-            // Submit Feedback Chat Icon Hover Animation
-            const submitFeedbackBtn = document.getElementById('submitfeedback-btn');
-            const chatIcon = document.getElementById('chat-icon-anim');
-            
-            if (submitFeedbackBtn && chatIcon) {
-                submitFeedbackBtn.addEventListener('mouseenter', function() {
-                    console.log('Submit feedback button hovered, triggering chat icon animation');
-                    // Try to play the lord-icon animation
-                    if (chatIcon.playerInstance) {
-                        chatIcon.playerInstance.play();
-                    } else {
-                        // Force trigger the hover animation
-                        chatIcon.trigger = 'hover';
-                        chatIcon.setAttribute('trigger', 'hover');
-                    }
-                });
-                
-                // Alternative method - directly trigger the lord-icon
-                submitFeedbackBtn.addEventListener('mouseover', function() {
-                    console.log('Submit feedback mouseover, triggering chat icon');
-                    chatIcon.setAttribute('trigger', 'hover');
-                    // Manually dispatch hover event to the icon
-                    const hoverEvent = new Event('mouseenter', { bubbles: true });
-                    chatIcon.dispatchEvent(hoverEvent);
-                });
-                
-                // Reset trigger on mouse leave to allow re-triggering
-                submitFeedbackBtn.addEventListener('mouseleave', function() {
-                    chatIcon.setAttribute('trigger', 'hover');
-                });
-            } else {
-                console.log('Submit feedback button or chat icon not found');
-                console.log('submitFeedbackBtn:', submitFeedbackBtn);
-                console.log('chatIcon:', chatIcon);
-            }
         });
