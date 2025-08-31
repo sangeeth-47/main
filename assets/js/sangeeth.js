@@ -1570,6 +1570,7 @@ function showUPIPayment(amount) {
     const paymentAmount = document.getElementById('payment-amount');
     const upiAppLink = document.getElementById('upi-app-link');
     const qrContainer = document.getElementById('upi-qr');
+    const paymentdivider = document.querySelector('.payment-divider');
 
     // Update the content
     paymentSubtitle.textContent = `Complete your donation of ₹${amount}`;
@@ -1582,9 +1583,11 @@ function showUPIPayment(amount) {
     if (isMobile()) {
         // Show UPI app button on mobile devices
         upiAppLink.style.display = 'block';
+        paymentdivider.style.display = '';
     } else {
         // Hide UPI app button on PC/desktop
         upiAppLink.style.display = 'none';
+        paymentdivider.style.display = 'none';
     }
 
     // Clear and regenerate QR code
