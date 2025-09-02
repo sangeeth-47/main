@@ -626,6 +626,16 @@ pre code {
   margin-left: auto;
 }
 
+/* Lord Icon Positioning - Next to Hands on Experience Text */
+#Hands .section-title lord-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 15px;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+
 /* Social Contact Section Styles */
 #contact {
     position: relative;
@@ -1171,6 +1181,7 @@ section#Hands {
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0);
   padding: 2rem 0;
+  position: relative;
 }
 #Hands .section-title {
         font-size: 2.2rem;
@@ -2430,6 +2441,288 @@ section#Hands {
 
 .donation-success {
   animation: donationSuccess 0.6s ease-out;
+}
+.mouse-container {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* Mouse shape */
+    .mouse {
+      width: 40px;
+      height: 65px;
+      border: 2px solid #fff;
+      border-radius: 20px;
+      position: relative;
+      animation: mouseMove 2s infinite ease-in-out;
+      z-index: 3;
+    }
+
+    /* Scroll wheel */
+    .mouse::before {
+      content: '';
+      width: 6px;
+      height: 16px;
+      background: #fff;
+      border-radius: 3px;
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Shadow for realism */
+    .shadow {
+      width: 50px;
+      height: 10px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      margin-top: 8px;
+      animation: shadowMove 2s infinite ease-in-out;
+    }
+
+    .hint {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #bdbdbd;
+      text-align: center;
+    }
+
+    /* Animations */
+    @keyframes mouseMove {
+      0%   { transform: translateX(-20px); }
+      50%  { transform: translateX(20px); }
+      100% { transform: translateX(-20px); }
+    }
+
+    @keyframes shadowMove {
+      0%   { transform: translateX(-20px) scaleX(0.9); }
+      50%  { transform: translateX(20px) scaleX(1.1); }
+      100% { transform: translateX(-20px) scaleX(0.9); }
+    }
+
+/* Mouse Container Responsive Styles */
+
+/* Large screens (desktop) - default styles already applied */
+@media (min-width: 992px) {
+  .mouse-container {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .mouse {
+    width: 40px;
+    height: 65px;
+    border: 2px solid #fff;
+  }
+  
+  .mouse::before {
+    width: 6px;
+    height: 16px;
+    top: 12px;
+  }
+  
+  .shadow {
+    width: 50px;
+    height: 10px;
+  }
+  
+  .hint {
+    font-size: 11px;
+    margin-top: 10px;
+  }
+  
+  @keyframes mouseMove {
+    0%   { transform: translateX(-20px); }
+    50%  { transform: translateX(20px); }
+    100% { transform: translateX(-20px); }
+  }
+
+  @keyframes shadowMove {
+    0%   { transform: translateX(-20px) scaleX(0.9); }
+    50%  { transform: translateX(20px) scaleX(1.1); }
+    100% { transform: translateX(-20px) scaleX(0.9); }
+  }
+}
+
+/* Medium screens (tablets) */
+@media (max-width: 991.98px) and (min-width: 768px) {
+  .mouse-container {
+    bottom: 15px;
+    right: 15px;
+  }
+  
+  .mouse {
+    width: 35px;
+    height: 55px;
+    border: 2px solid #fff;
+  }
+  
+  .mouse::before {
+    width: 5px;
+    height: 14px;
+    top: 10px;
+  }
+  
+  .shadow {
+    width: 42px;
+    height: 8px;
+  }
+  
+  .hint {
+    font-size: 10px;
+    margin-top: 8px;
+  }
+  
+  @keyframes mouseMove {
+    0%   { transform: translateX(-15px); }
+    50%  { transform: translateX(15px); }
+    100% { transform: translateX(-15px); }
+  }
+
+  @keyframes shadowMove {
+    0%   { transform: translateX(-15px) scaleX(0.9); }
+    50%  { transform: translateX(15px) scaleX(1.1); }
+    100% { transform: translateX(-15px) scaleX(0.9); }
+  }
+}
+
+/* Small screens (mobile landscape) */
+@media (max-width: 767.98px) and (min-width: 576px) {
+  .mouse-container {
+    bottom: 12px;
+    right: 12px;
+  }
+  
+  .mouse {
+    width: 30px;
+    height: 48px;
+    border: 1.5px solid #fff;
+    border-radius: 15px;
+  }
+  
+  .mouse::before {
+    width: 4px;
+    height: 12px;
+    top: 8px;
+    border-radius: 2px;
+  }
+  
+  .shadow {
+    width: 36px;
+    height: 7px;
+  }
+  
+  .hint {
+    font-size: 9px;
+    margin-top: 6px;
+  }
+  
+  @keyframes mouseMove {
+    0%   { transform: translateX(-12px); }
+    50%  { transform: translateX(12px); }
+    100% { transform: translateX(-12px); }
+  }
+
+  @keyframes shadowMove {
+    0%   { transform: translateX(-12px) scaleX(0.9); }
+    50%  { transform: translateX(12px) scaleX(1.1); }
+    100% { transform: translateX(-12px) scaleX(0.9); }
+  }
+}
+
+/* Extra small screens (mobile portrait) */
+@media (max-width: 575.98px) {
+  .mouse-container {
+    bottom: 10px;
+    right: 8px;
+  }
+  
+  .mouse {
+    width: 25px;
+    height: 40px;
+    border: 1px solid #fff;
+    border-radius: 12px;
+  }
+  
+  .mouse::before {
+    width: 3px;
+    height: 10px;
+    top: 6px;
+    border-radius: 1.5px;
+  }
+  
+  .shadow {
+    width: 30px;
+    height: 6px;
+  }
+  
+  .hint {
+    font-size: 8px;
+    margin-top: 5px;
+  }
+  
+  @keyframes mouseMove {
+    0%   { transform: translateX(-8px); }
+    50%  { transform: translateX(8px); }
+    100% { transform: translateX(-8px); }
+  }
+
+  @keyframes shadowMove {
+    0%   { transform: translateX(-8px) scaleX(0.9); }
+    50%  { transform: translateX(8px) scaleX(1.1); }
+    100% { transform: translateX(-8px) scaleX(0.9); }
+  }
+}
+
+/* Very small screens (very small mobile devices) */
+@media (max-width: 374px) {
+  .mouse-container {
+    bottom: 8px;
+    right: 6px;
+  }
+  
+  .mouse {
+    width: 20px;
+    height: 32px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+  }
+  
+  .mouse::before {
+    width: 2px;
+    height: 8px;
+    top: 5px;
+    border-radius: 1px;
+  }
+  
+  .shadow {
+    width: 24px;
+    height: 5px;
+  }
+  
+  .hint {
+    font-size: 7px;
+    margin-top: 4px;
+  }
+  
+  @keyframes mouseMove {
+    0%   { transform: translateX(-6px); }
+    50%  { transform: translateX(6px); }
+    100% { transform: translateX(-6px); }
+  }
+
+  @keyframes shadowMove {
+    0%   { transform: translateX(-6px) scaleX(0.9); }
+    50%  { transform: translateX(6px) scaleX(1.1); }
+    100% { transform: translateX(-6px) scaleX(0.9); }
+  }
 }
 
 @media (min-width: 576px) {
@@ -14016,5 +14309,11 @@ backdrop-filter: blur(1px);
     padding-bottom: 80px; /* Reduce padding to bring badge closer to spine end */
     min-height: 500px;
     position: relative;
+  }
+/* Responsive adjustments for lord icon on mobile */
+  #Hands .section-title lord-icon {
+    width: 30px !important;
+    height: 30px !important;
+    margin-left: 10px;
   }
 }
