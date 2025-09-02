@@ -12801,6 +12801,8 @@ p {
     padding: 4px 8px;
     font-size: 9px;
     border-radius: 12px;
+    opacity: 1; /* Make visible on mobile */
+    transform: translateY(0); /* Reset transform on mobile */
   }
 }
 
@@ -12811,6 +12813,8 @@ p {
     padding: 3px 6px;
     font-size: 8px;
     border-radius: 10px;
+    opacity: 1; /* Make visible on mobile */
+    transform: translateY(0); /* Reset transform on mobile */
   }
 }
 
@@ -12841,6 +12845,8 @@ p {
     padding: 4px 8px;
     font-size: 9px;
     border-radius: 12px;
+    opacity: 1; /* Make visible on mobile */
+    transform: translateY(0); /* Reset transform on mobile */
   }
 }
 
@@ -12851,6 +12857,8 @@ p {
     padding: 3px 6px;
     font-size: 8px;
     border-radius: 10px;
+    opacity: 1; /* Make visible on mobile */
+    transform: translateY(0); /* Reset transform on mobile */
   }
 }
 
@@ -12874,12 +12882,16 @@ p {
 @media (max-width: 768px) {
   .project-badge.featured {
     top: 20px;
+    opacity: 1; /* Make visible on mobile */
+    transform: translateY(0); /* Reset transform on mobile */
   }
 }
 
 @media (max-width: 480px) {
   .project-badge.featured {
     top: 23px;
+    opacity: 1; /* Make visible on mobile */
+    transform: translateY(0); /* Reset transform on mobile */
   }
 }
 
@@ -12891,12 +12903,16 @@ p {
 @media (max-width: 768px) {
   .featured-project .click-explore-badge {
     top: 18px;
+    opacity: 1; /* Make visible on mobile */
+    transform: translateY(0); /* Reset transform on mobile */
   }
 }
 
 @media (max-width: 480px) {
   .featured-project .click-explore-badge {
     top: 23px;
+    opacity: 1; /* Make visible on mobile */
+    transform: translateY(0); /* Reset transform on mobile */
   }
 }
 
