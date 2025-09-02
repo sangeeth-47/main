@@ -12663,11 +12663,17 @@ p {
   margin-bottom: 15px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
   animation: slideInUp 0.6s ease-out 0.2s both;
-  display: -webkit-box;
-  -webkit-line-clamp: 6;
-  line-clamp: 6;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+}
+
+/* Apply line clamp only on desktop devices with hover capability */
+@media (hover: hover) and (pointer: fine) {
+  .portfolio-card .portfolio-card-overlay .portfolio-card-caption p {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
 
 /* Remove text clipping on hover to show full text */
@@ -12687,6 +12693,19 @@ p {
     line-clamp: none !important;
     overflow: visible !important;
     max-height: none !important;
+    -webkit-box-orient: initial !important;
+  }
+}
+
+/* Ensure mobile devices always show full text */
+@media screen and (max-width: 1024px) {
+  .portfolio-card .portfolio-card-overlay .portfolio-card-caption p {
+    display: block !important;
+    -webkit-line-clamp: none !important;
+    line-clamp: none !important;
+    overflow: visible !important;
+    max-height: none !important;
+    -webkit-box-orient: initial !important;
   }
 }
 
