@@ -12647,7 +12647,7 @@ p {
 }
 
 .portfolio-card .portfolio-card-overlay .portfolio-card-caption h4 {
-  color: #00ffcc;
+  color: #a855f7;
   font-size: clamp(1.1rem, 4vw, 1.5rem);
   margin-bottom: 15px;
   font-weight: 700;
@@ -12793,6 +12793,14 @@ p {
   white-space: nowrap;
 }
 
+/* Make badges visible on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .project-badge {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
 /* Responsive adjustments for project badges */
 @media (max-width: 768px) {
   .project-badge {
@@ -12837,10 +12845,18 @@ p {
   animation: pulseGlow 2s infinite;
 }
 
+/* Make click-explore badges visible on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .click-explore-badge {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
 /* Responsive adjustments for click explore badges */
 @media (max-width: 768px) {
   .click-explore-badge {
-    top: 18px;
+    top: 8px;
     right: 10px;
     padding: 4px 8px;
     font-size: 9px;
@@ -12852,7 +12868,7 @@ p {
 
 @media (max-width: 480px) {
   .click-explore-badge {
-    top: 23px;
+    top: 13px;
     right: 8px;
     padding: 3px 6px;
     font-size: 8px;
@@ -12876,6 +12892,14 @@ p {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   animation: pulseGlow 2s infinite;
   top: 28px; /* Move featured badge slightly down */
+}
+
+/* Make featured badges visible on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .project-badge.featured {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
 }
 
 /* Responsive positioning for featured badge */
@@ -12918,6 +12942,28 @@ p {
 
 .project-badge.coming-soon-badge {
   background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+/* Comprehensive mobile badge visibility fix */
+@media screen and (max-width: 1024px) {
+  .project-badge,
+  .click-explore-badge,
+  .project-badge.featured,
+  .project-badge.coming-soon-badge {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+/* Additional mobile device detection */
+@media (pointer: coarse) {
+  .project-badge,
+  .click-explore-badge,
+  .project-badge.featured,
+  .project-badge.coming-soon-badge {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
 }
 
 .project-stats {
