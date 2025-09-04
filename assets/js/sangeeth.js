@@ -1792,46 +1792,25 @@ function showUPIPayment(amount) {
         // Gadget data
         const gadgets = [
             { 
-                title: "Laptop Project", 
-                specs: ["Dell Inspiron 15 - UI Design", "Optimized for Intel i7 11th Gen", "16GB DDR4 RAM Performance Testing", "512GB NVMe SSD Storage Solution", "NVIDIA MX450 2GB Graphics Implementation"], 
-                tech: ["UI/UX Design", "Performance Testing", "Hardware Optimization", "Thermal Management"], 
-                img: "https://images.unsplash.com/photo-1587614382346-4ec70e388b28?auto=format&fit=crop&w=1170&q=80", 
-                desc: "Optimized interface for Dell Inspiron 15" 
+                title: "HP ZBook Firefly 16", 
+                specs: ["16-inch IPS Display", "Intel Ultra 7 155H", "32GB DDR5-5600 MHz RAM", "1TB NVMe SSD", "NVIDIA RTX™ A500 Graphics"], 
+                tech: ["UI/UX Design", "Website Testing", "Backend Development", "Gaming"], 
+                img: "assets/imgs/hp-firefly.webp", 
+                desc: "Powerhouse for Everything" 
             },
             { 
-                title: "Smartphone Interface", 
-                specs: ["OnePlus Nord 2 UI/UX redesign", "Dimensity 1200 AI Optimization", "8GB LPDDR4X RAM Management", "128GB UFS 3.1 Storage Solution", "4500mAh Battery Efficiency Testing"], 
-                tech: ["Mobile UI Design", "Battery Optimization", "Performance Testing", "Android Development"], 
-                img: "https://images.moneycontrol.com/static-mcnews/2023/02/samsung-s23-ultra-770x433.jpg", 
-                desc: "OnePlus Nord 2 UI/UX redesign" 
+                title: "Samsung Galaxy S23 Ultra", 
+                specs: ["6.8-inch Dynamic AMOLED 2X Display", "Snapdragon 8 Gen 2", "12GB LPDDR5X RAM", "512GB UFS 4.0 Storage", "5000mAh Battery"], 
+                tech: ["Mobile UI/UX Testing", "DFD Sketching", "Workflow Drafts", "Quick Ideation"], 
+                img: "assets/imgs/S23.webp", 
+                desc: "Mobile – UI/UX Testing & Daily Driver" 
             },
             { 
-                title: "Audio Experience", 
-                specs: ["Sony WH-1000XM4 companion app", "Noise cancellation algorithm", "30-hour battery life optimization", "Bluetooth 5.0 with LDAC", "Touch sensor controls design"], 
-                tech: ["Audio Engineering", "Bluetooth Technology", "Mobile App Design", "User Experience"], 
-                img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1170&q=80", 
-                desc: "Sony WH-1000XM4 companion app" 
-            },
-            { 
-                title: "Smartwatch UI", 
-                specs: ["Minimalist smartwatch interface", "Health/activity tracking integration", "Low-power processor optimization", "Custom watch face designer", "Notification management system"], 
-                tech: ["Wear OS", "Health API", "Material Design", "Low-power Optimization"], 
-                img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1099&q=80", 
-                desc: "Minimalist interface with health tracking" 
-            },
-            { 
-                title: "Tablet Dashboard", 
-                specs: ["Enterprise dashboard design", "Real-time data visualization", "Multi-user collaboration", "Offline functionality", "Customizable widget system"], 
-                tech: ["Data Visualization", "Enterprise UX", "Responsive Design", "Offline First"], 
-                img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=1170&q=80", 
-                desc: "Professional dashboard for enterprise applications" 
-            },
-            { 
-                title: "Gaming Console UI", 
-                specs: ["Next-gen console interface", "4K HDR support", "Voice command integration", "Social sharing features", "Customizable themes"], 
-                tech: ["Console Development", "4K UI Design", "Voice Recognition", "Social Media Integration"], 
-                img: "https://image-us.samsung.com/us/smartphones/galaxy-s23/configurator/DB2C-328-GalleryVideo-S23Ultra-AnimatedVideo_Filled_lastFrame.jpg", 
-                desc: "Sleek interface for next-gen gaming consoles" 
+                title: "Desktop Experience", 
+                specs: ["Samsung 21.5 inch LED Bezel Less", "Intel Core i7-9700K","32GB DDR4 Corsair RAM","Samsung 970 EVO Plus 500GB PCIe NVMe","Z390 AORUS ELITE Motherboard","Corsair Hydro H100x Liquid CPU Cooler"], 
+                tech: ["Virtualization & VM Labs", "Network Simulation", "Multi-Monitor Productivity", "Simulation Environment"], 
+                img: "assets/imgs/z390.webp", 
+                desc: "Powerhouse for Desktop Experience" 
             }
         ];
 
@@ -1884,7 +1863,7 @@ function showUPIPayment(amount) {
                     gadgetDetails.innerHTML = `
                         <h2>${gadgets[i].title}</h2>
                         <ul class="gadget-specs">${gadgets[i].specs.map((s, idx) => `<li><i class="${getGadgetIcon(idx)}"></i> ${s}</li>`).join("")}</ul>
-                        <div class="gadget-tech-used"><h3>Technologies Used</h3><div class="gadget-tech-tags">${gadgets[i].tech.map(t => `<span class="gadget-tech-tag">${t}</span>`).join("")}</div></div>
+                        <div class="gadget-tech-used"><h3>Core Operation</h3><div class="gadget-tech-tags">${gadgets[i].tech.map(t => `<span class="gadget-tech-tag">${t}</span>`).join("")}</div></div>
                     `;
                     gadgetDetails.classList.remove("hidden");
                 }, 300);
