@@ -1786,3 +1786,411 @@ function showUPIPayment(amount) {
                 });
             }
         });
+
+
+    // Gadget Showcase Script
+        // Gadget data
+        const gadgets = [
+            { 
+                title: "Laptop Project", 
+                specs: ["Dell Inspiron 15 - UI Design", "Optimized for Intel i7 11th Gen", "16GB DDR4 RAM Performance Testing", "512GB NVMe SSD Storage Solution", "NVIDIA MX450 2GB Graphics Implementation"], 
+                tech: ["UI/UX Design", "Performance Testing", "Hardware Optimization", "Thermal Management"], 
+                img: "https://images.unsplash.com/photo-1587614382346-4ec70e388b28?auto=format&fit=crop&w=1170&q=80", 
+                desc: "Optimized interface for Dell Inspiron 15" 
+            },
+            { 
+                title: "Smartphone Interface", 
+                specs: ["OnePlus Nord 2 UI/UX redesign", "Dimensity 1200 AI Optimization", "8GB LPDDR4X RAM Management", "128GB UFS 3.1 Storage Solution", "4500mAh Battery Efficiency Testing"], 
+                tech: ["Mobile UI Design", "Battery Optimization", "Performance Testing", "Android Development"], 
+                img: "https://images.moneycontrol.com/static-mcnews/2023/02/samsung-s23-ultra-770x433.jpg", 
+                desc: "OnePlus Nord 2 UI/UX redesign" 
+            },
+            { 
+                title: "Audio Experience", 
+                specs: ["Sony WH-1000XM4 companion app", "Noise cancellation algorithm", "30-hour battery life optimization", "Bluetooth 5.0 with LDAC", "Touch sensor controls design"], 
+                tech: ["Audio Engineering", "Bluetooth Technology", "Mobile App Design", "User Experience"], 
+                img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1170&q=80", 
+                desc: "Sony WH-1000XM4 companion app" 
+            },
+            { 
+                title: "Smartwatch UI", 
+                specs: ["Minimalist smartwatch interface", "Health/activity tracking integration", "Low-power processor optimization", "Custom watch face designer", "Notification management system"], 
+                tech: ["Wear OS", "Health API", "Material Design", "Low-power Optimization"], 
+                img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1099&q=80", 
+                desc: "Minimalist interface with health tracking" 
+            },
+            { 
+                title: "Tablet Dashboard", 
+                specs: ["Enterprise dashboard design", "Real-time data visualization", "Multi-user collaboration", "Offline functionality", "Customizable widget system"], 
+                tech: ["Data Visualization", "Enterprise UX", "Responsive Design", "Offline First"], 
+                img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=1170&q=80", 
+                desc: "Professional dashboard for enterprise applications" 
+            },
+            { 
+                title: "Gaming Console UI", 
+                specs: ["Next-gen console interface", "4K HDR support", "Voice command integration", "Social sharing features", "Customizable themes"], 
+                tech: ["Console Development", "4K UI Design", "Voice Recognition", "Social Media Integration"], 
+                img: "https://image-us.samsung.com/us/smartphones/galaxy-s23/configurator/DB2C-328-GalleryVideo-S23Ultra-AnimatedVideo_Filled_lastFrame.jpg", 
+                desc: "Sleek interface for next-gen gaming consoles" 
+            }
+        ];
+
+        // Initialize gadget showcase when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if gadget elements exist (only initialize if on the main page)
+            const gadgetDetails = document.getElementById("gadget-details");
+            const gadgetStack = document.getElementById("gadget-stack");
+            const gadgetIndicatorsContainer = document.getElementById("gadget-indicators");
+            
+            if (!gadgetDetails || !gadgetStack || !gadgetIndicatorsContainer) {
+                return; // Exit if elements don't exist
+            }
+            
+            let gadgetCards = [];
+            let gadgetIndicators = [];
+            let currentGadgetIndex = 0;
+            let startX = 0, currentX = 0, isDragging = false;
+
+            // Generate cards + indicators dynamically
+            function generateGadgetUI() {
+                gadgetStack.innerHTML = "";
+                gadgetIndicatorsContainer.innerHTML = "";
+                
+                gadgets.forEach((g, i) => {
+                    // Card
+                    const card = document.createElement("div");
+                    card.className = "gadget-card";
+                    card.innerHTML = `<img src="${g.img}" alt="${g.title}">
+                        <div class="gadget-card-content"><h3>${g.title}</h3><p>${g.desc}</p></div>`;
+                    gadgetStack.appendChild(card);
+
+                    // Indicator
+                    const dot = document.createElement("div");
+                    dot.className = "gadget-indicator" + (i === 0 ? " active" : "");
+                    dot.addEventListener("click", () => { 
+                        currentGadgetIndex = i; 
+                        showGadgetCard(currentGadgetIndex); 
+                    });
+                    gadgetIndicatorsContainer.appendChild(dot);
+                });
+                
+                gadgetCards = [...document.querySelectorAll(".gadget-card")];
+                gadgetIndicators = [...document.querySelectorAll(".gadget-indicator")];
+            }
+
+            function updateGadgetDetails(i) {
+                gadgetDetails.classList.add("hidden");
+                setTimeout(() => {
+                    gadgetDetails.innerHTML = `
+                        <h2>${gadgets[i].title}</h2>
+                        <ul class="gadget-specs">${gadgets[i].specs.map((s, idx) => `<li><i class="${getGadgetIcon(idx)}"></i> ${s}</li>`).join("")}</ul>
+                        <div class="gadget-tech-used"><h3>Technologies Used</h3><div class="gadget-tech-tags">${gadgets[i].tech.map(t => `<span class="gadget-tech-tag">${t}</span>`).join("")}</div></div>
+                    `;
+                    gadgetDetails.classList.remove("hidden");
+                }, 300);
+            }
+
+            function getGadgetIcon(idx) {
+                const icons = ["fas fa-laptop", "fas fa-microchip", "fas fa-memory", "fas fa-hdd", "fas fa-gamepad", "fas fa-mobile-alt", "fas fa-battery-full", "fas fa-headphones", "fas fa-bluetooth", "fas fa-volume-up"];
+                return icons[idx] || "fas fa-check";
+            }
+
+            function updateGadgetIndicators(i) {
+                gadgetIndicators.forEach((dot, idx) => dot.classList.toggle("active", idx === i));
+            }
+
+            function showGadgetCard(i) {
+                gadgetCards.forEach((card, idx) => {
+                    const pos = (idx - i + gadgetCards.length) % gadgetCards.length;
+                    card.style.zIndex = gadgetCards.length - pos;
+                    if (pos === 0) { 
+                        card.style.transform = 'translateX(0) scale(1) rotate(0)'; 
+                        card.style.opacity = '1'; 
+                    } else if (pos === 1) { 
+                        card.style.transform = 'translateX(calc(85% - 20px)) scale(0.9) rotate(2deg)'; 
+                        card.style.opacity = '0.9'; 
+                    } else if (pos === gadgetCards.length - 1) { 
+                        card.style.transform = 'translateX(calc(-85% + 20px)) scale(0.9) rotate(-2deg)'; 
+                        card.style.opacity = '0.9'; 
+                    } else { 
+                        card.style.transform = 'translateX(0) scale(0.8) rotate(0)'; 
+                        card.style.opacity = '0'; 
+                    }
+                });
+                updateGadgetDetails(i);
+                updateGadgetIndicators(i);
+            }
+
+            function nextGadgetCard() { 
+                gadgetCards[currentGadgetIndex].style.transform = 'translateX(-1000px) rotate(-30deg)'; 
+                gadgetCards[currentGadgetIndex].style.opacity = '0'; 
+                currentGadgetIndex = (currentGadgetIndex + 1) % gadgets.length; 
+                setTimeout(() => showGadgetCard(currentGadgetIndex), 300);
+            }
+
+            function prevGadgetCard() { 
+                gadgetCards[currentGadgetIndex].style.transform = 'translateX(1000px) rotate(30deg)'; 
+                gadgetCards[currentGadgetIndex].style.opacity = '0'; 
+                currentGadgetIndex = (currentGadgetIndex - 1 + gadgets.length) % gadgets.length; 
+                setTimeout(() => showGadgetCard(currentGadgetIndex), 300);
+            }
+
+            // Event listeners for navigation (only if elements exist)
+            const prevButton = document.getElementById("gadget-prev");
+            const nextButton = document.getElementById("gadget-next");
+            
+            if (prevButton) prevButton.addEventListener("click", prevGadgetCard);
+            if (nextButton) nextButton.addEventListener("click", nextGadgetCard);
+
+            // Swipe support with enhanced mobile handling
+            function addGadgetSwipe(card) {
+                let localStartX = 0;
+                let localCurrentX = 0;
+                let localIsDragging = false;
+                
+                // Touch events for mobile
+                card.addEventListener('touchstart', e => { 
+                    // Check if this is the front card by finding its index
+                    const cardIndex = gadgetCards.indexOf(card);
+                    if (cardIndex !== currentGadgetIndex) return; 
+                    localIsDragging = true; 
+                    localStartX = e.touches[0].clientX; 
+                    localCurrentX = localStartX;
+                    card.style.transition = 'none';
+                    // Add visual feedback
+                    card.style.boxShadow = '0 25px 50px rgba(0,0,0,0.3)';
+                    // Prevent page scrolling on mobile
+                    e.preventDefault();
+                }, {passive: false});
+                
+                card.addEventListener('touchmove', e => { 
+                    if (!localIsDragging) return; 
+                    localCurrentX = e.touches[0].clientX; 
+                    const dx = localCurrentX - localStartX; 
+                    const rotation = dx * 0.05; // Reduced rotation for smoother feel
+                    card.style.transform = `translateX(${dx}px) rotate(${rotation}deg)`; 
+                    
+                    // Add opacity feedback based on swipe distance
+                    const opacity = 1 - Math.abs(dx) / 300;
+                    card.style.opacity = Math.max(opacity, 0.3);
+                    // Prevent page scrolling
+                    e.preventDefault();
+                }, {passive: false});
+                
+                card.addEventListener('touchend', () => { 
+                    if (!localIsDragging) return; 
+                    localIsDragging = false; 
+                    card.style.transition = 'transform .6s ease, opacity .6s ease, box-shadow .3s ease'; 
+                    card.style.boxShadow = '0 15px 35px rgba(0,0,0,0.15)'; // Reset shadow
+                    card.style.opacity = '1'; // Reset opacity
+                    
+                    const dx = localCurrentX - localStartX; 
+                    const swipeThreshold = isMobile() ? 50 : 100; // Lower threshold for mobile
+                    
+                    console.log('Touch end - dx:', dx, 'threshold:', swipeThreshold); // Debug log
+                    
+                    if (Math.abs(dx) > swipeThreshold) { 
+                        console.log('Swiping:', dx < 0 ? 'next' : 'prev'); // Debug log
+                        dx < 0 ? nextGadgetCard() : prevGadgetCard(); 
+                    } else {
+                        card.style.transform = 'translateX(0) rotate(0)'; 
+                    }
+                });
+                
+                // Mouse events for desktop (only if not mobile)
+                if (!isMobile()) {
+                    card.addEventListener('mousedown', e => { 
+                        if (parseInt(card.style.zIndex) !== gadgetCards.length) return; 
+                        localIsDragging = true; 
+                        localStartX = e.clientX; 
+                        card.style.transition = 'none'; 
+                        e.preventDefault(); 
+                    });
+                    
+                    card.addEventListener('mousemove', e => { 
+                        if (!localIsDragging) return; 
+                        localCurrentX = e.clientX; 
+                        const dx = localCurrentX - localStartX; 
+                        card.style.transform = `translateX(${dx}px) rotate(${dx * 0.1}deg)`; 
+                    });
+                    
+                    card.addEventListener('mouseup', () => { 
+                        if (!localIsDragging) return; 
+                        localIsDragging = false; 
+                        card.style.transition = 'transform .6s'; 
+                        const dx = localCurrentX - localStartX; 
+                        if (Math.abs(dx) > 100) { 
+                            dx < 0 ? nextGadgetCard() : prevGadgetCard(); 
+                        } else {
+                            card.style.transform = 'translateX(0) rotate(0)'; 
+                        }
+                    });
+                    
+                    card.addEventListener('mouseleave', () => { 
+                        if (localIsDragging) { 
+                            localIsDragging = false; 
+                            card.style.transition = 'transform .6s'; 
+                            card.style.transform = 'translateX(0) rotate(0)'; 
+                        } 
+                    });
+                }
+            }
+
+            // Initialize
+            generateGadgetUI();
+            gadgetCards.forEach(addGadgetSwipe);
+            showGadgetCard(currentGadgetIndex);
+            
+            // Auto-advance for mobile (define outside to be accessible)
+            let autoAdvanceTimer;
+            const startAutoAdvance = () => {
+                if (autoAdvanceTimer) clearInterval(autoAdvanceTimer);
+                autoAdvanceTimer = setInterval(() => {
+                    nextGadgetCard();
+                }, 5000);
+            };
+            
+            const stopAutoAdvance = () => {
+                if (autoAdvanceTimer) {
+                    clearInterval(autoAdvanceTimer);
+                    autoAdvanceTimer = null;
+                }
+            };
+            
+            // Add swipe functionality to gadget-details for mobile
+            const gadgetDetailsElement = document.getElementById('gadget-details');
+            if (gadgetDetailsElement && isMobile()) {
+                let detailsStartX = 0;
+                let detailsStartY = 0;
+                let detailsIsSwiping = false;
+                let swipeTimeout;
+                
+                gadgetDetailsElement.addEventListener('touchstart', e => {
+                    detailsStartX = e.touches[0].clientX;
+                    detailsStartY = e.touches[0].clientY;
+                    detailsIsSwiping = false;
+                    
+                    // Stop auto-advance when user starts interacting
+                    stopAutoAdvance();
+                    
+                    // Clear any existing timeout
+                    if (swipeTimeout) {
+                        clearTimeout(swipeTimeout);
+                    }
+                    
+                    console.log('Details touchstart - auto-advance stopped'); // Debug log
+                }, {passive: false});
+                
+                gadgetDetailsElement.addEventListener('touchmove', e => {
+                    if (!detailsIsSwiping) {
+                        const currentX = e.touches[0].clientX;
+                        const currentY = e.touches[0].clientY;
+                        const deltaX = Math.abs(currentX - detailsStartX);
+                        const deltaY = Math.abs(currentY - detailsStartY);
+                        
+                        // If horizontal swipe is greater than vertical, prevent scrolling
+                        if (deltaX > deltaY && deltaX > 10) {
+                            detailsIsSwiping = true;
+                            e.preventDefault();
+                        }
+                    } else {
+                        e.preventDefault();
+                    }
+                }, {passive: false});
+                
+                gadgetDetailsElement.addEventListener('touchend', e => {
+                    if (detailsIsSwiping) {
+                        const detailsEndX = e.changedTouches[0].clientX;
+                        const swipeDistance = detailsStartX - detailsEndX;
+                        
+                        console.log('Details swipe - distance:', swipeDistance); // Debug log
+                        
+                        if (Math.abs(swipeDistance) > 50) {
+                            if (swipeDistance > 0) {
+                                console.log('Details swipe: next'); // Debug log
+                                nextGadgetCard();
+                            } else {
+                                console.log('Details swipe: prev'); // Debug log
+                                prevGadgetCard();
+                            }
+                        }
+                    }
+                    
+                    // Resume auto-advance after a delay when user stops interacting
+                    swipeTimeout = setTimeout(() => {
+                        startAutoAdvance();
+                        console.log('Auto-advance resumed after swipe inactivity'); // Debug log
+                    }, 3000); // Resume after 3 seconds of inactivity
+                    
+                    detailsIsSwiping = false;
+                }, {passive: false});
+            }
+            
+            // Add container-level swipe detection as fallback
+            const stackContainer = document.getElementById('gadget-stack');
+            if (stackContainer && isMobile()) {
+                let containerStartX = 0;
+                let containerEndX = 0;
+                
+                stackContainer.addEventListener('touchstart', e => {
+                    containerStartX = e.touches[0].clientX;
+                }, {passive: true});
+                
+                stackContainer.addEventListener('touchend', e => {
+                    containerEndX = e.changedTouches[0].clientX;
+                    const swipeDistance = containerStartX - containerEndX;
+                    
+                    console.log('Container swipe - distance:', swipeDistance); // Debug log
+                    
+                    if (Math.abs(swipeDistance) > 50) {
+                        if (swipeDistance > 0) {
+                            console.log('Container swipe: next'); // Debug log
+                            nextGadgetCard();
+                        } else {
+                            console.log('Container swipe: prev'); // Debug log
+                            prevGadgetCard();
+                        }
+                    }
+                }, {passive: true});
+            }
+            
+            // Mobile-specific enhancements
+            if (isMobile()) {
+                console.log('Mobile device detected, enabling mobile features'); // Debug log
+                
+                // Start auto-advance for mobile
+                startAutoAdvance();
+                
+                // Stop auto-advance on card stack interaction (fallback)
+                const stackElement = document.getElementById('gadget-stack');
+                if (stackElement) {
+                    stackElement.addEventListener('touchstart', () => {
+                        stopAutoAdvance();
+                        setTimeout(() => {
+                            startAutoAdvance();
+                        }, 3000);
+                    });
+                }
+                
+                // Stop auto-advance on button clicks (if buttons exist)
+                if (prevButton) {
+                    prevButton.addEventListener('click', () => {
+                        stopAutoAdvance();
+                        setTimeout(startAutoAdvance, 3000);
+                    });
+                }
+                
+                if (nextButton) {
+                    nextButton.addEventListener('click', () => {
+                        stopAutoAdvance();
+                        setTimeout(startAutoAdvance, 3000);
+                    });
+                }
+            }
+            
+            // Responsive behavior on resize
+            window.addEventListener('resize', () => {
+                // Recalculate positions if needed
+                showGadgetCard(currentGadgetIndex);
+            });
+        });
