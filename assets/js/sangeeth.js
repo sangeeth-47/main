@@ -1857,12 +1857,111 @@ function showUPIPayment(amount) {
                 gadgetIndicators = [...document.querySelectorAll(".gadget-indicator")];
             }
 
+            // Helper function to get appropriate icon for each specification
+            function getSpecIcon(spec) {
+                const lowerSpec = spec.toLowerCase();
+                
+                // Display specifications
+                if (lowerSpec.includes('display') || lowerSpec.includes('screen') || lowerSpec.includes('inch') || lowerSpec.includes('amoled') || lowerSpec.includes('led') || lowerSpec.includes('ips')) {
+                    return `<lord-icon
+    src="assets/icons/display.json"
+    trigger="loop"
+    stroke="light"
+    state="loop-cycle"
+    colors="primary:#ffffff,secondary:#c69cf4"
+    style="width:50px;height:50px">
+</lord-icon>`;
+                }
+                // Processor specifications
+                else if (lowerSpec.includes('intel') || lowerSpec.includes('snapdragon') || lowerSpec.includes('processor') || lowerSpec.includes('cpu') || lowerSpec.includes('core')) {
+                    return `<lord-icon
+    src="assets/icons/cpu.json"
+    trigger="loop"
+    stroke="light"
+    state="loop-cycle"
+    colors="primary:#ffffff,secondary:#c69cf4"
+    style="width:50px;height:50px">
+</lord-icon>`;
+                }
+                // Memory/RAM specifications
+                else if (lowerSpec.includes('ram') || lowerSpec.includes('memory') || lowerSpec.includes('gb') && (lowerSpec.includes('ddr') || lowerSpec.includes('lpddr'))) {
+                    return `<lord-icon
+    src="assets/icons/memory.json"
+    trigger="loop"
+    stroke="light"
+    state="loop-cycle"
+    colors="primary:#ffffff,secondary:#c69cf4"
+    style="width:50px;height:50px">
+</lord-icon>`;
+                }
+                // Storage specifications
+                else if (lowerSpec.includes('ssd') || lowerSpec.includes('nvme') || lowerSpec.includes('storage') || lowerSpec.includes('ufs')) {
+                    return `<lord-icon
+    src="assets/icons/storage.json"
+    trigger="loop"
+    stroke="light"
+    state="loop-cycle"
+    colors="primary:#ffffff,secondary:#c69cf4"
+    style="width:50px;height:50px">
+</lord-icon>`;
+                }
+                // Graphics specifications
+                else if (lowerSpec.includes('graphics') || lowerSpec.includes('nvidia') || lowerSpec.includes('rtx') || lowerSpec.includes('gpu')) {
+                    return `<lord-icon
+    src="assets/icons/graphics.json"
+    trigger="loop"
+    stroke="light"
+    state="loop-cycle"
+    colors="primary:#c69cf4,secondary:#ffffff"
+    style="width:50px;height:50px">
+</lord-icon>`;
+                }
+                // Battery specifications
+                else if (lowerSpec.includes('battery') || lowerSpec.includes('mah')) {
+                    return `<lord-icon
+    src="assets/icons/battery.json"
+    trigger="loop"
+    stroke="light"
+    state="loop-cycle"
+    colors="primary:#ffffff,secondary:#c69cf4"
+    style="width:50px;height:50px">
+</lord-icon>`;
+                }
+                // Motherboard specifications
+                else if (lowerSpec.includes('motherboard') || lowerSpec.includes('aorus') || lowerSpec.includes('z390')) {
+                    return `<lord-icon
+    src="assets/icons/motherboard.json"
+    trigger="loop"
+    stroke="light"
+    state="loop-cycle"
+    colors="primary:#ffffff,secondary:#c69cf4"
+    style="width:50px;height:50px">
+</lord-icon>`;
+                }
+                // Cooling specifications
+                else if (lowerSpec.includes('cooler') || lowerSpec.includes('Corsair')) {
+                    return 'ti-layout';
+                }
+                // Default fallback icon
+                else {
+                    return 'ti-settings';
+                }
+            }
+
             function updateGadgetDetails(i) {
                 gadgetDetails.classList.add("hidden");
                 setTimeout(() => {
                     gadgetDetails.innerHTML = `
                         <h2>${gadgets[i].title}</h2>
-                        <ul class="gadget-specs">${gadgets[i].specs.map(s => `<li>${s}</li>`).join("")}</ul>
+                        <ul class="gadget-specs">${gadgets[i].specs.map(s => {
+                            const iconHtml = getSpecIcon(s);
+                            // Check if it's a LordIcon (contains <lord-icon) or a Themify class
+                            if (iconHtml.includes('<lord-icon')) {
+                                return `<li>${iconHtml}&nbsp;&nbsp;${s}</li>`;
+                            } else {
+                                return `<li><i class="${iconHtml}"></i>&nbsp;&nbsp;${s}</li>`;
+                            }
+                        }).join("")}</ul>
                         <div class="gadget-tech-used"><h3>Core Operation</h3><div class="gadget-tech-tags">${gadgets[i].tech.map(t => `<span class="gadget-tech-tag">${t}</span>`).join("")}</div></div>
                     `;
                     gadgetDetails.classList.remove("hidden");
