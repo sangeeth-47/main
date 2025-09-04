@@ -2145,7 +2145,7 @@ function showUPIPayment(amount) {
                 if (autoAdvanceTimer) clearInterval(autoAdvanceTimer);
                 autoAdvanceTimer = setInterval(() => {
                     nextGadgetCard();
-                }, 5000);
+                }, 4000);
             };
             
             const stopAutoAdvance = () => {
@@ -2254,8 +2254,6 @@ function showUPIPayment(amount) {
             
             // Mobile-specific enhancements
             if (isMobile()) {
-                console.log('Mobile device detected, enabling mobile features'); // Debug log
-                
                 // Start auto-advance for mobile
                 startAutoAdvance();
                 
