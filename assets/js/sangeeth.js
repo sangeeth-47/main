@@ -1794,14 +1794,14 @@ function showUPIPayment(amount) {
             { 
                 title: "HP ZBook Firefly 16", 
                 specs: ["16-inch IPS Display", "Intel Ultra 7 155H", "32GB DDR5-5600 MHz RAM", "1TB NVMe SSD", "NVIDIA RTX™ A500 Graphics"], 
-                tech: ["UI/UX Design", "Website Testing", "Backend Development", "Gaming"], 
+                tech: ["UI/UX Design", "Website Testing", "Backend Development"], 
                 img: "assets/imgs/hp-firefly.webp", 
                 desc: "Powerhouse for Everything" 
             },
             { 
                 title: "Samsung Galaxy S23 Ultra", 
                 specs: ["6.8-inch Dynamic AMOLED 2X Display", "Snapdragon 8 Gen 2", "12GB LPDDR5X RAM", "512GB UFS 4.0 Storage", "5000mAh Battery"], 
-                tech: ["Mobile UI/UX Testing", "DFD Sketching", "Workflow Drafts", "Quick Ideation"], 
+                tech: ["Mobile UI/UX Testing", "DFD Sketching & Workflow Drafts", "Quick Ideation"], 
                 img: "assets/imgs/S23.webp", 
                 desc: "Mobile – UI/UX Testing & Daily Driver" 
             },
@@ -1862,16 +1862,11 @@ function showUPIPayment(amount) {
                 setTimeout(() => {
                     gadgetDetails.innerHTML = `
                         <h2>${gadgets[i].title}</h2>
-                        <ul class="gadget-specs">${gadgets[i].specs.map((s, idx) => `<li><i class="${getGadgetIcon(idx)}"></i> ${s}</li>`).join("")}</ul>
+                        <ul class="gadget-specs">${gadgets[i].specs.map(s => `<li>${s}</li>`).join("")}</ul>
                         <div class="gadget-tech-used"><h3>Core Operation</h3><div class="gadget-tech-tags">${gadgets[i].tech.map(t => `<span class="gadget-tech-tag">${t}</span>`).join("")}</div></div>
                     `;
                     gadgetDetails.classList.remove("hidden");
                 }, 300);
-            }
-
-            function getGadgetIcon(idx) {
-                const icons = ["fas fa-laptop", "fas fa-microchip", "fas fa-memory", "fas fa-hdd", "fas fa-gamepad", "fas fa-mobile-alt", "fas fa-battery-full", "fas fa-headphones", "fas fa-bluetooth", "fas fa-volume-up"];
-                return icons[idx] || "fas fa-check";
             }
 
             function updateGadgetIndicators(i) {
@@ -1978,10 +1973,15 @@ function showUPIPayment(amount) {
                 
                 // Mouse events for desktop (only if not mobile)
                 if (!isMobile()) {
+                    let mouseStartX = 0;
+                    let mouseHasMoved = false;
+                    
                     card.addEventListener('mousedown', e => { 
                         if (parseInt(card.style.zIndex) !== gadgetCards.length) return; 
                         localIsDragging = true; 
-                        localStartX = e.clientX; 
+                        localStartX = e.clientX;
+                        mouseStartX = e.clientX;
+                        mouseHasMoved = false;
                         card.style.transition = 'none'; 
                         e.preventDefault(); 
                     });
@@ -1989,20 +1989,31 @@ function showUPIPayment(amount) {
                     card.addEventListener('mousemove', e => { 
                         if (!localIsDragging) return; 
                         localCurrentX = e.clientX; 
-                        const dx = localCurrentX - localStartX; 
-                        card.style.transform = `translateX(${dx}px) rotate(${dx * 0.1}deg)`; 
+                        const dx = localCurrentX - localStartX;
+                        
+                        // Check if mouse has moved significantly
+                        if (Math.abs(dx) > 10) {
+                            mouseHasMoved = true;
+                            card.style.transform = `translateX(${dx}px) rotate(${dx * 0.1}deg)`; 
+                        }
                     });
                     
-                    card.addEventListener('mouseup', () => { 
+                    card.addEventListener('mouseup', e => { 
                         if (!localIsDragging) return; 
                         localIsDragging = false; 
                         card.style.transition = 'transform .6s'; 
                         const dx = localCurrentX - localStartX; 
-                        if (Math.abs(dx) > 100) { 
+                        
+                        // Only trigger swipe if mouse has moved significantly AND moved beyond threshold
+                        if (mouseHasMoved && Math.abs(dx) > 100) { 
                             dx < 0 ? nextGadgetCard() : prevGadgetCard(); 
                         } else {
+                            // Reset position for small movements or clicks
                             card.style.transform = 'translateX(0) rotate(0)'; 
                         }
+                        
+                        // Reset flags
+                        mouseHasMoved = false;
                     });
                     
                     card.addEventListener('mouseleave', () => { 
@@ -2010,6 +2021,7 @@ function showUPIPayment(amount) {
                             localIsDragging = false; 
                             card.style.transition = 'transform .6s'; 
                             card.style.transform = 'translateX(0) rotate(0)'; 
+                            mouseHasMoved = false;
                         } 
                     });
                 }
