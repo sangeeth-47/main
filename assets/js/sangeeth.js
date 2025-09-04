@@ -1793,22 +1793,22 @@ function showUPIPayment(amount) {
         const gadgets = [
             { 
                 title: "HP ZBook Firefly 16", 
-                specs: ["16-inch IPS Display", "Intel Ultra 7 155H", "32GB DDR5-5600 MHz RAM", "1TB NVMe SSD", "NVIDIA RTX™ A500 Graphics"], 
-                tech: ["UI/UX Design", "Website Testing", "Backend Development"], 
+                specs: ["16-inch IPS Display", "Intel® Core™ Ultra 7 Processor 155H", "32GB DDR5-5600 MT/s SK Hynix RAM", "1TB WD SN560 NVMe SSD", "NVIDIA RTX™ A500 Graphics"], 
+                tech: ["UI/UX Design", "Web QA", "Backend Development"], 
                 img: "assets/imgs/hp-firefly.webp", 
                 desc: "Powerhouse for Everything" 
             },
             { 
                 title: "Samsung Galaxy S23 Ultra", 
-                specs: ["6.8-inch Dynamic AMOLED 2X Display", "Snapdragon 8 Gen 2", "12GB LPDDR5X RAM", "512GB UFS 4.0 Storage", "5000mAh Battery"], 
+                specs: ["6.8-inch Dynamic AMOLED 2X Display", "Snapdragon® 8 Gen 2", "12GB LPDDR5X RAM", "512GB UFS 4.0 Storage", "5000mAh Battery"], 
                 tech: ["Mobile UI/UX Testing", "DFD Sketching & Workflow Drafts", "Quick Ideation"], 
                 img: "assets/imgs/S23.webp", 
                 desc: "Mobile – UI/UX Testing & Daily Driver" 
             },
             { 
                 title: "Desktop Experience", 
-                specs: ["Samsung 21.5 inch LED Bezel Less", "Intel Core i7-9700K","32GB DDR4 Corsair RAM","Samsung 970 EVO Plus 500GB PCIe NVMe","Z390 AORUS ELITE Motherboard","Corsair Hydro H100x Liquid CPU Cooler"], 
-                tech: ["Virtualization & VM Labs", "Network Simulation", "Multi-Monitor Productivity", "Simulation Environment"], 
+                specs: ["Samsung 21.5 inch LED Bezel Less", "Intel® Core™ i7-9700K","64GB DDR4-3200 MT/s Corsair RAM","Samsung 970 EVO Plus 500GB M.2 NVMe","Z390 AORUS ELITE Motherboard","Corsair Hydro H100x Liquid CPU Cooler"], 
+                tech: ["Virtualization & VM Labs", "Network Simulation"], 
                 img: "assets/imgs/z390.webp", 
                 desc: "Powerhouse for Desktop Experience" 
             }
@@ -1828,7 +1828,6 @@ function showUPIPayment(amount) {
             let gadgetCards = [];
             let gadgetIndicators = [];
             let currentGadgetIndex = 0;
-            let startX = 0, currentX = 0, isDragging = false;
 
             // Generate cards + indicators dynamically
             function generateGadgetUI() {
@@ -1864,87 +1863,101 @@ function showUPIPayment(amount) {
                 // Display specifications
                 if (lowerSpec.includes('display') || lowerSpec.includes('screen') || lowerSpec.includes('inch') || lowerSpec.includes('amoled') || lowerSpec.includes('led') || lowerSpec.includes('ips')) {
                     return `<lord-icon
-    src="assets/icons/display.json"
-    trigger="loop"
-    stroke="light"
-    state="loop-cycle"
-    colors="primary:#ffffff,secondary:#c69cf4"
-    style="width:50px;height:50px">
-</lord-icon>`;
+                            src="assets/icons/display.json"
+                            trigger="loop"
+                            stroke="light"
+                            state="loop-cycle"
+                            colors="primary:#ffffff,secondary:#c69cf4"
+                            style="width:50px;height:50px">
+                        </lord-icon>`;
                 }
                 // Processor specifications
                 else if (lowerSpec.includes('intel') || lowerSpec.includes('snapdragon') || lowerSpec.includes('processor') || lowerSpec.includes('cpu') || lowerSpec.includes('core')) {
                     return `<lord-icon
-    src="assets/icons/cpu.json"
-    trigger="loop"
-    stroke="light"
-    state="loop-cycle"
-    colors="primary:#ffffff,secondary:#c69cf4"
-    style="width:50px;height:50px">
-</lord-icon>`;
+                            src="assets/icons/cpu.json"
+                            trigger="loop"
+                            stroke="light"
+                            state="loop-cycle"
+                            colors="primary:#ffffff,secondary:#c69cf4"
+                            style="width:50px;height:50px">
+                        </lord-icon>`;
                 }
                 // Memory/RAM specifications
                 else if (lowerSpec.includes('ram') || lowerSpec.includes('memory') || lowerSpec.includes('gb') && (lowerSpec.includes('ddr') || lowerSpec.includes('lpddr'))) {
                     return `<lord-icon
-    src="assets/icons/memory.json"
-    trigger="loop"
-    stroke="light"
-    state="loop-cycle"
-    colors="primary:#ffffff,secondary:#c69cf4"
-    style="width:50px;height:50px">
-</lord-icon>`;
+                            src="assets/icons/memory.json"
+                            trigger="loop"
+                            stroke="light"
+                            state="loop-cycle"
+                            colors="primary:#ffffff,secondary:#c69cf4"
+                            style="width:50px;height:50px">
+                        </lord-icon>`;
                 }
                 // Storage specifications
                 else if (lowerSpec.includes('ssd') || lowerSpec.includes('nvme') || lowerSpec.includes('storage') || lowerSpec.includes('ufs')) {
                     return `<lord-icon
-    src="assets/icons/storage.json"
-    trigger="loop"
-    stroke="light"
-    state="loop-cycle"
-    colors="primary:#ffffff,secondary:#c69cf4"
-    style="width:50px;height:50px">
-</lord-icon>`;
+                            src="assets/icons/storage.json"
+                            trigger="loop"
+                            stroke="light"
+                            state="loop-cycle"
+                            colors="primary:#ffffff,secondary:#c69cf4"
+                            style="width:50px;height:50px">
+                        </lord-icon>`;
                 }
                 // Graphics specifications
                 else if (lowerSpec.includes('graphics') || lowerSpec.includes('nvidia') || lowerSpec.includes('rtx') || lowerSpec.includes('gpu')) {
                     return `<lord-icon
-    src="assets/icons/graphics.json"
-    trigger="loop"
-    stroke="light"
-    state="loop-cycle"
-    colors="primary:#c69cf4,secondary:#ffffff"
-    style="width:50px;height:50px">
-</lord-icon>`;
+                            src="assets/icons/graphics.json"
+                            trigger="loop"
+                            stroke="light"
+                            state="loop-cycle"
+                            colors="primary:#c69cf4,secondary:#ffffff"
+                            style="width:50px;height:50px">
+                        </lord-icon>`;
                 }
                 // Battery specifications
                 else if (lowerSpec.includes('battery') || lowerSpec.includes('mah')) {
                     return `<lord-icon
-    src="assets/icons/battery.json"
-    trigger="loop"
-    stroke="light"
-    state="loop-cycle"
-    colors="primary:#ffffff,secondary:#c69cf4"
-    style="width:50px;height:50px">
-</lord-icon>`;
+                            src="assets/icons/battery.json"
+                            trigger="loop"
+                            stroke="light"
+                            state="loop-cycle"
+                            colors="primary:#ffffff,secondary:#c69cf4"
+                            style="width:50px;height:50px">
+                        </lord-icon>`;
                 }
                 // Motherboard specifications
                 else if (lowerSpec.includes('motherboard') || lowerSpec.includes('aorus') || lowerSpec.includes('z390')) {
                     return `<lord-icon
-    src="assets/icons/motherboard.json"
-    trigger="loop"
-    stroke="light"
-    state="loop-cycle"
-    colors="primary:#ffffff,secondary:#c69cf4"
-    style="width:50px;height:50px">
-</lord-icon>`;
+                            src="assets/icons/motherboard.json"
+                            trigger="loop"
+                            stroke="light"
+                            state="loop-cycle"
+                            colors="primary:#ffffff,secondary:#c69cf4"
+                            style="width:50px;height:50px">
+                        </lord-icon>`;
                 }
                 // Cooling specifications
-                else if (lowerSpec.includes('cooler') || lowerSpec.includes('Corsair')) {
-                    return 'ti-layout';
+                else if (lowerSpec.includes('cooler') || lowerSpec.includes('liquid') || lowerSpec.includes('hydro')) {
+                    return `<lord-icon
+                            src="assets/icons/cooling.json"
+                            trigger="loop"
+                            stroke="light"
+                            state="loop-cycle"
+                            colors="primary:#ffffff,secondary:#c69cf4"
+                            style="width:50px;height:50px">
+                        </lord-icon>`;
                 }
-                // Default fallback icon
+                // Default fallback - generic tech icon
                 else {
-                    return 'ti-settings';
+                    return `<lord-icon
+                            src="assets/icons/tech.json"
+                            trigger="loop"
+                            stroke="light"
+                            state="loop-cycle"
+                            colors="primary:#ffffff,secondary:#c69cf4"
+                            style="width:50px;height:50px">
+                        </lord-icon>`;
                 }
             }
 
@@ -1955,14 +1968,9 @@ function showUPIPayment(amount) {
                         <h2>${gadgets[i].title}</h2>
                         <ul class="gadget-specs">${gadgets[i].specs.map(s => {
                             const iconHtml = getSpecIcon(s);
-                            // Check if it's a LordIcon (contains <lord-icon) or a Themify class
-                            if (iconHtml.includes('<lord-icon')) {
-                                return `<li>${iconHtml}&nbsp;&nbsp;${s}</li>`;
-                            } else {
-                                return `<li><i class="${iconHtml}"></i>&nbsp;&nbsp;${s}</li>`;
-                            }
+                            return `<li>${iconHtml}&nbsp;&nbsp;${s}</li>`;
                         }).join("")}</ul>
-                        <div class="gadget-tech-used"><h3>Core Operation</h3><div class="gadget-tech-tags">${gadgets[i].tech.map(t => `<span class="gadget-tech-tag">${t}</span>`).join("")}</div></div>
+                        <div class="gadget-tech-used" style="margin-top: 10px;"><h3>Core Operation</h3><div class="gadget-tech-tags">${gadgets[i].tech.map(t => `<span class="gadget-tech-tag">${t}</span>`).join("")}</div></div>
                     `;
                     gadgetDetails.classList.remove("hidden");
                 }, 300);
