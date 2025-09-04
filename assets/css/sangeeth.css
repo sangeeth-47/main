@@ -13479,6 +13479,13 @@ p {
   }
 }
 
+@keyframes rippleEffect {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+
 .portfolio-card .portfolio-card-img {
   width: 100%;
   aspect-ratio: 1 / 1;
