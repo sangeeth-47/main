@@ -461,47 +461,30 @@ $(document).ready(function(){
     initPortfolioMobileBehavior();
 });
 // Add click tracking and enhanced interactions for portfolio cards
-        document.addEventListener('DOMContentLoaded', function() {
-            const portfolioCards = document.querySelectorAll('.portfolio-card');
-            
-            portfolioCards.forEach(card => {
-                // Add click animation
-                card.addEventListener('click', function(e) {
-                    // Create ripple effect
-                    const ripple = document.createElement('div');
-                    ripple.style.position = 'absolute';
-                    ripple.style.borderRadius = '50%';
-                    ripple.style.background = 'rgba(0, 255, 204, 0.6)';
-                    ripple.style.transform = 'scale(0)';
-                    ripple.style.animation = 'rippleEffect 0.6s linear';
-                    ripple.style.pointerEvents = 'none';
-                    
-                    const rect = card.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-                    
-                    ripple.style.width = ripple.style.height = size + 'px';
-                    ripple.style.left = x + 'px';
-                    ripple.style.top = y + 'px';
-                    
-                    card.appendChild(ripple);
-                    
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 600);
-                });
-                
-                // Add hover sound effect (optional)
-                card.addEventListener('mouseenter', function() {
-                    card.style.transform = 'translateY(-12px) scale(1.02)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    card.style.transform = 'translateY(0) scale(1)';
-                });
-            });
+       document.addEventListener('DOMContentLoaded', function() {
+    const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+    portfolioCards.forEach(card => {
+        // Click ripple effect
+        card.addEventListener('click', function(e) {
+            const ripple = document.createElement('div');
+            ripple.classList.add('ripple'); // use CSS class for styling
+            const rect = card.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+
+            card.appendChild(ripple);
+
+            setTimeout(() => ripple.remove(), 600);
         });
+    });
+});
+
 // navbar toggle
 $('#nav-toggle').click(function(){
     $(this).toggleClass('is-active')
