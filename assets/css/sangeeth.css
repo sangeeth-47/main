@@ -14475,7 +14475,12 @@ pre .code {
   -webkit-transition-delay: 0.075s;
           transition-delay: 0.075s;
 }
-
+#nav-toggle {
+  outline: none;
+}
+#nav-toggle:focus {
+  outline: none;
+}
 .custom-navbar {
   position: fixed;
   top: 0;
