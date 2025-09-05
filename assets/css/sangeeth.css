@@ -956,7 +956,7 @@ pre code {
         color: #fff;
     }
     #certifications .section-subtitle {
-        color: #bdbdbd;
+        color: #ffffff;
     }
     .cert-filter-group {
         display: flex;
@@ -1201,7 +1201,7 @@ section#Hands {
     #Hands .section-subtitle {
         position: center;
         text-align: center;
-        color: #bdbdbd;
+        color: #ffffff;
     }
     .sphere-container {
       position: relative;
