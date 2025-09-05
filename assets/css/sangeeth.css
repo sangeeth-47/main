@@ -14108,7 +14108,7 @@ p {
     text-align: center;
   }
   
-  .header .header-content .header-title {
+  .header .header-content {
     text-align: center;
   }
   .cert-row {
@@ -15039,7 +15039,7 @@ backdrop-filter: blur(1px);
   max-width: 550px;
 }
 
-.header .header-content .header-title .up {
+.header .header-content .up {
   font-size: calc(30px + (60 - 30) * ((100vw - 300px) / (1300 - 300)));
   font-weight: 500;
   color: #000000;
@@ -15049,7 +15049,7 @@ backdrop-filter: blur(1px);
   animation: slideInLeft 1.2s ease-out 0.3s both;
 }
 
-.header .header-content .header-title .down {
+.header .header-content .down {
   font-size: calc(30px + (75 - 30) * ((100vw - 300px) / (1300 - 300)));
   margin-bottom: 0;
   position: relative;
@@ -15084,19 +15084,6 @@ backdrop-filter: blur(1px);
 .header .header-content .btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(0, 123, 255, 0.3);
-}
-
-.header-title {
-  position: relative; /* Change from absolute */
-  font-size: 2.4rem;
-  font-weight: bold;
-  opacity: .8;
-  color: #000000;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  line-height: 1.2;
-  margin-top: 0;
-  margin-left: 0;
 }
 
 .header-mini {
@@ -15222,11 +15209,6 @@ backdrop-filter: blur(1px);
     margin-top: 0;
     max-width: 90vw;
     width: 90vw;
-    text-align: center;
-  }
-  
-  .header-title {
-    font-size: 1.8rem;
     text-align: center;
   }
   
