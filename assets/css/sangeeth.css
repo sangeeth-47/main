@@ -15033,7 +15033,11 @@ backdrop-filter: blur(1px);
   background-position: center 80%; /* Moved up from center center */
   overflow: hidden; /* Ensure cropping works properly */
 }
-
+@media (max-width: 768px) {
+  .header {
+    background-image: url("../imgs/header-sangeeth47-low-quality.webp");
+  }
+}
 .header .overlay {
   position: absolute;
   top: 0;
