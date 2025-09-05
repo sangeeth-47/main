@@ -1380,7 +1380,7 @@ function createItemsOnSphere() {
     const content = document.createElement('div');
     content.className = 'sphereitem-content';
     content.innerHTML = `
-      <div class="img-glow"><img src="${sphereitems[i].image}" /></div>
+      <div class="img-glow"><img src="${sphereitems[i].image}" alt="${sphereitems[i].alt}"/></div>
       <div class="text-glow">${sphereitems[i].title}</div>
     `;
 
