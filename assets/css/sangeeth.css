@@ -626,6 +626,14 @@ pre code {
   margin-left: auto;
 }
 
+.custom-hr {
+  width: 70%;
+  height: 1px;
+  margin: 20px auto;
+  background-color: #ccc; /* light grey */
+  border: none;
+}
+
 /* Lord Icon Positioning - Next to Hands on Experience Text */
 #Hands .section-title lord-icon {
   display: inline-block;
