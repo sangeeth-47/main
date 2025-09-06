@@ -16,7 +16,7 @@ This project highlights my **skills**, **projects**, and **certifications** in t
 
 ## 🚀 Live Website
 
-🌍 **Visit Now**: [https://sangeeth-47.github.io/main](https://sangeeth-47.github.io/main)  
+🌍 **Visit Now**: [https://sangeeth47.in](https://sangeeth47.in)  
 🔗 *Deployed via GitHub Pages*
 
 ---
