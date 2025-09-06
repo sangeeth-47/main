@@ -3,7 +3,7 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://sangeeth47.live/</loc>
+    <loc>https://sangeeth47.in/</loc>
     <lastmod>2025-09-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
@@ -11,7 +11,7 @@
 
   <!-- About Page -->
   <url>
-    <loc>https://sangeeth47.live/#about</loc>
+    <loc>https://sangeeth47.in/#about</loc>
     <lastmod>2025-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -19,7 +19,7 @@
 
   <!-- Career Page -->
   <url>
-    <loc>https://sangeeth47.live/#career</loc>
+    <loc>https://sangeeth47.in/#career</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -27,14 +27,14 @@
 
   <!-- Portfolio Live Projects -->
   <url>
-    <loc>https://sangeeth47.live/#portfolio</loc>
+    <loc>https://sangeeth47.in/#portfolio</loc>
     <lastmod>2025-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
     <!-- Certifications Page -->
   <url>
-    <loc>https://sangeeth47.live/#certifications</loc>
+    <loc>https://sangeeth47.in/#certifications</loc>
     <lastmod>2025-09-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -42,28 +42,28 @@
 
   <!-- Contact Page -->
   <url>
-    <loc>https://sangeeth47.live/#contact</loc>
+    <loc>https://sangeeth47.in/#contact</loc>
     <lastmod>2025-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 <!-- Billing Page -->
   <url>
-    <loc>https://billing.sangeeth47.live/</loc>
+    <loc>https://billing.sangeeth47.in/</loc>
     <lastmod>2025-09-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 <!-- Guess Page -->
   <url>
-    <loc>https://guess.sangeeth47.live/</loc>
+    <loc>https://guess.sangeeth47.in/</loc>
     <lastmod>2025-09-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
 <!-- Fuel Page -->
   <url>
-    <loc>https://fuel.sangeeth47.live/</loc>
+    <loc>https://fuel.sangeeth47.in/</loc>
     <lastmod>2025-09-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
