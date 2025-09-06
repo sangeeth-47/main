@@ -1883,19 +1883,15 @@ section#Hands {
             }
             
             .gadget-stack-container {
-                height: 280px;
-                padding: 10px;
+                display: none;
             }
             
             .gadget-stack {
-                width: 95%;
-                height: 90%;
+                display: none;
             }
             
             .gadget-card {
-                width: 90%;
-                height: 90%;
-                border-radius: 12px;
+                display: none;
             }
             
             .gadget-card-content {
