@@ -3,6 +3,24 @@ function isMobile() {
     return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
+//Years Calculation
+function calculateExperience(startYear, startMonth) {
+    const startDate = new Date(startYear, startMonth - 1); // month is 0-based
+    const today = new Date();
+    let years = today.getFullYear() - startDate.getFullYear();
+    let months = today.getMonth() - startDate.getMonth();
+
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    return years;
+    // return years + " years " + months + " months";
+  }
+
+  document.getElementById("experienceyears").textContent = calculateExperience(2016, 6);
+
 // smooth scroll
 $(document).ready(function(){
     // Enhanced smooth scroll for navbar, hamburger menu, and action buttons
