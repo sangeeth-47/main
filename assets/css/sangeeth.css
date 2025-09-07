@@ -3409,7 +3409,12 @@ section #gadgets {
       margin-top: 8px;
       animation: shadowMove 2s infinite ease-in-out;
     }
-
+    #interaction-icon {
+      color: #fff;
+      top: -20px;
+      font-size: 2rem;
+      animation: shadowMove 2s infinite ease-in-out;
+    }
     .hint {
       margin-top: 10px;
       font-size: 11px;
