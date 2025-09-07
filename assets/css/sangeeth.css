@@ -2705,6 +2705,7 @@ section#Hands {
   justify-content: center;
   align-items: center;
   width: 100%;
+  position: relative;
 }
 
 .feedback-section-inline .feedback-submit-btn {
@@ -2727,13 +2728,14 @@ section#Hands {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px; /* space between icon and text */
-    padding: 15px 35px;
+    gap: 10px;
+    padding: 18px 40px;
     text-align: center;
     line-height: 1;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    min-height: 50px; 
 }
 
 .submitfeedback-btn:hover {
@@ -2744,7 +2746,7 @@ section#Hands {
 .submitfeedback-btn .chat-icon-anim {
     width: 24px;
     height: 24px;
-    flex-shrink: 0; /* keeps icon size consistent */
+    flex-shrink: 0; 
     align-self: center;
     transition: transform 0.3s ease;
 }
@@ -2767,7 +2769,8 @@ section#Hands {
 }
 
 .submitfeedback-btn .btn-text {
-    align-self: center;
+  position: relative;
+    align-self: right;
     line-height: 1;
     vertical-align: middle;
 }
@@ -2778,18 +2781,21 @@ section#Hands {
 }
 
 .btn-loading {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px; 
+    min-height: 20px; 
 }
 
 .btn-loading .submitting-text {
-    transform: translateY(6px);
+    display: inline-block;
+    font-size: 1rem;
     line-height: 1;
-    margin-top: 3px;
+    margin: 0;
     position: relative;
-    top: 2px;
+    vertical-align: middle;
 }
 
 .loading-spinner {
@@ -2801,6 +2807,7 @@ section#Hands {
     animation: spin 1s linear infinite;
     display: inline-block;
     vertical-align: middle;
+    flex-shrink: 0;
 }
 /* Donation Modal Styles */
 .donation-overlay {
