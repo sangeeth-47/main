@@ -1305,6 +1305,7 @@ if (canvas) init();
 const sphere = document.getElementById("sphere");
 const scontainer = document.getElementById("scontainer");
 const hint = document.getElementById("globe-hint");
+const icon = document.getElementById("interaction-icon");
 
 const sphereitems = [
   { title: "Excel", image: "assets/imgs/logos/excel.png",alt: "Microsoft Excel logo" },
@@ -1358,12 +1359,20 @@ const sphereitems = [
   { title: "NAT", image: "assets/icons/sphere-icons/nat.svg",alt: "NAT icon" },
 ];
 
+function updateSphereHint() {
 if (isMobile()) {
         hint.textContent = "Swipe left or right to rotate the globe";
+        icon.className = "ti ti-hand-point-up";
     } else {
         hint.textContent = "Click & drag to rotate the globe";
+        icon.className = "mouse";
     }
-    
+  }
+  
+document.addEventListener("DOMContentLoaded", updateSphereHint);
+// Update on resize / orientation change
+window.addEventListener("resize", updateSphereHint);
+
 let rotX = 0, rotY = 0;
 let isDragging = false;
 let lastX = 0, lastY = 0;
