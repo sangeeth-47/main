@@ -1304,6 +1304,7 @@ if (canvas) init();
 
 const sphere = document.getElementById("sphere");
 const scontainer = document.getElementById("scontainer");
+const hint = document.getElementById("globe-hint");
 
 const sphereitems = [
   { title: "Excel", image: "assets/imgs/logos/excel.png",alt: "Microsoft Excel logo" },
@@ -1357,6 +1358,12 @@ const sphereitems = [
   { title: "NAT", image: "assets/icons/sphere-icons/nat.svg",alt: "NAT icon" },
 ];
 
+if (isMobile()) {
+        hint.textContent = "Swipe left or right to rotate the globe";
+    } else {
+        hint.textContent = "Click & drag to rotate the globe";
+    }
+    
 let rotX = 0, rotY = 0;
 let isDragging = false;
 let lastX = 0, lastY = 0;
