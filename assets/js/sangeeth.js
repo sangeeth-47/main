@@ -1368,7 +1368,7 @@ if (isMobile()) {
         icon.className = "mouse";
     }
   }
-  
+
 document.addEventListener("DOMContentLoaded", updateSphereHint);
 // Update on resize / orientation change
 window.addEventListener("resize", updateSphereHint);
@@ -1883,9 +1883,13 @@ function showUPIPayment(amount) {
                 return; // Exit if elements don't exist
             }
             
-            let gadgetCards = [];
-            let gadgetIndicators = [];
-            let currentGadgetIndex = 0;
+            // Wait for images to load before initializing
+            const initializeGadgets = () => {
+                console.log('Initializing gadgets...'); // Debug log
+                
+                let gadgetCards = [];
+                let gadgetIndicators = [];
+                let currentGadgetIndex = 0;
 
             // Generate cards + indicators dynamically
             function generateGadgetUI() {
@@ -1898,6 +1902,12 @@ function showUPIPayment(amount) {
                     card.className = "gadget-card";
                     card.innerHTML = `<img src="${g.img}" alt="${g.title}">
                         <div class="gadget-card-content"><h3>${g.title}</h3><p>${g.desc}</p></div>`;
+                    
+                    // Set initial styles to prevent flash
+                    card.style.transition = 'transform 0.6s ease, opacity 0.6s ease, box-shadow 0.3s ease';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateX(0) scale(0.8) rotate(0)';
+                    
                     gadgetStack.appendChild(card);
 
                     // Indicator
@@ -2039,12 +2049,19 @@ function showUPIPayment(amount) {
             }
 
             function showGadgetCard(i) {
+                console.log('showGadgetCard called with index:', i, 'Total cards:', gadgetCards.length); // Debug log
+                
                 gadgetCards.forEach((card, idx) => {
                     const pos = (idx - i + gadgetCards.length) % gadgetCards.length;
                     card.style.zIndex = gadgetCards.length - pos;
+                    
+                    // Ensure transition is enabled for smooth animation
+                    card.style.transition = 'transform 0.6s ease, opacity 0.6s ease, box-shadow 0.3s ease';
+                    
                     if (pos === 0) { 
                         card.style.transform = 'translateX(0) scale(1) rotate(0)'; 
                         card.style.opacity = '1'; 
+                        console.log('Card', idx, 'set as front card'); // Debug log
                     } else if (pos === 1) { 
                         card.style.transform = 'translateX(calc(85% - 20px)) scale(0.9) rotate(2deg)'; 
                         card.style.opacity = '0.9'; 
@@ -2192,12 +2209,7 @@ function showUPIPayment(amount) {
                 }
             }
 
-            // Initialize
-            generateGadgetUI();
-            gadgetCards.forEach(addGadgetSwipe);
-            showGadgetCard(currentGadgetIndex);
-            
-            // Auto-advance for mobile (define outside to be accessible)
+            // Auto-advance for mobile (define before initialization)
             let autoAdvanceTimer;
             const startAutoAdvance = () => {
                 if (autoAdvanceTimer) clearInterval(autoAdvanceTimer);
@@ -2212,8 +2224,26 @@ function showUPIPayment(amount) {
                     autoAdvanceTimer = null;
                 }
             };
+
+            // Initialize
+            generateGadgetUI();
+            gadgetCards.forEach(addGadgetSwipe);
             
-            // Add swipe functionality to gadget-details for mobile
+            // Ensure proper initial state before showing
+            gadgetCards.forEach((card, idx) => {
+                card.style.position = 'absolute';
+                card.style.top = '0';
+                card.style.left = '0';
+                card.style.opacity = '0';
+                card.style.transform = 'translateX(0) scale(0.8) rotate(0)';
+            });
+            
+            // Delay initial display to ensure proper rendering
+            setTimeout(() => {
+                showGadgetCard(currentGadgetIndex);
+            }, 100);
+            
+            // Add swipe functionality to gadget-details for mobile only
             const gadgetDetailsElement = document.getElementById('gadget-details');
             if (gadgetDetailsElement && isMobile()) {
                 let detailsStartX = 0;
@@ -2282,42 +2312,68 @@ function showUPIPayment(amount) {
                 }, {passive: false});
             }
             
-            // Add container-level swipe detection as fallback
+            // Add container-level swipe detection as fallback for mobile only
             const stackContainer = document.getElementById('gadget-stack');
             if (stackContainer && isMobile()) {
                 let containerStartX = 0;
                 let containerEndX = 0;
+                let containerIsSwiping = false;
                 
                 stackContainer.addEventListener('touchstart', e => {
                     containerStartX = e.touches[0].clientX;
+                    containerIsSwiping = false;
+                    // Stop auto-advance when user starts touching
+                    stopAutoAdvance();
+                }, {passive: true});
+                
+                stackContainer.addEventListener('touchmove', e => {
+                    const currentX = e.touches[0].clientX;
+                    const deltaX = Math.abs(currentX - containerStartX);
+                    
+                    if (deltaX > 10) {
+                        containerIsSwiping = true;
+                    }
                 }, {passive: true});
                 
                 stackContainer.addEventListener('touchend', e => {
-                    containerEndX = e.changedTouches[0].clientX;
-                    const swipeDistance = containerStartX - containerEndX;
-                    
-                    console.log('Container swipe - distance:', swipeDistance); // Debug log
-                    
-                    if (Math.abs(swipeDistance) > 50) {
-                        if (swipeDistance > 0) {
-                            console.log('Container swipe: next'); // Debug log
-                            nextGadgetCard();
-                        } else {
-                            console.log('Container swipe: prev'); // Debug log
-                            prevGadgetCard();
+                    if (containerIsSwiping) {
+                        containerEndX = e.changedTouches[0].clientX;
+                        const swipeDistance = containerStartX - containerEndX;
+                        
+                        console.log('Container swipe - distance:', swipeDistance); // Debug log
+                        
+                        if (Math.abs(swipeDistance) > 50) {
+                            if (swipeDistance > 0) {
+                                console.log('Container swipe: next'); // Debug log
+                                nextGadgetCard();
+                            } else {
+                                console.log('Container swipe: prev'); // Debug log
+                                prevGadgetCard();
+                            }
                         }
                     }
+                    
+                    // Resume auto-advance after interaction
+                    setTimeout(() => {
+                        startAutoAdvance();
+                    }, 2000);
+                    
+                    containerIsSwiping = false;
                 }, {passive: true});
             }
             
-            // Mobile-specific enhancements
-            if (isMobile()) {
-                // Start auto-advance for mobile
+            // Auto-advance for both mobile and desktop
+            // Start auto-advance after initial setup
+            setTimeout(() => {
                 startAutoAdvance();
-                
-                // Stop auto-advance on card stack interaction (fallback)
-                const stackElement = document.getElementById('gadget-stack');
-                if (stackElement) {
+                console.log('Auto-advance started for all devices'); // Debug log
+            }, 500); // Wait a bit longer to ensure everything is initialized
+            
+            // Stop auto-advance on user interactions
+            const stackElement = document.getElementById('gadget-stack');
+            if (stackElement) {
+                // For mobile touch events
+                if (isMobile()) {
                     stackElement.addEventListener('touchstart', () => {
                         stopAutoAdvance();
                         setTimeout(() => {
@@ -2326,18 +2382,57 @@ function showUPIPayment(amount) {
                     });
                 }
                 
-                // Stop auto-advance on button clicks (if buttons exist)
-                if (prevButton) {
-                    prevButton.addEventListener('click', () => {
-                        stopAutoAdvance();
-                        setTimeout(startAutoAdvance, 3000);
-                    });
-                }
+                // For desktop mouse events
+                stackElement.addEventListener('mouseenter', () => {
+                    stopAutoAdvance();
+                    console.log('Mouse entered - auto-advance stopped'); // Debug log
+                });
                 
-                if (nextButton) {
-                    nextButton.addEventListener('click', () => {
+                stackElement.addEventListener('mouseleave', () => {
+                    setTimeout(() => {
+                        startAutoAdvance();
+                        console.log('Mouse left - auto-advance resumed'); // Debug log
+                    }, 1000);
+                });
+                
+                // Also stop on card clicks for desktop
+                stackElement.addEventListener('click', () => {
+                    stopAutoAdvance();
+                    setTimeout(() => {
+                        startAutoAdvance();
+                    }, 3000);
+                });
+            }
+            
+            // Stop auto-advance on button clicks (if buttons exist)
+            if (prevButton) {
+                prevButton.addEventListener('click', () => {
+                    stopAutoAdvance();
+                    setTimeout(startAutoAdvance, 3000);
+                });
+            }
+            
+            if (nextButton) {
+                nextButton.addEventListener('click', () => {
+                    stopAutoAdvance();
+                    setTimeout(startAutoAdvance, 3000);
+                });
+            }
+            
+            // Also stop auto-advance when hovering over details section on desktop
+            if (!isMobile()) {
+                const gadgetDetailsElement = document.getElementById('gadget-details');
+                if (gadgetDetailsElement) {
+                    gadgetDetailsElement.addEventListener('mouseenter', () => {
                         stopAutoAdvance();
-                        setTimeout(startAutoAdvance, 3000);
+                        console.log('Details hovered - auto-advance stopped'); // Debug log
+                    });
+                    
+                    gadgetDetailsElement.addEventListener('mouseleave', () => {
+                        setTimeout(() => {
+                            startAutoAdvance();
+                            console.log('Details hover ended - auto-advance resumed'); // Debug log
+                        }, 1000);
                     });
                 }
             }
@@ -2346,5 +2441,28 @@ function showUPIPayment(amount) {
             window.addEventListener('resize', () => {
                 // Recalculate positions if needed
                 showGadgetCard(currentGadgetIndex);
+                
+                // Restart auto-advance after resize for all devices
+                stopAutoAdvance();
+                setTimeout(() => {
+                    startAutoAdvance();
+                }, 1000);
             });
+            
+            // Ensure auto-advance starts even if there are timing issues
+            setTimeout(() => {
+                if (!autoAdvanceTimer) {
+                    console.log('Failsafe: Starting auto-advance for all devices'); // Debug log
+                    startAutoAdvance();
+                }
+            }, 2000);
+            
+            }; // End of initializeGadgets function
+            
+            // Start initialization immediately if images are loaded, otherwise wait
+            if (document.readyState === 'complete') {
+                initializeGadgets();
+            } else {
+                window.addEventListener('load', initializeGadgets);
+            }
         });
