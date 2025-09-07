@@ -1880,7 +1880,7 @@ function showUPIPayment(amount) {
                     // Card
                     const card = document.createElement("div");
                     card.className = "gadget-card";
-                    card.innerHTML = `<img src="${g.img}" alt="${g.title}" loading="lazy" decoding="async">
+                    card.innerHTML = `<img src="${g.img}" alt="${g.title}">
                         <div class="gadget-card-content"><h3>${g.title}</h3><p>${g.desc}</p></div>`;
                     gadgetStack.appendChild(card);
 
