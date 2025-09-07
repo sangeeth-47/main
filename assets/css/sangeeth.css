@@ -1297,6 +1297,12 @@ section#Hands {
 }
 /* Gadget Showcase Styles */
 
+section #gadgets {
+  background: #181818;
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0);
+}
         .gadget-showcase-container {
             width: 100%;
             max-width: 1300px;
