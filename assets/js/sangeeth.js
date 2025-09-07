@@ -1625,7 +1625,7 @@ function showUPIPayment(amount) {
     // Show the payment modal
     paymentModal.style.display = 'flex';
 }
-        
+
         // Feedback Form Handling
         document.getElementById('feedback-form').addEventListener('submit', async function(e) {
             e.preventDefault();
