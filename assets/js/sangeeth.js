@@ -1097,7 +1097,7 @@ if (canvas) init();
     }, 1000 / fps);
   }
 
-  // 🔁 Loop for scramble-card-title
+  //  Loop for scramble-card-title
   function loopCardTitleScramble() {
     const el = document.getElementById("scramble-card-title");
     if (!el) return;
@@ -1111,7 +1111,7 @@ if (canvas) init();
     });
   }
 
-  // 🔁 Loop for scramble-logo
+  //  Loop for scramble-logo
   function loopLogoScramble() {
     const sclogo = document.getElementById("scramble-logo");
     if (!sclogo) return;
@@ -1125,11 +1125,11 @@ if (canvas) init();
     });
   }
 
-  // ✅ Start both independently
-  window.addEventListener("DOMContentLoaded", () => {
-    setTimeout(loopCardTitleScramble, 500);
-    setTimeout(loopLogoScramble, 500);
-  });
+ // Start animations only after everything is loaded
+window.addEventListener("load", () => {
+  setTimeout(loopCardTitleScramble, 5000);
+  setTimeout(loopLogoScramble, 5000);
+});
 
 
   // Certifications Filter Logic + Marquee Rebuild (mobile fix)
