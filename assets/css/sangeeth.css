@@ -15,7 +15,14 @@
   src: url('../fonts/OpenSans-Regular.woff2') format('woff2'),
        url('../fonts/OpenSans-Regular.woff') format('woff');
 }
-
+@font-face {
+  font-family: 'Metal Mania';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/MetalMania-Regular.woff2') format('woff2'),
+       url('../fonts/MetalMania-Regular.woff') format('woff');
+}
 /* Stylish Scrollbar */
     ::-webkit-scrollbar {
       width: 12px;
@@ -651,7 +658,9 @@ pre code {
   background-color: #ccc; /* light grey */
   border: none;
 }
-
+.section-title {
+  font-family: "Metal Mania", cursive !important;
+}
 /* Lord Icon Positioning - Next to Hands on Experience Text */
 #Hands .section-title lord-icon {
   display: inline-block;
