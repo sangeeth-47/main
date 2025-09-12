@@ -1111,25 +1111,27 @@ if (canvas) init();
     });
   }
 
-  //  Loop for scramble-logo
-  function loopLogoScramble() {
+  // Loop for scramble-logo (skip first scramble of "SANGEETH M K")
+  function loopLogoScramble(skipInitial = true) {
     const sclogo = document.getElementById("scramble-logo");
     if (!sclogo) return;
 
+    // if skipInitial = true → start directly with "SERVER ADMINISTRATOR"
     scrambleText(sclogo, "SERVER ADMINISTRATOR", 1200, 60, () => {
       setTimeout(() => {
         scrambleText(sclogo, "SANGEETH M K", 1000, 60, () => {
-          setTimeout(loopLogoScramble, 10000); // restart after 10s
+          setTimeout(() => loopLogoScramble(false), 10000); // continue loop
         });
-      }, 1000); // wait 5s between the two texts
+      }, 1000);
     });
   }
 
- // Start animations only after everything is loaded
-window.addEventListener("load", () => {
-  setTimeout(loopCardTitleScramble, 5000);
-  setTimeout(loopLogoScramble, 5000);
-});
+  // Run only after page load so first paint is clean
+  window.addEventListener("load", () => {
+    setTimeout(loopCardTitleScramble, 5000);
+    setTimeout(() => loopLogoScramble(true), 5000); // wait before first cycle
+  });
+
 
 
   // Certifications Filter Logic + Marquee Rebuild (mobile fix)
