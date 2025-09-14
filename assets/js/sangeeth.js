@@ -1887,11 +1887,11 @@ function showUPIPayment(amount) {
                 // For mobile touch events
                 if (isMobile()) {
                     stackElement.addEventListener('touchstart', () => {
-                        stopAutoAdvance();
-                        setTimeout(() => {
-                            startAutoAdvance();
-                        }, 3000);
-                    });
+                    stopAutoAdvance();
+                    setTimeout(() => {
+                        startAutoAdvance();
+                    }, 3000);
+                }, { passive: true });
                 }
                 
                 // For desktop mouse events
