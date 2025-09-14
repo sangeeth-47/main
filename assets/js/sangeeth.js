@@ -3,6 +3,46 @@ function isMobile() {
     return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
+// Multiple texts for typing effect
+  const texts = ["SERVER ADMINISTRATOR", "FULL STACK DEVELOPER"];
+  const speed = 120; // typing speed in ms
+  const delay = 1000; // pause before erase
+  const target = document.getElementById("srvadmin");
+
+  let textIndex = 0; // track which text to show
+
+  function typeWriter() {
+    let i = 0;
+    const text = texts[textIndex];
+    target.textContent = "";
+
+    function typing() {
+      if (i < text.length) {
+        target.textContent += text.charAt(i);
+        i++;
+        setTimeout(typing, speed);
+      } else {
+        setTimeout(erase, delay);
+      }
+    }
+
+    function erase() {
+      if (i > 0) {
+        target.textContent = text.substring(0, i - 1);
+        i--;
+        setTimeout(erase, speed / 2);
+      } else {
+        // Move to next text
+        textIndex = (textIndex + 1) % texts.length;
+        setTimeout(typeWriter, delay);
+      }
+    }
+
+    typing();
+  }
+
+  typeWriter(); // start loop
+
 //Years Calculation
 function calculateExperience(startYear, startMonth) {
     const startDate = new Date(startYear, startMonth - 1); // month is 0-based
