@@ -2751,7 +2751,23 @@ section #gadgets {
       z-index: 10;
       pointer-events: none;
     }
-
+    .gadget-finger-container {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+      pointer-events: none;
+    }
+    #gadget-int-icon {
+      top: -10px;
+      right: 10px;
+      color: white;
+      /* display: none; */
+      animation: shadowMove 2s infinite ease-in-out;
+    }
     /* Mouse shape */
     .mouse {
       width: 40px;
@@ -2861,7 +2877,11 @@ section #gadgets {
     bottom: 15px;
     right: 15px;
   }
-  
+  .gadget-finger-container {
+      bottom: 15px;
+      right: 15px;
+    }
+
   .mouse {
     width: 35px;
     height: 55px;
@@ -2903,7 +2923,10 @@ section #gadgets {
     bottom: 12px;
     right: 12px;
   }
-  
+  .gadget-finger-container {
+      bottom: 12px;
+    right: 12px;
+    }
   .mouse {
     width: 30px;
     height: 48px;
@@ -2947,7 +2970,10 @@ section #gadgets {
     bottom: 10px;
     right: 8px;
   }
-  
+  .gadget-finger-container {
+    bottom: 10px;
+    right: 8px;
+    }
   .mouse {
     width: 25px;
     height: 40px;
@@ -4675,6 +4701,10 @@ section #gadgets {
   .table-responsive-xl > .table-bordered {
     border: 0;
   }
+  .gadget-finger-container {
+    display: flex;
+  }
+      
 }
 
 .table-responsive {
