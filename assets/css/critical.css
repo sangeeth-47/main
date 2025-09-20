@@ -16,12 +16,12 @@
        url('../fonts/OpenSans-Regular.woff') format('woff');
 }
 @font-face {
-  font-family: 'Metal Mania';
+  font-family: 'Cinzel Decorative';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../fonts/MetalMania-Regular.woff2') format('woff2'),
-       url('../fonts/MetalMania-Regular.woff') format('woff');
+  src: url('../fonts/CinzelDecorative-Bold.woff2') format('woff2'),
+       url('../fonts/CinzelDecorative-Bold.woff') format('woff');
 }
 
 /* Stylish Scrollbar */
@@ -660,5 +660,5 @@ pre code {
   border: none;
 }
 .section-title {
-  font-family: "Metal Mania", cursive !important;
+  font-family: "Cinzel Decorative", cursive !important;
 }
