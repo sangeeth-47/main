@@ -1,6 +1,180 @@
 .seo-hidden {
   display: none;
 }
+/* Floating Tools Button Styles */
+.tools-button-container {
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  z-index: 1000;
+  font-family: 'Baloo Paaji', cursive;
+  opacity: 0;
+  transform: translateY(30px);
+  pointer-events: none;
+  transition: all 0.4s ease;
+  cursor: context-menu;
+}
+
+.tools-button-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.tools-button {
+  position: relative; 
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #695aa6, #4a4176);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 24px;
+  box-shadow: 0 4px 15px rgba(105, 90, 166, 0.4);
+  transition: all 0.3s ease;
+  animation: pulse-glow 1.5s infinite;
+}
+.tools-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: conic-gradient(
+    rgba(128, 0, 255, 0.7),
+    rgba(255, 0, 255, 0.7),
+    rgba(255, 69, 0, 0.7),
+    rgba(255, 140, 0, 0.7),
+    rgba(128, 0, 255, 0.7)
+  );
+  filter: blur(15px);
+  opacity: 0.7;
+  z-index: -1;
+  animation: rotate-glow 1.5s linear infinite;
+}
+.tools-button:hover {
+  transform: scale(1.1) rotate(365deg);
+  box-shadow: 0 8px 25px rgba(105, 90, 166, 0.6);
+}
+.tools-button:hover::before {
+  opacity: 0;
+}
+  .tools-dropdown ul li {
+    font-size: 13px;
+    margin: 6px 0;
+    display: flex;
+    align-items: center;
+  }
+
+  /* For pairs */
+  .tools-dropdown ul li.side-by-side {
+    justify-content: space-between;
+  }
+
+  /* Each text acts separately */
+  .tools-dropdown ul li .tool {
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: background 0.3s, color 0.3s;
+    cursor: default;
+  }
+
+@keyframes rotate-glow {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+
+.tools-button.active {
+  transform: scale(1.2);
+  animation: linear 0.3s;
+}
+.tools-button.active::before {
+  opacity: 0;
+}
+
+.tools-dropdown {
+  position: absolute;
+  bottom: 65px;
+  right: 0;
+  background: rgba(30, 30, 30, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  border-radius: 15px;
+  width: 250px;
+  padding: 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+  transform-origin: bottom right;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tools-dropdown.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.tools-dropdown h6 {
+  margin: 0 0 15px;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 10px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+.tools-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tools-dropdown ul li {
+  font-size: 14px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.tools-dropdown ul li .tool:hover {
+    color: #a855f7;
+    transform: translateX(5px);
+    transition: color 0.3s ease, transform 0.3s ease; 
+}
+
+.tools-dropdown ul li i {
+  margin-right: 12px;
+  font-size: 18px;
+  width: 20px;
+  text-align: center;
+}
+
+.tools-dropdown ul li.toolsmain:hover {
+  color: #a855f7;
+    transform: translateX(5px);
+}
+
 /* Lord Icon Positioning - Next to Hands on Experience Text */
 #Hands .section-title lord-icon {
   display: inline-block;
