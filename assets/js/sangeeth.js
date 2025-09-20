@@ -2,6 +2,32 @@
 function isMobile() {
     return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
+// Tools Dropdown Logic
+  const toolsButton = document.getElementById('toolsButton');
+  const toolsDropdown = document.getElementById('toolsDropdown');
+  const toolsContainer = document.getElementById('toolsContainer');
+
+  // Toggle dropdown when clicking button
+  toolsButton.addEventListener('click', () => {
+    toolsDropdown.classList.toggle('active');
+    toolsButton.classList.toggle('active');
+  });
+
+  // Show only when scrolling near bottom
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const windowHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
+
+    // If scrolled to within 100px of bottom
+    if (scrollY + windowHeight >= docHeight - 100) {
+      toolsContainer.classList.add('visible');
+    } else {
+      toolsContainer.classList.remove('visible');
+      toolsDropdown.classList.remove('active'); // auto-close when hiding
+      toolsButton.classList.remove('active'); // also remove active from button
+    }
+  });
 
 // Multiple texts for typing effect
   const texts = ["SERVER ADMINISTRATOR", "FULL STACK DEVELOPER"];
