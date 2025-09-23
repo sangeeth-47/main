@@ -59,8 +59,8 @@
 
   // Run only after page load so first paint is clean
   window.addEventListener("load", () => {
-    setTimeout(loopCardTitleScramble, 5000);
-    setTimeout(() => loopLogoScramble(true), 5000); // wait before first cycle
+    setTimeout(loopCardTitleScramble, 500);
+    setTimeout(() => loopLogoScramble(true), 500); // wait before first cycle
   });
 
 
