@@ -14,6 +14,12 @@
   transition: all 0.4s ease;
   cursor: context-menu;
 }
+@media (max-width: 600px) {
+  .tools-button-container {
+    right: 20px;
+    bottom: 15px;
+  }
+}
 
 .tools-button-container.visible {
   opacity: 1;
@@ -27,7 +33,6 @@
   height: 40px;
   background: linear-gradient(135deg, #695aa6, #4a4176);
   color: white;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,6 +64,7 @@
   animation: rotate-glow 1.5s linear infinite;
 }
 .tools-button:hover {
+  border-radius: 50%;
   transform: scale(1.1) rotate(365deg);
   box-shadow: 0 8px 25px rgba(105, 90, 166, 0.6);
 }
