@@ -28,6 +28,13 @@ function isMobile() {
       toolsButton.classList.remove('active'); // also remove active from button
     }
   });
+  // Close dropdown when clicking outside container
+document.addEventListener('click', (e) => {
+  if (!toolsContainer.contains(e.target)) {
+    toolsDropdown.classList.remove('active');
+    toolsButton.classList.remove('active');
+  }
+})
 
 // Multiple texts for typing effect
   const texts = ["SERVER ADMINISTRATOR", "FULL STACK DEVELOPER"];
