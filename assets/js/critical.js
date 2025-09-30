@@ -558,3 +558,21 @@ fullscreenbtn.addEventListener("click", () => {
     document.msExitFullscreen?.();
   }
 });
+
+// Scroll on click
+document.getElementById("scroll-down").addEventListener("click", function () {
+  document.getElementById("about").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+});
+
+// Fade out on scroll
+window.addEventListener("scroll", function () {
+  const scrollDown = document.getElementById("scroll-down");
+  if (window.scrollY > 50) {
+    scrollDown.classList.add("hidden");
+  } else {
+    scrollDown.classList.remove("hidden");
+  }
+});
