@@ -14128,7 +14128,42 @@ pre .code {
     transform: scale(1.02);
   }
 }
+/* Fullscreen guide */
+#fullscreenGuide {
+  position: absolute;
+  color: #fff;
+  background: rgba(0,0,0,0.7);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-family: sans-serif;
+  font-size: 14px;
+  white-space: nowrap;
+  pointer-events: none; /* doesn’t block clicks */
+  opacity: 0;
+  transform: translate(-50%, 0);
+  transition: opacity 0.3s;
+  z-index: 9999;
+}
 
+/* small arrow pointing down */
+#fullscreenGuide::after {
+  content: '';
+  position: absolute;
+  top: -6px; /* arrow is above the tooltip box */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid rgba(0,0,0,0.7); /* arrow pointing up */
+}
+
+@media (max-width: 1024px) {
+  #fullscreenGuide {
+    transform: translate(-36%, 0) !important;
+  }
+}
 .custom-navbar .container {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;

@@ -528,29 +528,33 @@ $('#nav-toggle').click(function(){
 });
 // fullscreen
 const fullscreenbtn = document.getElementById("scramble-logo");
+const guide = document.getElementById("fullscreenGuide");
 
+// Position guide above the logo
+function showGuide() {
+  const rect = fullscreenbtn.getBoundingClientRect();
+  guide.style.left = rect.left + rect.width/2 + "px";
+  guide.style.top = rect.bottom + 8 + "px"; // 8px below logo
+  guide.style.opacity = 1;
+
+  // Hide after 2 seconds
+  setTimeout(() => {
+    guide.style.opacity = 0;
+  }, 4000);
+}
+
+// Show guide on page load
+window.addEventListener("load", showGuide);
+
+// Fullscreen toggle
 fullscreenbtn.addEventListener("click", () => {
-  if (
-    !document.fullscreenElement &&
-    !document.webkitFullscreenElement &&
-    !document.msFullscreenElement
-  ) {
-    // Enter fullscreen
-    if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen();
-    } else if (document.documentElement.webkitRequestFullscreen) { // Safari
-      document.documentElement.webkitRequestFullscreen();
-    } else if (document.documentElement.msRequestFullscreen) { // IE11
-      document.documentElement.msRequestFullscreen();
-    }
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen?.() ||
+    document.documentElement.webkitRequestFullscreen?.() ||
+    document.documentElement.msRequestFullscreen?.();
   } else {
-    // Exit fullscreen
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) { // Safari
-      document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { // IE11
-      document.msExitFullscreen();
-    }
+    document.exitFullscreen?.() ||
+    document.webkitExitFullscreen?.() ||
+    document.msExitFullscreen?.();
   }
 });
