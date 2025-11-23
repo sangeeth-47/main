@@ -13508,8 +13508,8 @@ p {
   }
 }
 
-.project-badge.coming-soon-badge {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+.project-badge.rhelappctrl {
+  background: linear-gradient(135deg, #EE0000 0%, #A30000 100%);
 }
 
 /* Comprehensive mobile badge visibility fix */
@@ -13517,7 +13517,7 @@ p {
   .project-badge,
   .click-explore-badge,
   .project-badge.featured,
-  .project-badge.coming-soon-badge {
+  .project-badge.rhelappctrl {
     opacity: 1 !important;
     transform: translateY(0) !important;
   }
@@ -13528,7 +13528,7 @@ p {
   .project-badge,
   .click-explore-badge,
   .project-badge.featured,
-  .project-badge.coming-soon-badge {
+  .project-badge.rhelappctrl {
     opacity: 1 !important;
     transform: translateY(0) !important;
   }
@@ -13615,7 +13615,7 @@ p {
   opacity: 0.1;
 }
 
-.coming-soon-badge {
+.rhelappctrl {
   animation: pulse 2s infinite;
 }
 
