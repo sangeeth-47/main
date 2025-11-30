@@ -8322,7 +8322,6 @@ a.close.disabled {
   height: 50px;
   overflow: scroll;
 }
-
 @media (min-width: 576px) {
   .modal-dialog {
     max-width: 500px;
@@ -14626,7 +14625,8 @@ backdrop-filter: blur(1px);
 
 @media (max-width: 767.98px) {
   .footer {
-    padding: 15px 0;
+    padding: 15px;
+    padding-top: 0px;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
