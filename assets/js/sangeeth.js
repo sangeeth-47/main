@@ -2011,3 +2011,47 @@ function showUPIPayment(amount) {
                 window.addEventListener('load', initializeGadgets);
             }
         });
+// Visitor Counter Script
+  async function loadVisitorCounter() {
+    const el = document.getElementById('visitCount');
+    if (!el) return;
+
+    try {
+      const res = await fetch(
+        'https://sangeeth2314105883websitecounter.azurewebsites.net/api/VisitorCounterPF',
+        { method: 'GET', cache: 'no-store' }
+      );
+
+      if (!res.ok) throw new Error('API error');
+
+      const data = await res.json();
+      const target = Number(data.totalVisits);
+
+      if (!Number.isFinite(target)) throw new Error('Invalid count');
+
+      animateCounter(el, target, 1200); // 1.2s animation
+
+    } catch (err) {
+      el.textContent = 'N/A';
+    }
+  }
+
+  function animateCounter(el, target, duration) {
+    const startTime = performance.now();
+
+    function update(now) {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const value = Math.floor(progress * target);
+      el.textContent = value.toLocaleString();
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = target.toLocaleString();
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  document.addEventListener('DOMContentLoaded', loadVisitorCounter);
