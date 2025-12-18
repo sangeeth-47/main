@@ -1,0 +1,288 @@
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      background: black;
+      color: white;
+    }
+
+    #matrixCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+    }
+
+    #container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+  background: transparent; 
+}
+
+    #loginForm {
+      z-index: 3;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      animation: fadeInZoom 0.8s ease;
+    }
+
+    @keyframes fadeInZoom {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    #loginForm input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    #loginForm button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background: #00bcd4;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00bcd4;
+      transition: 0.3s;
+    }
+
+    #loginForm button:hover {
+      background: #00e5ff;
+      box-shadow: 0 0 15px #00e5ff;
+    }
+
+    #visitorTable {
+      z-index: 4;
+      display: none;
+      width: 100%;
+      background: #1e1e2f;
+      border-collapse: collapse;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      color: #fff;
+      table-layout: fixed;
+    }
+
+    thead {
+      position: sticky;
+      top: 0;
+      background: #007acc;
+      z-index: 1;
+    }
+
+    th, td {
+      padding: 8px;
+      border: 1px solid #333;
+      text-align: left;
+      font-size: 14px;
+      height: 40px;           /* fixed row height */
+      white-space: nowrap;     /* prevent wrapping */
+      overflow: hidden;        /* hide overflow text */
+      text-overflow: ellipsis; /* show "..." if text is too long */
+  }
+
+    .row-number {
+      width: 40px;
+      text-align: center;
+      background: #005a9e;
+      color: white;
+    }
+
+    .filter-input {
+      width: 100%;
+      padding: 4px;
+      font-size: 13px;
+      border: 1px solid #555;
+      border-radius: 3px;
+      background: #2a2a3d;
+      color: white;
+      margin-top: 4px;
+      box-sizing: border-box;
+    }
+
+    #signOutBtn {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      background: #ff1744;
+      color: white;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff1744;
+      font-weight: bold;
+      z-index: 999;
+    }
+
+    #signOutBtn:hover {
+      background: #ff4569;
+      box-shadow: 0 0 15px #ff4569;
+    }
+
+    #loader {
+      z-index: 99;
+      display: none;
+      margin: 20px auto;
+      border: 6px solid rgba(255, 255, 255, 0.2);
+      border-top: 6px solid #00e5ff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 0.8s linear infinite;
+    }
+     .loginspinner {
+      border: 6px solid #333;
+      border-top: 6px solid #00ffcc;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 16px;
+      margin: 20px 0 0 0 ;
+      display: none;
+    }
+
+    .spinner-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .disclaimer-banner {
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 100%;
+      height: 30px;
+    }
+
+    .disclaimer-banner span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll 10s linear infinite;
+      color: #ff8888;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    #toastContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .toast {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      margin-top: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+      opacity: 0.95;
+      animation: fadeOutRight 10s ease forwards;
+    }
+
+    @keyframes fadeOutRight {
+      0% { opacity: 1; transform: translateX(0);}
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translateX(50px); }
+    }
+    /* DB Loading Spinner */
+    #loaddb {
+      display: none;       /* hidden by default */
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      position: fixed;      /* stays relative to viewport */
+      top: 50%;             /* vertical center */
+      left: 50%;            /* horizontal center */
+      transform: translate(-50%, -50%); /* exact centering */
+      border: 3px solid;
+      border-color: #FFF #FFF transparent transparent;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+      z-index: 9999;        /* above everything else */
+    }
+
+    #loaddb::after,
+    #loaddb::before {
+      content: '';  
+      box-sizing: border-box;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      border: 3px solid;
+      border-color: transparent transparent #FF3D00 #FF3D00;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      animation: rotationBack 0.5s linear infinite;
+      transform-origin: center center;
+    }
+
+    #loaddb::before {
+      width: 32px;
+      height: 32px;
+      border-color: #FFF #FFF transparent transparent;
+      animation: rotation 1.5s linear infinite;
+    }
+
+    /* Keyframes */
+    @keyframes rotation {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes rotationBack {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    th:nth-child(1), td:nth-child(1) { width: 40px; }
+    th:nth-child(2), td:nth-child(2) { width: 100px; } 
+    th:nth-child(3), td:nth-child(3) { width: 200px; } 
+    th:nth-child(4), td:nth-child(4) { width: 100px; }
+    th:nth-child(5), td:nth-child(5) { width: 280px; }
+    th:nth-child(6), td:nth-child(6) { width: 100px; }
+    th:nth-child(7), td:nth-child(7) { width: 90px; }
+    th:nth-child(8), td:nth-child(8) { width: 90px; }
+    th:nth-child(9), td:nth-child(9) { width: 200px; }
+    th:nth-child(10), td:nth-child(10) { width: auto; }
