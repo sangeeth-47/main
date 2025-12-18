@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>Portfolio Activity Logs</title>
+  <link rel="icon" type="image/x-icon" href="assets/icons/favicon_visitor.ico" />
+  <link rel="stylesheet" href="assets/css/visitor.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    #loader {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .spinner {
+      border: 6px solid #333;
+      border-top: 6px solid #00ffcc;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 16px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #mainContent {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<div id="loader">
+    <div class="spinner"></div>
+    <div>Initializing elevated access...</div>
+  </div>
+  <div id="loaddb"></div>
+  <canvas id="matrixCanvas"></canvas>
+  <div id="toastContainer"></div>
+  <button id="signOutBtn" onclick="signOut()">Sign Out</button>
+
+  <div id="container">
+    <div id="loginForm">
+      <h3 style="text-align:center; font-family: 'Papyrus', Harrington; font-size: 20px;">Login</h3>
+      <div class="disclaimer-banner"><span>⚠ You are entering a restricted area. Authorized users only.</span></div>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+      <div class="spinner-center">
+        <div class="loginspinner" id="loginspinner"></div>
+      </div>
+    </div>
+  </div>
+  <div id="mainContent"></div>
+  <script src="assets/js/visitor.js"></script>
+</body>
+</html>
