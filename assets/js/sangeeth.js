@@ -37,7 +37,7 @@ document.addEventListener('click', (e) => {
 })
 
 // Multiple texts for typing effect
-  const texts = ["SERVER ADMINISTRATOR", "DATACENTER ENGINEER" , "FULL STACK DEVELOPER"];
+  const texts = ["SERVER ADMINISTRATOR", "DATACENTER ENGINEER" , "IT INFRA ENGINEER"];
   const speed = 120; // typing speed in ms
   const delay = 1000; // pause before erase
   const target = document.getElementById("srvadmin");
