@@ -2012,46 +2012,76 @@ function showUPIPayment(amount) {
             }
         });
 // Visitor Counter Script
-  async function loadVisitorCounter() {
-    const el = document.getElementById('visitCount');
-    if (!el) return;
+(() => {
+  if (window.__toolsInitDone) return;
+  window.__toolsInitDone = true;
 
+  const toolsButton = document.getElementById('toolsButton');
+  const toolsDropdown = document.getElementById('toolsDropdown');
+  const counterEl = document.getElementById('visitCount');
+
+  if (!toolsButton || !toolsDropdown || !counterEl) return;
+
+  let cachedCount = null;
+  let isAnimating = false;
+
+  /* ---------------- FETCH ON PAGE LOAD ONLY ---------------- */
+  document.addEventListener('DOMContentLoaded', fetchVisitorCounter);
+
+  async function fetchVisitorCounter() {
     try {
       const res = await fetch(
         'https://sangeeth2314105883websitecounter.azurewebsites.net/api/VisitorCounterPF',
         { method: 'GET', cache: 'no-store' }
       );
 
-      if (!res.ok) throw new Error('API error');
+      if (!res.ok) throw new Error();
 
       const data = await res.json();
-      const target = Number(data.totalVisits);
+      const value = Number(data.totalVisits);
 
-      if (!Number.isFinite(target)) throw new Error('Invalid count');
+      if (!Number.isFinite(value)) throw new Error();
 
-      animateCounter(el, target, 1200); // 1.2s animation
+      cachedCount = value;
+      counterEl.textContent = value.toLocaleString(); // initial value
 
-    } catch (err) {
-      el.textContent = 'N/A';
+    } catch {
+      counterEl.textContent = 'N/A';
     }
   }
 
+  /* ---------------- CLICK HANDLER (NO API) ---------------- */
+  toolsButton.addEventListener('click', () => {
+    const opening = !toolsDropdown.classList.contains('open');
+    toolsDropdown.classList.toggle('open');
+
+    if (opening && cachedCount !== null) {
+      setTimeout(() => {
+        animateCounter(counterEl, cachedCount, 1200);
+      }, 260); // wait for dropdown animation
+    }
+  });
+
   function animateCounter(el, target, duration) {
-    const startTime = performance.now();
+    if (isAnimating) return;
+    isAnimating = true;
 
-    function update(now) {
-      const progress = Math.min((now - startTime) / duration, 1);
-      const value = Math.floor(progress * target);
-      el.textContent = value.toLocaleString();
+    const start = performance.now();
+    el.classList.add('counter-pulse');
 
-      if (progress < 1) {
-        requestAnimationFrame(update);
+    function step(now) {
+      const p = Math.min((now - start) / duration, 1);
+      el.textContent = Math.floor(p * target).toLocaleString();
+
+      if (p < 1) {
+        requestAnimationFrame(step);
       } else {
         el.textContent = target.toLocaleString();
+        el.classList.remove('counter-pulse');
+        isAnimating = false;
       }
     }
 
-    requestAnimationFrame(update);
+    requestAnimationFrame(step);
   }
-
-  document.addEventListener('DOMContentLoaded', loadVisitorCounter);
+})();
