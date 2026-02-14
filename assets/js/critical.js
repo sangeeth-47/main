@@ -570,9 +570,12 @@ document.getElementById("scroll-down").addEventListener("click", function () {
 // Fade out on scroll
 window.addEventListener("scroll", function () {
   const scrollDown = document.getElementById("scroll-down");
+  const devdev = document.getElementById("designndev");
   if (window.scrollY > 50) {
     scrollDown.classList.add("hidden");
+    devdev.classList.add("hidden");
   } else {
     scrollDown.classList.remove("hidden");
+    devdev.classList.remove("hidden");
   }
 });
