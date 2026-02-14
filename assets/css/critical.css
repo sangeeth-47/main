@@ -23,6 +23,14 @@
   src: url('../fonts/CinzelDecorative-Bold.woff2') format('woff2'),
        url('../fonts/CinzelDecorative-Bold.woff') format('woff');
 }
+@font-face {
+  font-family: 'HomemadeApple';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/HomemadeApple-Regular.woff2') format('woff2'),
+       url('../fonts/HomemadeApple-Regular.woff') format('woff');
+}
 
 /* Stylish Scrollbar */
     ::-webkit-scrollbar {
@@ -688,7 +696,39 @@ pre code {
   margin: 10px auto 0;
   animation: bounceArrow 2s infinite;
 }
+#designndev {
+  position: absolute;    /* use fixed for viewport control */
+  bottom: 10vh;           /* 20% of viewport height from bottom */
+  left: 50%;              /* center horizontally */
+  color: #ff66a3 !important;
+  -webkit-text-fill-color:#000000;
+  font-family: HomemadeApple;
+  font-size: 26px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 99;
+  animation: heartbeat 2.4s ease-in-out infinite;
+}
+.designndev.hidden {
+  opacity: 0;
+  pointer-events: none; /* prevents click when hidden */
+}
+@keyframes heartbeat {
+  0% {
+    transform: translateX(-50%) scale(1);
+    text-shadow: 0 0 0px rgba(255, 102, 163, 0.4);
+  }
 
+  50% {
+    transform: translateX(-50%) scale(1.06); /* very subtle */
+    text-shadow: 0 0 12px rgba(255, 102, 163, 0.6);
+  }
+
+  100% {
+    transform: translateX(-50%) scale(1);
+    text-shadow: 0 0 0px rgba(255, 102, 163, 0.4);
+  }
+}
 /* Text bounce */
 @keyframes bounceText {
   0%, 100% { transform: translate(-50%, 0); }
