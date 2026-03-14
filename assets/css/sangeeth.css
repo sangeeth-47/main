@@ -15085,7 +15085,7 @@ backdrop-filter: blur(1px);
   bottom: 1px;
   left: 50%;
   transform: translateX(-50%);
-  width: 200px;
+  /* width: 200px;  || Commented out to allow content to fit the temporary break*/
   margin: 0;
   min-height: 80px;
   z-index: 5;
