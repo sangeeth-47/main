@@ -1,3 +1,6 @@
+  // API configuration
+const apiBaseUrl = 'https://api.sangeeth47.in/api';
+
 // Mobile detection function (global scope)
 function isMobile() {
     return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -1227,7 +1230,7 @@ function showUPIPayment(amount) {
                     type: formData.get('type')
                 };
                 
-                const response = await fetch('https://sangeeth2314105883websitecounter.azurewebsites.net/api/feedback-submit?', {
+                const response = await fetch(`${apiBaseUrl}/feedback-submit?`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2031,7 +2034,7 @@ function showUPIPayment(amount) {
   async function fetchVisitorCounter() {
     try {
       const res = await fetch(
-        'https://sangeeth2314105883websitecounter.azurewebsites.net/api/VisitorCounterPF',
+        `${apiBaseUrl}/VisitorCounterPF`,
         { method: 'GET', cache: 'no-store' }
       );
 

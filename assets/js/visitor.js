@@ -48,7 +48,7 @@
       container.appendChild(main);
     }
 
-    const API_BASE = "https://sangeeth2314105883websitecounter.azurewebsites.net/api";
+    const API_BASE = "https://api.sangeeth47.in/api";
 
     const canvas = document.getElementById('matrixCanvas');
     const ctx = canvas.getContext('2d');
