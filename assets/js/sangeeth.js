@@ -9,12 +9,37 @@ function isMobile() {
   const toolsButton = document.getElementById('toolsButton');
   const toolsDropdown = document.getElementById('toolsDropdown');
   const toolsContainer = document.getElementById('toolsContainer');
+  const chatButton = document.getElementById('chatButton');
+  const chatPanel = document.getElementById('chatPanel');
+  const chatContainer = document.getElementById('chatContainer');
+  const chatCloseButton = document.getElementById('chatCloseButton');
+
+  if (chatContainer) {
+    chatContainer.classList.add('visible');
+  }
 
   // Toggle dropdown when clicking button
   toolsButton.addEventListener('click', () => {
     toolsDropdown.classList.toggle('active');
     toolsButton.classList.toggle('active');
   });
+
+  if (chatButton && chatPanel) {
+    chatButton.addEventListener('click', () => {
+      const opening = !chatPanel.classList.contains('active');
+      chatPanel.classList.toggle('active');
+      chatButton.classList.toggle('active', opening);
+      chatPanel.setAttribute('aria-hidden', String(!opening));
+    });
+  }
+
+  if (chatCloseButton && chatPanel && chatButton) {
+    chatCloseButton.addEventListener('click', () => {
+      chatPanel.classList.remove('active');
+      chatButton.classList.remove('active');
+      chatPanel.setAttribute('aria-hidden', 'true');
+    });
+  }
 
   // Show only when scrolling near bottom
   window.addEventListener('scroll', () => {
@@ -37,7 +62,21 @@ document.addEventListener('click', (e) => {
     toolsDropdown.classList.remove('active');
     toolsButton.classList.remove('active');
   }
+
+  if (chatContainer && !chatContainer.contains(e.target)) {
+    chatPanel.classList.remove('active');
+    chatButton.classList.remove('active');
+    chatPanel.setAttribute('aria-hidden', 'true');
+  }
 })
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && chatPanel) {
+    chatPanel.classList.remove('active');
+    chatButton?.classList.remove('active');
+    chatPanel.setAttribute('aria-hidden', 'true');
+  }
+});
 
 // Multiple texts for typing effect
   const texts = ["SERVER ADMINISTRATOR", "DATACENTER ENGINEER" , "IT INFRA ENGINEER"];
