@@ -2127,3 +2127,19 @@ function showUPIPayment(amount) {
     requestAnimationFrame(step);
   }
 })();
+
+//Contact Section Background Image
+window.addEventListener("load", () => {
+    const contact = document.getElementById("contact");
+    if (!contact) return;
+
+    const isMobile = window.innerWidth <= 992;
+    const imgSrc = isMobile ? "../assets/imgs/dc-mobile.jpg" : "../assets/imgs/dc.jpg";
+    const img = new Image();
+    img.src = imgSrc;
+
+    img.onload = () => {
+        contact.style.setProperty('--bg-img', `url('${imgSrc}')`);
+        contact.classList.add("bg-loaded");
+    };
+});
