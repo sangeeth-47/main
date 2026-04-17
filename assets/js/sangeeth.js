@@ -16,31 +16,35 @@ const chatContainer = document.getElementById('chatContainer');
 const chatCloseButton = document.getElementById('chatCloseButton');
 const chatFrame = document.querySelector('.chat-frame');
 
-let chatLoaded = false; // important
+let chatLoaded = false;
 
+// Show container
 if (chatContainer) {
   chatContainer.classList.add('visible');
 }
 
-// Toggle dropdown
-toolsButton.addEventListener('click', () => {
-  toolsDropdown.classList.toggle('active');
-  toolsButton.classList.toggle('active');
+// Load iframe AFTER full page load
+window.addEventListener('load', () => {
+  if (!chatLoaded && chatFrame) {
+    const src = chatFrame.getAttribute('data-src');
+    if (src) {
+      chatFrame.src = src;
+      chatLoaded = true;
+    }
+  }
 });
 
-// Chat open logic with lazy load
+// Toggle dropdown
+if (toolsButton && toolsDropdown) {
+  toolsButton.addEventListener('click', () => {
+    toolsDropdown.classList.toggle('active');
+    toolsButton.classList.toggle('active');
+  });
+}
+
+// Chat open logic (NO loading here anymore)
 if (chatButton && chatPanel) {
   chatButton.addEventListener('click', () => {
-
-    // Load iframe ONLY once when first opened
-    if (!chatLoaded && chatFrame) {
-      const src = chatFrame.getAttribute('data-src');
-      if (src) {
-        chatFrame.src = src;
-        chatLoaded = true;
-      }
-    }
-
     const opening = !chatPanel.classList.contains('active');
     chatPanel.classList.toggle('active');
     chatButton.classList.toggle('active', opening);
@@ -58,31 +62,33 @@ if (chatCloseButton && chatPanel && chatButton) {
 }
 
 // Scroll logic
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY || window.pageYOffset;
-  const windowHeight = window.innerHeight;
-  const docHeight = document.documentElement.scrollHeight;
+if (toolsContainer && toolsDropdown && toolsButton) {
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const windowHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
 
-  if (scrollY + windowHeight >= docHeight - 100) {
-    toolsContainer.classList.add('visible');
-  } else {
-    toolsContainer.classList.remove('visible');
-    toolsDropdown.classList.remove('active');
-    toolsButton.classList.remove('active');
-  }
-});
+    if (scrollY + windowHeight >= docHeight - 100) {
+      toolsContainer.classList.add('visible');
+    } else {
+      toolsContainer.classList.remove('visible');
+      toolsDropdown.classList.remove('active');
+      toolsButton.classList.remove('active');
+    }
+  });
+}
 
 // Click outside
 document.addEventListener('click', (e) => {
-  if (!toolsContainer.contains(e.target)) {
-    toolsDropdown.classList.remove('active');
-    toolsButton.classList.remove('active');
+  if (toolsContainer && !toolsContainer.contains(e.target)) {
+    toolsDropdown?.classList.remove('active');
+    toolsButton?.classList.remove('active');
   }
 
   if (chatContainer && !chatContainer.contains(e.target)) {
-    chatPanel.classList.remove('active');
-    chatButton.classList.remove('active');
-    chatPanel.setAttribute('aria-hidden', 'true');
+    chatPanel?.classList.remove('active');
+    chatButton?.classList.remove('active');
+    chatPanel?.setAttribute('aria-hidden', 'true');
   }
 });
 
