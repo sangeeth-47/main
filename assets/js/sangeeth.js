@@ -6,57 +6,73 @@ function isMobile() {
     return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 // Tools Dropdown Logic
-  const toolsButton = document.getElementById('toolsButton');
-  const toolsDropdown = document.getElementById('toolsDropdown');
-  const toolsContainer = document.getElementById('toolsContainer');
-  const chatButton = document.getElementById('chatButton');
-  const chatPanel = document.getElementById('chatPanel');
-  const chatContainer = document.getElementById('chatContainer');
-  const chatCloseButton = document.getElementById('chatCloseButton');
+const toolsButton = document.getElementById('toolsButton');
+const toolsDropdown = document.getElementById('toolsDropdown');
+const toolsContainer = document.getElementById('toolsContainer');
 
-  if (chatContainer) {
-    chatContainer.classList.add('visible');
-  }
+const chatButton = document.getElementById('chatButton');
+const chatPanel = document.getElementById('chatPanel');
+const chatContainer = document.getElementById('chatContainer');
+const chatCloseButton = document.getElementById('chatCloseButton');
+const chatFrame = document.querySelector('.chat-frame');
 
-  // Toggle dropdown when clicking button
-  toolsButton.addEventListener('click', () => {
-    toolsDropdown.classList.toggle('active');
-    toolsButton.classList.toggle('active');
-  });
+let chatLoaded = false; // important
 
-  if (chatButton && chatPanel) {
-    chatButton.addEventListener('click', () => {
-      const opening = !chatPanel.classList.contains('active');
-      chatPanel.classList.toggle('active');
-      chatButton.classList.toggle('active', opening);
-      chatPanel.setAttribute('aria-hidden', String(!opening));
-    });
-  }
+if (chatContainer) {
+  chatContainer.classList.add('visible');
+}
 
-  if (chatCloseButton && chatPanel && chatButton) {
-    chatCloseButton.addEventListener('click', () => {
-      chatPanel.classList.remove('active');
-      chatButton.classList.remove('active');
-      chatPanel.setAttribute('aria-hidden', 'true');
-    });
-  }
+// Toggle dropdown
+toolsButton.addEventListener('click', () => {
+  toolsDropdown.classList.toggle('active');
+  toolsButton.classList.toggle('active');
+});
 
-  // Show only when scrolling near bottom
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY || window.pageYOffset;
-    const windowHeight = window.innerHeight;
-    const docHeight = document.documentElement.scrollHeight;
+// Chat open logic with lazy load
+if (chatButton && chatPanel) {
+  chatButton.addEventListener('click', () => {
 
-    // If scrolled to within 100px of bottom
-    if (scrollY + windowHeight >= docHeight - 100) {
-      toolsContainer.classList.add('visible');
-    } else {
-      toolsContainer.classList.remove('visible');
-      toolsDropdown.classList.remove('active'); // auto-close when hiding
-      toolsButton.classList.remove('active'); // also remove active from button
+    // Load iframe ONLY once when first opened
+    if (!chatLoaded && chatFrame) {
+      const src = chatFrame.getAttribute('data-src');
+      if (src) {
+        chatFrame.src = src;
+        chatLoaded = true;
+      }
     }
+
+    const opening = !chatPanel.classList.contains('active');
+    chatPanel.classList.toggle('active');
+    chatButton.classList.toggle('active', opening);
+    chatPanel.setAttribute('aria-hidden', String(!opening));
   });
-  // Close dropdown when clicking outside container
+}
+
+// Close button
+if (chatCloseButton && chatPanel && chatButton) {
+  chatCloseButton.addEventListener('click', () => {
+    chatPanel.classList.remove('active');
+    chatButton.classList.remove('active');
+    chatPanel.setAttribute('aria-hidden', 'true');
+  });
+}
+
+// Scroll logic
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY || window.pageYOffset;
+  const windowHeight = window.innerHeight;
+  const docHeight = document.documentElement.scrollHeight;
+
+  if (scrollY + windowHeight >= docHeight - 100) {
+    toolsContainer.classList.add('visible');
+  } else {
+    toolsContainer.classList.remove('visible');
+    toolsDropdown.classList.remove('active');
+    toolsButton.classList.remove('active');
+  }
+});
+
+// Click outside
 document.addEventListener('click', (e) => {
   if (!toolsContainer.contains(e.target)) {
     toolsDropdown.classList.remove('active');
@@ -68,8 +84,9 @@ document.addEventListener('click', (e) => {
     chatButton.classList.remove('active');
     chatPanel.setAttribute('aria-hidden', 'true');
   }
-})
+});
 
+// ESC key
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && chatPanel) {
     chatPanel.classList.remove('active');
