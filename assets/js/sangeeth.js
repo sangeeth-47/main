@@ -2151,7 +2151,7 @@ window.addEventListener("load", () => {
     if (!contact) return;
 
     const isMobile = window.innerWidth <= 992;
-    const imgSrc = isMobile ? "../imgs/dc-mobile.jpg" : "../imgs/dc.jpg";
+    const imgSrc = isMobile ? "..assets/imgs/dc-mobile.jpg" : "..assets/imgs/dc.jpg";
     const img = new Image();
     img.src = imgSrc;
 
