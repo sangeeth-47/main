@@ -393,10 +393,7 @@
 #contact::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background: 
         radial-gradient(circle at 20% 30%, rgba(105, 90, 166, 0.15) 0%, transparent 40%),
         radial-gradient(circle at 80% 70%, rgba(105, 90, 166, 0.1) 0%, transparent 40%),
@@ -406,7 +403,25 @@
 
 #contact .container {
     position: relative;
-    z-index: 1;
+    z-index: 2;
+}
+#contact::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease; 
+    z-index: 0;
+    background-image: var(--bg-img);
+}
+/* When image is loaded */
+#contact.bg-loaded::after {
+    opacity: 1;
 }
 
 #contact .section-subtitle,
