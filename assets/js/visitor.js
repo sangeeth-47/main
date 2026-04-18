@@ -128,6 +128,21 @@
       location.reload();
     }
 
+    function formatIP(ip) {
+          if (!ip) return "";
+
+          // Remove port if IPv4 like 192.168.1.1:1234
+          const isIPv6 = ip.includes(":") && !ip.includes(".");
+
+          if (isIPv6) {
+            // Full IPv6 (no split)
+            return `<span class="ipv6">${ip}</span>`;
+          } else {
+            // IPv4 → remove port
+            return ip.split(":")[0];
+          }
+        }
+        
     async function loadLogs() {
       const loaddb = document.getElementById("loaddb");
       loaddb.style.display = "block";
@@ -156,7 +171,7 @@
             const row = document.createElement("tr");
             row.innerHTML = `
               <td class="row-number">${index + 1}</td>
-              <td>${(visitor.IpAddress || '').split(":")[0]}</td>
+              <td class="ip-cell">${formatIP(visitor.IpAddress)}</td>
               <td>${visitor.VisitTime || ''}</td>
               <td>${visitor.Method || ''}</td>
               <td>${visitor.Referer || ''}</td>
