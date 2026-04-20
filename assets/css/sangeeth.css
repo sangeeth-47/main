@@ -15588,3 +15588,12 @@ backdrop-filter: blur(1px);
 .copyright-section {
   font-family: 'Baloo Paaji', cursive;
 }
+
+/* LessImportant Fonts */
+@font-face {
+  font-family: 'Cinzel Decorative';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/CinzelDecorative-Bold.woff2') format('woff2')
+}
