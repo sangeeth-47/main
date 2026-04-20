@@ -55,6 +55,7 @@ if (chatButton && chatPanel) {
 // Close button
 if (chatCloseButton && chatPanel && chatButton) {
   chatCloseButton.addEventListener('click', () => {
+    chatButton.focus();
     chatPanel.classList.remove('active');
     chatButton.classList.remove('active');
     chatPanel.setAttribute('aria-hidden', 'true');

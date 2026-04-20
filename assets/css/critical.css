@@ -4,32 +4,28 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../fonts/BalooPaaji2-Bold.woff2') format('woff2'),
-       url('../fonts/BalooPaaji2-Bold.woff') format('woff');
+  src: url('../fonts/BalooPaaji2-Bold.woff2') format('woff2')
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../fonts/OpenSans-Regular.woff2') format('woff2'),
-       url('../fonts/OpenSans-Regular.woff') format('woff');
+  src: url('../fonts/OpenSans-Regular.woff2') format('woff2')
 }
 @font-face {
   font-family: 'Cinzel Decorative';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../fonts/CinzelDecorative-Bold.woff2') format('woff2'),
-       url('../fonts/CinzelDecorative-Bold.woff') format('woff');
+  src: url('../fonts/CinzelDecorative-Bold.woff2') format('woff2')
 }
 @font-face {
   font-family: 'HomemadeApple';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../fonts/HomemadeApple-Regular.woff2') format('woff2'),
-       url('../fonts/HomemadeApple-Regular.woff') format('woff');
+  src: url('../fonts/HomemadeApple-Regular.woff2') format('woff2')
 }
 
 /* Stylish Scrollbar */
