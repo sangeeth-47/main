@@ -744,7 +744,7 @@
             </div>
         </div> <!-- end of container -->
     </section> <!-- end of testimonial section -->
-    <section class="section" id="contact">
+    <section class="section" id="contact" data-bg-desktop="assets/imgs/dc.jpg" data-bg-mobile="assets/imgs/dc-mobile.jpg">
     <div class="container text-center">
         <p class="section-subtitle">How can you communicate?</p>
         <h6 class="section-title mb-5">REACH ME THROUGH SOCIAL MEDIA</h6>
@@ -1087,6 +1087,30 @@
     </ul>
     <div id="visitor-counter">Visitors: <span id="visitCount">0</span></div>
   </div>
+</div>
+
+
+<!-- Floating Chat Button -->
+<div class="chat-button-container" id="chatContainer">
+    <button class="chat-button" id="chatButton" type="button" aria-label="Open chat">
+        <i class="ti-comments"></i>
+    </button>
+    <div class="chat-panel" id="chatPanel" aria-hidden="true">
+        <div class="chat-panel-header">
+            <div>
+                <h6>Live Chat</h6>
+                <p>Connect with me on the chat portal</p>
+            </div>
+            <button class="chat-close-btn" id="chatCloseButton" type="button" aria-label="Close chat">×</button>
+        </div>
+        <iframe
+            class="chat-frame"
+            data-src="https://chat.sangeeth47.in"
+            title="Sangeeth chat"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+    </div>
 </div>
 
     <!-- footer -->
