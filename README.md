@@ -43,13 +43,13 @@ This project highlights my **skills**, **projects**, and **certifications** in t
 ⚡ Fast-loading with optimized assets<br>
 🔐 Secure and clean code<br>
 📱 Mobile-friendly design<br>
-🎓 35+ IT Certifications linked<br>
+🎓 65+ IT Certifications linked<br>
 🧠 Live AI demo projects integrated<br>
 
 -----
 
 ## 📫 Let's Connect
 
-📧 Email: sangeethsmk@gmail.com<br>
+📧 Email: github@sangeeth47.in<br>
 🔗 LinkedIn: https://www.linkedin.com/in/sangeeth47<br>
 💻 GitHub: https://github.com/sangeeth-47<br>
