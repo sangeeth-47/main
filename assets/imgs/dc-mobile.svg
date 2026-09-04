@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 1000" width="100%" height="100%" style="background-color: #050508;">
+  <defs>
+    <!-- Glowing Light Filters -->
+    <filter id="glowYellow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowBlue" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Repeating Server Unit Pattern -->
+    <pattern id="serverPattern" x="0" y="0" width="160" height="20" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="160" height="18" fill="#121215" stroke="#222" stroke-width="1"/>
+      
+      <!-- Left side yellow LEDs -->
+      <circle cx="25" cy="9" r="2.5" fill="#ffcc00" filter="url(#glowYellow)"/>
+      <circle cx="25" cy="9" r="1" fill="#ffffff"/>
+      <circle cx="45" cy="9" r="2" fill="#ffcc00" filter="url(#glowYellow)" opacity="0.6"/>
+      
+      <!-- Right side blue/cyan LEDs -->
+      <circle cx="120" cy="9" r="2.5" fill="#00ffcc" filter="url(#glowBlue)"/>
+      <circle cx="120" cy="9" r="1" fill="#ffffff"/>
+      <circle cx="135" cy="9" r="1.5" fill="#00ffcc" filter="url(#glowBlue)" opacity="0.6"/>
+      
+      <!-- Simulated cable silhouettes -->
+      <path d="M5,18 C15,2 30,25 45,18" stroke="#000" stroke-width="3" fill="none" opacity="0.8"/>
+      <path d="M100,18 C115,2 125,25 155,18" stroke="#000" stroke-width="2" fill="none" opacity="0.8"/>
+    </pattern>
+  </defs>
+
+  <!-- Server Room Floor -->
+  <path d="M0,960 L600,960 L600,1000 L0,1000 Z" fill="#1a1a1a"/>
+  <path d="M0,960 L600,960" stroke="#000" stroke-width="4"/>
+  <path d="M100,960 L50,1000 M300,960 L250,1000 M500,960 L450,1000" stroke="#0a0a0a" stroke-width="3"/>
+
+  <!-- Rack 1 -->
+  <rect x="40" y="100" width="170" height="860" fill="#0a0a0a" stroke="#333" stroke-width="4"/>
+  <rect x="45" y="105" width="160" height="850" fill="url(#serverPattern)"/>
+  
+  <!-- Rack 2 -->
+  <rect x="220" y="100" width="170" height="860" fill="#0a0a0a" stroke="#333" stroke-width="4"/>
+  <rect x="225" y="105" width="160" height="850" fill="url(#serverPattern)"/>
+  
+  <!-- Rack 3 -->
+  <rect x="400" y="100" width="170" height="860" fill="#0a0a0a" stroke="#333" stroke-width="4"/>
+  <rect x="405" y="105" width="160" height="850" fill="url(#serverPattern)"/>
+  
+  <!-- Top Cabling Trays -->
+  <rect x="30" y="40" width="550" height="40" fill="#151515" stroke="#222"/>
+  <circle cx="125" cy="60" r="4" fill="#66ff00" filter="url(#glowYellow)"/>
+  <circle cx="305" cy="60" r="4" fill="#66ff00" filter="url(#glowYellow)"/>
+  <circle cx="485" cy="60" r="4" fill="#66ff00" filter="url(#glowYellow)"/>
+</svg>
